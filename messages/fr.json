@@ -1,0 +1,25 @@
+{
+  "IndexPage": {
+    "title": "Template Application Nextjs",
+    "description": "Template Application Nextjs avec TailwindCSS, TypeScript, ESLint, Prettier, React, i18next, Dark Mode, Notifications, SEO, 2 modèles de navigation."
+  },
+  "Navbar": {
+    "ariaGithub": "Lien vers mon Github"
+  },
+  "ThemeSwitcher": {
+    "ariaLabel": "Changer le thème",
+    "ariaLangage": "Changer la langue du site",
+    "ariaLight": "Thème clair",
+    "ariaDark": "Thème sombre",
+    "ariaFrench": "Changer la langue du site en Français",
+    "ariaEnglish": "Changer la langue du site en Anglais"
+  },
+  "BurgerMenu": {
+    "ariaOpen": "Ouvrir le menu",
+    "ariaClose": "Fermer le menu"
+  },
+  "Footer": {
+    "text1": "Tous droits réservés.",
+    "text2": "Réalisé avec"
+  }
+}
