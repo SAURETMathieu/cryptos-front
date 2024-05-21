@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Button, buttonVariants } from "@/src/components/ui/button";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -20,14 +19,6 @@ export default function IndexPage() {
         </p>
       </div>
       <div className="flex gap-4">
-        <Link
-          target="_blank"
-          rel="noreferrer"
-          href={siteConfig.links.github}
-          className={buttonVariants({ variant: "outline" })}
-        >
-          GitHub
-        </Link>
         <Button onClick={() => toast.error("Error")} variant="error">
           Error Alert
         </Button>
