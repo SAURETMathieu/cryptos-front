@@ -1,11 +1,11 @@
-import { Home, ShoppingCart, Settings, Info } from "lucide-react";
+import { Home, Wallet, Settings, Info, Bot, Bitcoin } from "lucide-react";
 
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: "",
   description:
-    "A Next.js template with Radix UI and Tailwind CSS. Includes a custom theme switcher and a Tailwind CSS indicator for development",
+    "Application to manage cryptos wallets and transactions. Built with Next.js, TypeScript, Tailwind CSS, and more.",
   mainNav: [
     {
       title: "Home",
@@ -13,9 +13,19 @@ export const siteConfig = {
       icon: <Home className="size-5" />,
     },
     {
-      title: "Shop",
-      href: "/orders",
-      icon: <ShoppingCart className="size-5" />,
+      title: "Wallets",
+      href: "/wallets",
+      icon: <Wallet className="size-5" />,
+    },
+    {
+      title: "Bots",
+      href: "/bots",
+      icon: <Bot className="size-5" />,
+    },
+    {
+      title: "Cryptos",
+      href: "/cryptos",
+      icon: <Bitcoin className="size-5" />,
     },
   ],
   secondaryNav: [

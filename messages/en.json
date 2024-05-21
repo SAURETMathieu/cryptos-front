@@ -1,7 +1,7 @@
 {
   "IndexPage": {
-    "title": "Nextjs template app",
-    "description": "This is a template app made with Nextjs, Tailwindcss, TypeScript, ESLint, Prettier, React, i18next, Dark Mode, Notifications, SEO, 2 Navigation models."
+    "title": "Home",
+    "description": "Home page of the website"
   },
   "Navbar": {
     "ariaGithub": "Link to my Github"

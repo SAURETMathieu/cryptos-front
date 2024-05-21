@@ -1,6 +1,6 @@
-# next-template
+# cryptos-trading
 
-A Next.js 14 template for building apps with Radix UI and Tailwind CSS.
+Application to manage cryptos wallets and transactions. Built with Next.js, TypeScript, Tailwind CSS, and more.
 
 ## Features
 
@@ -13,7 +13,6 @@ A Next.js 14 template for building apps with Radix UI and Tailwind CSS.
 - Prettier and ESLint
 - i18n with `next-intl`
 - Notifications with `sonner`
-- 2 navigation models
 
 ## Installation
 
