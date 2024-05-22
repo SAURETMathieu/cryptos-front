@@ -1,4 +1,6 @@
-import { Home, Wallet, Settings, Info, Bot, Bitcoin } from "lucide-react";
+import { Bitcoin, Bot, Home, Info, Settings, Wallet } from "lucide-react";
+
+import { NavItem } from "@/types/nav";
 
 export type SiteConfig = typeof siteConfig;
 
@@ -27,7 +29,7 @@ export const siteConfig = {
       href: "/cryptos",
       icon: <Bitcoin className="size-5" />,
     },
-  ],
+  ] as NavItem[],
   secondaryNav: [
     {
       title: "Help",
@@ -39,7 +41,7 @@ export const siteConfig = {
       href: "/settings",
       icon: <Settings className="size-5" />,
     },
-  ],
+  ] as NavItem[],
   links: {
     github: "https://github.com/SAURETMathieu",
   },

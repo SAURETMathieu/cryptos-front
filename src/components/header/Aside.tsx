@@ -1,7 +1,6 @@
-import Link from "next/link";
 import AsideTooltip from "@/src/components/header/AsideTooltip";
-import { Icons } from "@/src/icons/icons";
 import NavigationLink from "@/src/components/utils/NavigationLink";
+import { Icons } from "@/src/icons/icons";
 
 import { MainNavProps } from "@/types/nav";
 import { siteConfig } from "@/config/site";
@@ -17,7 +16,7 @@ export default function AsideMenu({ itemsTop, itemsBottom }: AsideMenuProps) {
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
         <NavigationLink
           href="/"
-          className="flex h-12 items-center justify-center pb-4"
+          className="is-logo flex h-12 items-center justify-center pb-4"
         >
           <Icons.logo className="size-8" />
           <span className="inline-block font-bold">{siteConfig.name}</span>
