@@ -21,11 +21,11 @@ export default function WalletNav() {
         </TabsList>
       </Tabs>
 
-      <div className="mx-auto flex w-full max-w-[450px] items-center justify-center gap-4 self-end lg:mx-0">
-        <Button variant="outline" className="w-1/2 text-xs">
+      <div className="mx-auto flex w-full max-w-[450px] items-center justify-center gap-2 self-end lg:mx-0">
+        <Button variant="outline" className="w-1/2 text-xs bg-card">
           All Cryptos
         </Button>
-        <Button variant="outline" className="w-1/2 text-xs">
+        <Button variant="outline" className="w-1/2 text-xs bg-card">
           All Transactions
         </Button>
       </div>

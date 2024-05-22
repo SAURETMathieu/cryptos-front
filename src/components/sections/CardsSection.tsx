@@ -7,26 +7,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/src/components/ui/card";
+import { Plus, Settings } from "lucide-react";
 
 export default function CardsSection() {
   return (
     <section className="grid gap-4 p-4 py-0 sm:grid-cols-2 md:gap-2 xl:grid-cols-4">
       <Card className="">
-        <CardHeader className="">
-          <CardTitle className="text-sm font-medium">
-            Vos portefeuilles
-          </CardTitle>
-          <CardDescription className="max-w-lg text-balance leading-relaxed">
-            Ajoutez vos portefeuilles cryptos
+        <CardHeader className="pb-3">
+          <CardTitle className="text-xl font-medium">Your wallets</CardTitle>
+          <CardDescription className="max-w-lg text-balance text-sm leading-relaxed">
+            Add your wallets to track your assets and transactions
           </CardDescription>
         </CardHeader>
         <CardFooter>
-          <Button>Créer un portefeuille</Button>
+          <Button>Add a wallet</Button>
         </CardFooter>
       </Card>
       <Card className="">
         <CardHeader className="">
-          <CardTitle className="text-sm font-medium">Total revenues</CardTitle>
+          <CardTitle className="text-xl font-medium">Profit</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">$45,231.89</div>
@@ -36,21 +35,31 @@ export default function CardsSection() {
         </CardContent>
       </Card>
       <Card className="">
-        <CardHeader className="">
-          <CardTitle className="text-sm font-medium">logos</CardTitle>
+        <CardHeader className="pb-3">
+          <CardTitle className="flex justify-between gap-2 text-xl font-medium">
+            Bots
+            <div className="flex gap-2">
+              <Button variant="ghost" size="icon">
+                <Plus className="size-5"/>
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Settings className="size-5"/>
+              </Button>
+            </div>
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-s text-muted-foreground">
-            Nombre de bots actifs 4
+            Actifs 4
           </div>
           <div className="text-s text-muted-foreground">
-            Nombre de bots lancés 4
+            Lancés 4
           </div>
         </CardContent>
       </Card>
       <Card className="">
         <CardHeader className="">
-          <CardTitle className="text-sm font-medium">Balance</CardTitle>
+          <CardTitle className="text-xl font-medium">Balance</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">$45,231.89</div>

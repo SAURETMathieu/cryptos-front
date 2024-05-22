@@ -46,7 +46,7 @@ export default function WalletTable() {
                     </TableHead>
                     <TableHead>Balance</TableHead>
                     <TableHead className="hidden md:table-cell">24h</TableHead>
-                    <TableHead className="hidden md:table-cell">7j</TableHead>
+                    <TableHead className="hidden md:table-cell">7d</TableHead>
                     <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
