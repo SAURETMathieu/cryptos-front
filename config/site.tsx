@@ -1,4 +1,4 @@
-import { Bitcoin, Bot, Home, Info, Settings, Wallet } from "lucide-react";
+import { Bitcoin, Bot, Home, Info, Settings, Wallet, CandlestickChart } from "lucide-react";
 
 import { NavItem } from "@/types/nav";
 
@@ -28,6 +28,11 @@ export const siteConfig = {
       title: "Cryptos",
       href: "/cryptos",
       icon: <Bitcoin className="size-5" />,
+    },
+    {
+      title: "Charts",
+      href: "/charts",
+      icon: <CandlestickChart className="size-5" />,
     },
   ] as NavItem[],
   secondaryNav: [

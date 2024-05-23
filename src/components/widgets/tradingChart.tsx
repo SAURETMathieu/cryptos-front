@@ -1,8 +1,8 @@
 // TradingViewWidget.jsx
-import React, { useEffect, useRef, memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 
 function TradingViewWidget() {
-  const container = useRef();
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(
     () => {
@@ -37,13 +37,27 @@ function TradingViewWidget() {
           ],
           "support_host": "https://www.tradingview.com"
         }`;
-      container.current.appendChild(script);
+        const container = containerRef.current;
+
+        // Nettoyer le contenu du conteneur avant d'ajouter un nouveau script
+        while (container?.firstChild) {
+          container.removeChild(container.firstChild);
+        }
+
+        container?.appendChild(script);
+
+        // Nettoyer le script précédent lorsque le composant est démonté
+        return () => {
+          while (container?.firstChild) {
+            container.removeChild(container.firstChild);
+          }
+        };
     },
     []
   );
 
   return (
-    <div className="tradingview-widget-container p-4 sm:pr-0" ref={container}>
+    <div className="tradingview-widget-container p-4 sm:pr-0" ref={containerRef}>
       <div className="tradingview-widget-container__widget"></div>
       <div className="tradingview-widget-copyright"><a href="https://fr.tradingview.com/" rel="noopener nofollow" target="_blank"><span className="blue-text">Suivre tous les marchés sur TradingView</span></a></div>
     </div>

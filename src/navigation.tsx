@@ -11,6 +11,7 @@ export const pathnames = {
   '/cryptos': '/cryptos',
   '/wallets': '/wallets',
   '/bots': '/bots',
+  '/charts': '/charts',
   '/help': '/help',
   '/settings': '/settings',
 } satisfies Pathnames<typeof locales>;
