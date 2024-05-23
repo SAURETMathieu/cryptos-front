@@ -13,7 +13,7 @@ export default function FilterButton() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 gap-1">
+        <Button variant="outline" aria-label="Filtrer le tableau" aria-haspopup="true" size="sm" className="h-8 gap-1">
           <ListFilter className="size-3.5" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
             Filter

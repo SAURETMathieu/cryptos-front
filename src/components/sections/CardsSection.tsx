@@ -16,23 +16,12 @@ export default function CardsSection() {
         <CardHeader className="pb-3">
           <CardTitle className="text-xl font-medium">Your wallets</CardTitle>
           <CardDescription className="max-w-lg text-balance text-sm leading-relaxed">
-            Add your wallets to track your assets and transactions
+            Track your assets and transactions
           </CardDescription>
         </CardHeader>
         <CardFooter>
           <Button>Add a wallet</Button>
         </CardFooter>
-      </Card>
-      <Card className="">
-        <CardHeader className="">
-          <CardTitle className="text-xl font-medium">Profit</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">$45,231.89</div>
-          <p className="text-xs text-muted-foreground">
-            +20.1% from last month
-          </p>
-        </CardContent>
       </Card>
       <Card className="">
         <CardHeader className="pb-3">
@@ -60,6 +49,17 @@ export default function CardsSection() {
       <Card className="">
         <CardHeader className="">
           <CardTitle className="text-xl font-medium">Balance</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-2xl font-bold">$45,231.89</div>
+          <p className="text-xs text-muted-foreground">
+            +20.1% from last month
+          </p>
+        </CardContent>
+      </Card>
+      <Card className="">
+        <CardHeader className="">
+          <CardTitle className="text-xl font-medium">Profit</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">$45,231.89</div>

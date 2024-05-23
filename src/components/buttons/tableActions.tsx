@@ -13,7 +13,7 @@ export default function TableActions() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button aria-haspopup="true" size="icon" variant="ghost">
+        <Button aria-haspopup="true" aria-label="Ouvrir le menu action du tableau" size="icon" variant="ghost">
           <MoreHorizontal className="size-4" />
           <span className="sr-only">Toggle menu</span>
         </Button>

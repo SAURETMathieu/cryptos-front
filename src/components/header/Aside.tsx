@@ -17,8 +17,9 @@ export default function AsideMenu({ itemsTop, itemsBottom }: AsideMenuProps) {
         <NavigationLink
           href="/"
           className="is-logo flex h-12 items-center justify-center pb-4"
+          aria-label="Lien vers la page d'accueil de l'application"
         >
-          <Icons.logo className="size-8" />
+          <Icons.logo className="size-8" aria-label="Logo de l'application"/>
           <span className="inline-block font-bold">{siteConfig.name}</span>
         </NavigationLink>
         <AsideTooltip items={itemsTop} />

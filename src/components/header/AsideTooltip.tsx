@@ -20,7 +20,7 @@ export default function AsideTooltip({ items }: MainNavProps) {
                   <NavigationLink
                     key={index}
                     href={item.href}
-                    className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:size-8"
+                    className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-accent hover:text-foreground md:size-8"
                   >
                     {item.icon}
                     <span className="sr-only">{item.title}</span>
