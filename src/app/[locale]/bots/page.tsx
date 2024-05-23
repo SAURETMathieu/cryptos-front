@@ -3,7 +3,7 @@
 import CardsSection from "@/src/components/sections/BotCards";
 import BotDetails from "@/src/components/sections/BotDetails";
 import BotNav from "@/src/components/sections/BotNav";
-import BotTable from "@/src/components/sections/BotTable";
+import BotTable from "@/src/components/tables/BotTable";
 
 export default function BotsPage() {
   return (

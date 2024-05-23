@@ -45,8 +45,12 @@ export default function BotTable() {
                       Wallet
                     </TableHead>
                     <TableHead>Dates</TableHead>
-                    <TableHead className="hidden md:table-cell">Opened</TableHead>
-                    <TableHead className="hidden md:table-cell">Closed</TableHead>
+                    <TableHead className="hidden md:table-cell">
+                      Opened
+                    </TableHead>
+                    <TableHead className="hidden md:table-cell">
+                      Closed
+                    </TableHead>
                     <TableHead>Fees</TableHead>
                     <TableHead>Asset</TableHead>
                     <TableHead>Strategy</TableHead>
@@ -55,29 +59,23 @@ export default function BotTable() {
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell className="bg-red-500 rounded-tl-lg rounded-bl-lg p-0">
+                    <TableCell className="rounded-l-lg bg-red-500 p-0">
                       <span className="sr-only">status</span>
                     </TableCell>
                     <TableCell>Bot Solana</TableCell>
-                    <TableCell className="hidden sm:table-cell">Binance</TableCell>
-                    <TableCell>
-                      12/03/21 12/03/21
+                    <TableCell className="hidden sm:table-cell">
+                      Binance
                     </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      250
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      6500
-                    </TableCell>
+                    <TableCell>12/03/21 12/03/21</TableCell>
+                    <TableCell className="hidden md:table-cell">250</TableCell>
+                    <TableCell className="hidden md:table-cell">6500</TableCell>
                     <TableCell className="hidden md:table-cell">
                       6500.00$
                     </TableCell>
                     <TableCell className="hidden md:table-cell">
                       SOL/USDT
                     </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      0.5%
-                    </TableCell>
+                    <TableCell className="hidden md:table-cell">0.5%</TableCell>
                     <TableCell>
                       <TableActions />
                     </TableCell>

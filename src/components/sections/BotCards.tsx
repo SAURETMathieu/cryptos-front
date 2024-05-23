@@ -17,11 +17,11 @@ export default function CardsSection() {
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           <div className="text-sm font-medium">
-            Transactions :{" "}
+            Transactions :
             <span className="text-xs text-muted-foreground">250505</span>
           </div>
           <div className="text-sm font-medium">
-            Frais :{" "}
+            Frais :
             <span className="text-xs text-muted-foreground">250505</span>
           </div>
         </CardContent>
