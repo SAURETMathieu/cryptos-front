@@ -1,7 +1,7 @@
 "use client";
 
 import CardsSection from "@/src/components/sections/CardsSection";
-import TransactionsTable from "@/src/components/tables/TransactionsTable";
+import CryptosTableSection from "@/src/components/sections/CryptosTableSection";
 import WalletNav from "@/src/components/sections/WalletNav";
 import WalletSpread from "@/src/components/sections/WalletSpread";
 import InfosBlock from "@/src/components/sections/InfosBlock";
@@ -13,7 +13,7 @@ export default function WalletPage({ params }: { params: { id: number } }) {
         <WalletNav />
         <CardsSection />
         <InfosBlock/>
-        <TransactionsTable />
+        <CryptosTableSection />
       </section>
       <section className="w-full lg:min-h-screen lg:w-4/12 xl:w-3/12 2xl:w-2/12">
         <WalletSpread />
