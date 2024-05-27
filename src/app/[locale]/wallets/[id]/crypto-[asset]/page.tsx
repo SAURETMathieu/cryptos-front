@@ -2,7 +2,7 @@
 
 import CardsSection from "@/src/components/sections/BotCards";
 import TransactionDetails from "@/src/components/sections/TransactionDetails";
-import CryptoTable from "@/src/components/tables/CryptoTable";
+import TransactionsTableSection from "@/src/components/sections/TransactionsTableSection";
 import CryptoTabs from "@/src/components/tabs/CryptoTabs";
 import CryptoNav from "@/src/components/sections/CryptoNav";
 
@@ -13,7 +13,7 @@ export default function BotsPage({ params }: { params: { asset: string } }) {
         <CryptoNav />
         <CardsSection />
         <CryptoTabs />
-        <CryptoTable />
+        <TransactionsTableSection />
       </section>
       <section className="w-full lg:min-h-screen lg:w-5/12 xl:w-4/12 2xl:w-3/12">
         <TransactionDetails />
