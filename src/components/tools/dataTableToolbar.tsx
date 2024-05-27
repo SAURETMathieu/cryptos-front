@@ -2,7 +2,7 @@
 
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
-import { priorities, statuses } from "@/src/data/tableLabels";
+import { statuses, strategies, blockchains } from "@/src/data/tableLabels";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
 
@@ -20,39 +20,48 @@ export function DataTableToolbar<TData>({
 
   return (
     <div className="flex items-center justify-between">
-      <div className="flex flex-1 items-center space-x-2">
+      <div className="flex flex-1 items-start gap-2 max-md:flex-col lg:flex-col xl:flex-row">
         <Input
-          placeholder="Filter tasks..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="h-8 w-[150px] lg:w-[250px]"
+          className="order-2 h-8 w-[290px] md:order-1 lg:order-2 xl:order-1"
         />
-        {table.getColumn("status") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("status")}
-            title="Status"
-            options={statuses}
-          />
-        )}
-        {table.getColumn("priority") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("priority")}
-            title="Priority"
-            options={priorities}
-          />
-        )}
-        {isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
-            Reset
-            <Cross2Icon className="ml-2 size-4" />
-          </Button>
-        )}
+        <div className="xl:oder-2 order-1 flex w-full gap-2 md:order-2 lg:order-1">
+          {table.getColumn("status") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("status")}
+              title="Status"
+              options={statuses}
+            />
+          )}
+          {table.getColumn("strategy") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("strategy")}
+              title="Strategy"
+              options={strategies}
+            />
+          )}
+          {table.getColumn("blockchain") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("blockchain")}
+              title="Blockchain"
+              options={blockchains}
+            />
+          )}
+          {isFiltered && (
+            <Button
+              variant="ghost"
+              onClick={() => table.resetColumnFilters()}
+              className="h-8 px-2 lg:px-3"
+            >
+              <span className="hidden">Reset</span>
+              <Cross2Icon className="size-4" />
+            </Button>
+          )}
+        </div>
       </div>
       <DataTableViewOptions table={table} />
     </div>
