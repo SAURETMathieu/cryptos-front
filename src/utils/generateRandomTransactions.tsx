@@ -18,9 +18,9 @@ const generateRandomTransaction = (): Transaction => {
     type: faker.helpers.arrayElement(transactionsType.map(b => b.value)),
     time: formatTime(faker.date.recent()),
     devise: "USDT",
-    price: faker.number.float({ min: 0, max: 100000, precision: 0.01 }),
-    quantity: faker.number.float({ min: 0, max: 1000, precision: 0.00001 }),
-    fees: faker.number.float({ min: 0, max: 1000, precision: 0.01 }),
+    price: faker.number.float({ min: 0, max: 100000, multipleOf: 0.01 }),
+    quantity: faker.number.float({ min: 0, max: 1000, multipleOf: 0.00001 }),
+    fees: faker.number.float({ min: 0, max: 1000, multipleOf: 0.01 }),
   };
 };
 

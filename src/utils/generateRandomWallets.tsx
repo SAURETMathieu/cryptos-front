@@ -7,12 +7,12 @@ const generateRandomWallet = (): Wallet => {
     id: faker.string.uuid(),
     name: faker.finance.accountName(),
     blockchain: faker.helpers.arrayElement(blockchains.map(b => b.value)),
-    day: faker.number.float({ min: -100, max: 100, precision: 0.01}),
-    day7: faker.number.float({ min: -100, max: 100, precision: 0.01}),
-    month: faker.number.float({ min: -100, max: 100, precision: 0.01}),
-    fees: faker.number.float({ min: 0, max: 1000, precision: 0.01 }),
-    balance: faker.number.float({ min: 0, max: 100000, precision: 0.01 }),
-    profits: faker.number.float({ min: -5000, max: 5000, precision: 0.01 }),
+    day: faker.number.float({ min: -100, max: 100, multipleOf: 0.01}),
+    day7: faker.number.float({ min: -100, max: 100, multipleOf: 0.01}),
+    month: faker.number.float({ min: -100, max: 100, multipleOf: 0.01}),
+    fees: faker.number.float({ min: 0, max: 1000, multipleOf: 0.01 }),
+    balance: faker.number.float({ min: 0, max: 100000, multipleOf: 0.01 }),
+    profits: faker.number.float({ min: -5000, max: 5000, multipleOf: 0.01 }),
   };
 };
 
