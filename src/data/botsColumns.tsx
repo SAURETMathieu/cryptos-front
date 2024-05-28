@@ -1,6 +1,6 @@
 "use client";
 
-import { DataTableColumnHeader } from "@/src/components/tools/dataTableColumnHeader";
+import { DataTableColumnHeader } from "@/src/components/ui/tools/dataTableColumnHeader";
 import { Bot } from "@/src/schemas/botSchema";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowDown, ArrowRight, ArrowUp, Settings } from "lucide-react";

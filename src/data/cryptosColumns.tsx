@@ -1,6 +1,6 @@
 "use client";
 
-import { DataTableColumnHeader } from "@/src/components/tools/dataTableColumnHeader";
+import { DataTableColumnHeader } from "@/src/components/ui/tools/dataTableColumnHeader";
 import { Icons } from "@/src/icons/icons";
 import { Crypto } from "@/src/schemas/cryptoSchema";
 import { ColumnDef } from "@tanstack/react-table";

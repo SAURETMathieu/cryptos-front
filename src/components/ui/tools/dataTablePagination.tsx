@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/src/components/ui/button";
 import {
   Select,
@@ -23,7 +21,6 @@ interface DataTablePaginationProps<TData> {
 export function DataTablePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
-  console.log(table);
   return (
     <div className="flex items-center justify-end px-2 sm:justify-between">
       <div className="flex-1 text-sm text-muted-foreground max-sm:hidden">

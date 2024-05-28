@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { DataTable } from "@/src/components/tables/DataTable";
 import { columns } from "@/src/data/cryptosColumns";
 import { cryptos } from "@/src/utils/generateRandomCryptos";
@@ -21,7 +22,9 @@ export default function CryptosTableSection() {
           </CardDescription>
         </CardHeader>
         <CardContent className="">
-          <DataTable data={cryptos} columns={columns} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <DataTable data={cryptos} columns={columns} />
+          </Suspense>
         </CardContent>
       </Card>
     </section>

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { DataTable } from "@/src/components/tables/DataTable";
 import { columns } from "@/src/data/transactionsColumns";
 import { Icons } from "@/src/icons/icons";
@@ -28,7 +29,9 @@ export default function TransactionsTableSection() {
           <CardDescription>Your transactions with BTC</CardDescription>
         </CardHeader>
         <CardContent className="">
-          <DataTable data={transactions} columns={columns} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <DataTable data={transactions} columns={columns} />
+          </Suspense>
         </CardContent>
       </Card>
     </section>

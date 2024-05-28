@@ -1,6 +1,7 @@
+import { Suspense } from "react";
 import { DataTable } from "@/src/components/tables/DataTable";
-import { bots } from "@/src/data/botsData";
 import { columns } from "@/src/data/botsColumns";
+import { bots } from "@/src/data/botsData";
 
 import {
   Card,
@@ -21,7 +22,9 @@ export default function BotTableSection() {
           </CardDescription>
         </CardHeader>
         <CardContent className="">
-          <DataTable data={bots} columns={columns} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <DataTable data={bots} columns={columns} />
+          </Suspense>
         </CardContent>
       </Card>
     </section>

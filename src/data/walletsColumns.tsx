@@ -1,7 +1,7 @@
 "use client";
 
-import { DataTableColumnHeader } from "@/src/components/tools/dataTableColumnHeader";
-import { DataTableRowActions } from "@/src/components/tools/dataTableRowActions";
+import { DataTableColumnHeader } from "@/src/components/ui/tools/dataTableColumnHeader";
+import { DataTableRowActions } from "@/src/components/ui/tools/dataTableRowActions";
 import { Wallet } from "@/src/schemas/walletSchema";
 import {
   ArrowDownIcon,
@@ -28,7 +28,11 @@ export const columns: ColumnDef<Wallet>[] = [
   {
     accessorKey: "blockchain",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Blockchain" className="max-w-[80px]"/>
+      <DataTableColumnHeader
+        column={column}
+        title="Blockchain"
+        className="max-w-[80px]"
+      />
     ),
     cell: ({ row }) => {
       return (
@@ -65,7 +69,7 @@ export const columns: ColumnDef<Wallet>[] = [
   {
     accessorKey: "day7",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="7d" className="w-[80px]"/>
+      <DataTableColumnHeader column={column} title="7d" className="w-[80px]" />
     ),
     cell: ({ row }) => {
       const day7: number = row.getValue("day7");
@@ -84,7 +88,7 @@ export const columns: ColumnDef<Wallet>[] = [
   {
     accessorKey: "month",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="30d" className="w-[80px]"/>
+      <DataTableColumnHeader column={column} title="30d" className="w-[80px]" />
     ),
     cell: ({ row }) => {
       const month: number = row.getValue("month");
@@ -103,7 +107,11 @@ export const columns: ColumnDef<Wallet>[] = [
   {
     accessorKey: "fees",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Fees" className="w-[80px]"/>
+      <DataTableColumnHeader
+        column={column}
+        title="Fees"
+        className="w-[80px]"
+      />
     ),
     cell: ({ row }) => {
       return (
@@ -132,7 +140,11 @@ export const columns: ColumnDef<Wallet>[] = [
   {
     accessorKey: "profits",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Profits" className="w-[120px]"/>
+      <DataTableColumnHeader
+        column={column}
+        title="Profits"
+        className="w-[120px]"
+      />
     ),
     cell: ({ row }) => {
       const profits: number = row.getValue("balance");

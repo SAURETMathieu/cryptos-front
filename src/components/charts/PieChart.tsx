@@ -1,3 +1,5 @@
+"use client";
+
 import { PureComponent } from "react";
 import {
   Cell,

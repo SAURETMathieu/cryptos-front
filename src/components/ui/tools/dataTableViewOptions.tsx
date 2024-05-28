@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { Button } from "@/src/components/ui/button";
 import {
   DropdownMenu,
@@ -8,6 +9,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/src/components/ui/dropdown-menu";
+import useBreakpoint from "@/src/hooks/useBreakpoint";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
@@ -19,6 +21,30 @@ interface DataTableViewOptionsProps<TData> {
 export function DataTableViewOptions<TData>({
   table,
 }: DataTableViewOptionsProps<TData>) {
+  const isSm = useBreakpoint(640); // sm breakpoint
+  const isMd = useBreakpoint(768); // md breakpoint
+  const isLg = useBreakpoint(1024); // lg breakpoint
+  const isXl = useBreakpoint(1280); // xl breakpoint
+
+  const getInitialVisibility = (columnId: string) => {
+    if (columnId === "logo") return isXl;
+    if (columnId === "devise") return isXl;
+    if (columnId === "fees") return isXl;
+    return true;
+  };
+
+  useEffect(() => {
+    table.getAllColumns().forEach((column) => {
+      if (
+        column.id === "logo" ||
+        column.id === "devise" ||
+        column.id === "fees"
+      ) {
+        column.toggleVisibility(getInitialVisibility(column.id));
+      }
+    });
+  }, [isSm, isMd, isLg, isXl ,table]);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -46,7 +72,7 @@ export function DataTableViewOptions<TData>({
                 key={column.id}
                 className="capitalize"
                 checked={column.getIsVisible()}
-                onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                onCheckedChange={() => column.toggleVisibility(getInitialVisibility(column.id))}
               >
                 {column.id}
               </DropdownMenuCheckboxItem>

@@ -1,5 +1,16 @@
 "use client";
 
+import * as React from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/src/components/ui/table";
+import { DataTablePagination } from "@/src/components/ui/tools/dataTablePagination";
+import { DataTableToolbar } from "@/src/components/ui/tools/dataTableToolbar";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,19 +25,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import * as React from "react";
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/src/components/ui/table";
-
-import { DataTablePagination } from "@/src/components/tools/dataTablePagination";
-import { DataTableToolbar } from "@/src/components/tools/dataTableToolbar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

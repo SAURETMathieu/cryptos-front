@@ -1,6 +1,6 @@
 "use client";
 
-import { DataTableColumnHeader } from "@/src/components/tools/dataTableColumnHeader";
+import { DataTableColumnHeader } from "@/src/components/ui/tools/dataTableColumnHeader";
 import { Icons } from "@/src/icons/icons";
 import { Transaction } from "@/src/schemas/transactionSchema";
 import formatIdx from "@/src/utils/formatIdx";

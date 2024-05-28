@@ -1,6 +1,7 @@
+import { Suspense } from "react";
 import { DataTable } from "@/src/components/tables/DataTable";
-import { wallets } from "@/src/utils/generateRandomWallets";
 import { columns } from "@/src/data/walletsColumns";
+import { wallets } from "@/src/utils/generateRandomWallets";
 
 import {
   Card,
@@ -21,7 +22,9 @@ export default function WalletTableSection() {
           </CardDescription>
         </CardHeader>
         <CardContent className="">
-          <DataTable data={wallets} columns={columns} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <DataTable data={wallets} columns={columns} />
+          </Suspense>
         </CardContent>
       </Card>
     </section>
