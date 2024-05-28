@@ -1,5 +1,3 @@
-"use client";
-
 import CardsSection from "@/src/components/sections/CardsSection";
 import CryptosTableSection from "@/src/components/sections/CryptosTableSection";
 import WalletNav from "@/src/components/sections/WalletNav";

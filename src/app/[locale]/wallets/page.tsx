@@ -1,5 +1,3 @@
-"use client";
-
 import CardsSection from "@/src/components/sections/CardsSection";
 import WalletNav from "@/src/components/sections/WalletNav";
 import WalletSpread from "@/src/components/sections/WalletSpread";
