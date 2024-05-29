@@ -106,6 +106,9 @@ export const columns: ColumnDef<Transaction>[] = [
         </span>
       );
     },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
   },
   {
     accessorKey: "devise",

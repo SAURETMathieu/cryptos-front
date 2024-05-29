@@ -1,7 +1,9 @@
-import { Suspense } from "react";
-import { DataTable } from "@/src/components/tables/DataTable";
+import Table from "@/src/components/tables/Table";
+import { networks } from "@/src/data/tableLabels";
 import { columns } from "@/src/data/walletsColumns";
 import { wallets } from "@/src/utils/generateRandomWallets";
+
+import { ColumnConfig } from "@/types/datasTable";
 
 import {
   Card,
@@ -10,6 +12,14 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+
+const columnConfigs: ColumnConfig[] = [
+  {
+    id: "network",
+    title: "Network",
+    options: networks,
+  },
+];
 
 export default function WalletTableSection() {
   return (
@@ -22,9 +32,11 @@ export default function WalletTableSection() {
           </CardDescription>
         </CardHeader>
         <CardContent className="">
-          <Suspense fallback={<div>Loading...</div>}>
-            <DataTable data={wallets} columns={columns} />
-          </Suspense>
+          <Table
+            data={wallets}
+            columns={columns}
+            columnConfigs={columnConfigs}
+          />
         </CardContent>
       </Card>
     </section>

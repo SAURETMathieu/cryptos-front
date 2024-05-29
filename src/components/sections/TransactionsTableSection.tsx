@@ -1,8 +1,10 @@
-import { Suspense } from "react";
-import { DataTable } from "@/src/components/tables/DataTable";
+import Table from "@/src/components/tables/Table";
+import { transactionsType } from "@/src/data/tableLabels";
 import { columns } from "@/src/data/transactionsColumns";
 import { Icons } from "@/src/icons/icons";
 import { transactions } from "@/src/utils/generateRandomTransactions";
+
+import { ColumnConfig } from "@/types/datasTable";
 
 import {
   Card,
@@ -11,6 +13,14 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+
+const columnConfigs: ColumnConfig[] = [
+  {
+    id: "type",
+    title: "Type",
+    options: transactionsType,
+  },
+];
 
 export default function TransactionsTableSection() {
   return (
@@ -29,9 +39,12 @@ export default function TransactionsTableSection() {
           <CardDescription>Your transactions with BTC</CardDescription>
         </CardHeader>
         <CardContent className="">
-          <Suspense fallback={<div>Loading...</div>}>
-            <DataTable data={transactions} columns={columns} />
-          </Suspense>
+          <Table
+            data={transactions}
+            columns={columns}
+            columnConfigs={columnConfigs}
+            filter={false}
+          />
         </CardContent>
       </Card>
     </section>

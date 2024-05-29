@@ -48,31 +48,31 @@ export const networks = [
 
 export const transactionsType = [
   {
-    value: "order",
+    value: "Order",
     label: "Order",
   },
   {
-    value: "market",
+    value: "Market",
     label: "Market",
   },
   {
-    value: "deposit",
+    value: "Deposit",
     label: "Deposit",
   },
   {
-    value: "withdraw",
+    value: "Withdraw",
     label: "Withdraw",
   },
   {
-    value: "transfer",
+    value: "Transfer",
     label: "Transfer",
   },
   {
-    value: "swap",
+    value: "Swap",
     label: "Swap",
   },
   {
-    value: "other",
+    value: "Other",
     label: "Other",
   },
 ];

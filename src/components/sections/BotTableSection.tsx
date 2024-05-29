@@ -1,7 +1,10 @@
-import { Suspense } from "react";
-import { DataTable } from "@/src/components/tables/DataTable";
+
+import Table from "@/src/components/tables/Table";
 import { columns } from "@/src/data/botsColumns";
 import { bots } from "@/src/data/botsData";
+import { statuses, strategies } from "@/src/data/tableLabels";
+
+import { ColumnConfig } from "@/types/datasTable";
 
 import {
   Card,
@@ -10,6 +13,19 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+
+const columnConfigs: ColumnConfig[] = [
+  {
+    id: "status",
+    title: "Status",
+    options: statuses,
+  },
+  {
+    id: "strategy",
+    title: "Strategy",
+    options: strategies,
+  },
+];
 
 export default function BotTableSection() {
   return (
@@ -22,9 +38,12 @@ export default function BotTableSection() {
           </CardDescription>
         </CardHeader>
         <CardContent className="">
-          <Suspense fallback={<div>Loading...</div>}>
-            <DataTable data={bots} columns={columns} />
-          </Suspense>
+        <Table
+            data={bots}
+            columns={columns}
+            columnConfigs={columnConfigs}
+            filter={false}
+          />
         </CardContent>
       </Card>
     </section>
