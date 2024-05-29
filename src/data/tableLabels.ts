@@ -15,7 +15,7 @@ export const labels = [
   },
 ];
 
-export const blockchains = [
+export const networks = [
   {
     value: "All",
     label: "All",
