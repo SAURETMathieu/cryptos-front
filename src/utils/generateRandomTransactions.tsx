@@ -4,8 +4,12 @@ import { transactionsType } from '@/src/data/tableLabels';
 
 const generateRandomTransaction = (): Transaction => {
   const formatDate = (date: Date): string => {
-    return date.toISOString().split('T')[0];
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString().substr(-2);
+    return `${day}/${month}/${year}`;
   };
+
   const formatTime = (date: Date): string => {
     const tmp = date.toISOString().split('T')[1];
     return tmp?.split('.')[0];

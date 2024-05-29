@@ -14,38 +14,37 @@ export const columns: ColumnDef<Wallet>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
+      <DataTableColumnHeader column={column} title="Name" className="" />
     ),
     cell: ({ row }) => {
       return (
-        <span className="max-w-[500px] truncate font-medium">
-          {row.getValue("name")}
-        </span>
+        <div className="max-w-[80px] truncate sm:max-w-[150px]">
+          <span className="pl-2 font-bold">{row.getValue("name")}</span>
+        </div>
       );
     },
     enableHiding: false,
   },
   {
-    accessorKey: "blockchain",
+    accessorKey: "network",
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="Blockchain"
+        title="Network"
         className="max-w-[80px]"
       />
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="max-w-[80px] truncate font-medium">
-            {row.getValue("blockchain")}
-          </span>
+        <div className="flex max-w-[80px] truncate">
+          <span className="">{row.getValue("network")}</span>
         </div>
       );
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
+    enableHiding: false,
   },
   {
     accessorKey: "day",
@@ -55,7 +54,7 @@ export const columns: ColumnDef<Wallet>[] = [
     cell: ({ row }) => {
       const day: number = row.getValue("day");
       return (
-        <div className="flex items-center">
+        <div className="flex items-center font-light">
           {day > 0 && <ArrowUpIcon className="mr-2 size-4 text-green-500" />}
           {day < 0 && <ArrowDownIcon className="mr-2 size-4 text-red-500" />}
           {day == 0 && (
@@ -74,7 +73,7 @@ export const columns: ColumnDef<Wallet>[] = [
     cell: ({ row }) => {
       const day7: number = row.getValue("day7");
       return (
-        <div className="flex items-center">
+        <div className="flex items-center font-light">
           {day7 > 0 && <ArrowUpIcon className="mr-2 size-4 text-green-500" />}
           {day7 < 0 && <ArrowDownIcon className="mr-2 size-4 text-red-500" />}
           {day7 == 0 && (
@@ -93,7 +92,7 @@ export const columns: ColumnDef<Wallet>[] = [
     cell: ({ row }) => {
       const month: number = row.getValue("month");
       return (
-        <div className="flex items-center">
+        <div className="flex items-center font-light">
           {month > 0 && <ArrowUpIcon className="mr-2 size-4 text-green-500" />}
           {month < 0 && <ArrowDownIcon className="mr-2 size-4 text-red-500" />}
           {month == 0 && (
@@ -116,7 +115,7 @@ export const columns: ColumnDef<Wallet>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex">
-          <span className="w-[80px] truncate font-medium">
+          <span className="w-[80px] truncate font-light">
             {row.getValue("fees")} $
           </span>
         </div>
@@ -130,7 +129,7 @@ export const columns: ColumnDef<Wallet>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <span className="max-w-[500px] truncate font-medium">
+        <span className="max-w-[500px] truncate font-bold">
           {row.getValue("balance")} $
         </span>
       );
@@ -149,7 +148,7 @@ export const columns: ColumnDef<Wallet>[] = [
     cell: ({ row }) => {
       const profits: number = row.getValue("balance");
       return (
-        <div className="flex items-center">
+        <div className="flex items-center font-bold">
           {profits > 0 && (
             <ArrowUpIcon className="mr-2 size-4 text-green-500" />
           )}
@@ -163,7 +162,6 @@ export const columns: ColumnDef<Wallet>[] = [
         </div>
       );
     },
-    enableHiding: false,
   },
   {
     id: "actions",

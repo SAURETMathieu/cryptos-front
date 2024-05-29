@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { Wallet } from "@/src/schemas/walletSchema";
-import { blockchains } from '@/src/data/tableLabels';
+import { networks } from '@/src/data/tableLabels';
 
 const generateRandomWallet = (): Wallet => {
   return {
     id: faker.string.uuid(),
     name: faker.finance.accountName(),
-    blockchain: faker.helpers.arrayElement(blockchains.map(b => b.value)),
+    network: faker.helpers.arrayElement(networks.map(b => b.value)),
     day: faker.number.float({ min: -100, max: 100, multipleOf: 0.01}),
     day7: faker.number.float({ min: -100, max: 100, multipleOf: 0.01}),
     month: faker.number.float({ min: -100, max: 100, multipleOf: 0.01}),

@@ -26,6 +26,7 @@ export const columns: ColumnDef<Bot>[] = [
       return value.includes(row.getValue(id));
     },
     enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorKey: "name",
@@ -34,9 +35,9 @@ export const columns: ColumnDef<Bot>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <span className="max-w-[500px] truncate font-medium">
-          {row.getValue("name")}
-        </span>
+        <div className="max-w-[80px] truncate sm:max-w-[150px]">
+          <span className="pl-2 font-bold">{row.getValue("name")}</span>
+        </div>
       );
     },
     enableHiding: false,
@@ -120,7 +121,7 @@ export const columns: ColumnDef<Bot>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex">
-          <span className="max-w-[500px] truncate font-medium">
+          <span className="truncate font-medium">
             {row.getValue("fees")} $
           </span>
         </div>
@@ -135,7 +136,7 @@ export const columns: ColumnDef<Bot>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex">
-          <span className="max-w-[500px] truncate font-medium">
+          <span className="truncate font-medium">
             {row.getValue("asset")}
           </span>
         </div>
@@ -162,16 +163,17 @@ export const columns: ColumnDef<Bot>[] = [
   {
     accessorKey: "balance",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Balance" />
+      <DataTableColumnHeader column={column} title="Balance"/>
     ),
     cell: ({ row }) => {
       return (
-        <span className="max-w-[500px] truncate font-medium">
-          {row.getValue("balance")} $
-        </span>
+        <div className="">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("balance")} $
+          </span>
+        </div>
       );
     },
-    enableHiding: false,
   },
   {
     accessorKey: "profits",
