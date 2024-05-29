@@ -14,12 +14,12 @@ export const columns: ColumnDef<Transaction>[] = [
       <DataTableColumnHeader
         column={column}
         title=""
-        className="w-[12px] p-0"
+        className="w-fit p-0"
       />
     ),
     cell: ({ row }) => {
       return (
-        <div className="h-full w-[12px] rounded-l-lg bg-red-500 p-0">
+        <div className="h-full w-[8px] rounded-l-lg bg-red-500 p-0">
           <span className="sr-only">{row.getValue("transaction")}</span>
         </div>
       );
@@ -32,8 +32,8 @@ export const columns: ColumnDef<Transaction>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="Logo"
-        className="w-[35px] text-center"
+        title=""
+        className="w-fit text-center"
       />
     ),
     cell: ({ row }) => {
@@ -79,6 +79,7 @@ export const columns: ColumnDef<Transaction>[] = [
         </span>
       );
     },
+    enableHiding: false,
   },
   {
     accessorKey: "time",
@@ -105,7 +106,6 @@ export const columns: ColumnDef<Transaction>[] = [
         </span>
       );
     },
-    enableHiding: false,
   },
   {
     accessorKey: "devise",
@@ -128,7 +128,6 @@ export const columns: ColumnDef<Transaction>[] = [
         </span>
       );
     },
-    enableHiding: false,
   },
   {
     accessorKey: "fees",
@@ -172,13 +171,13 @@ export const columns: ColumnDef<Transaction>[] = [
       const price: number = row.getValue("price") as number;
       const total = (quantity * price).toFixed(2);
       return (
-        <span className="max-w-[500px] truncate font-medium">{total}$</span>
+        <span className="max-w-[500px] truncate font-medium">{total}</span>
       );
     },
     enableHiding: false,
   },
   {
-    id: "actions",
-    cell: ({ row }) => <Info className="mr-2 size-4" />,
+    id: "infos",
+    cell: () => <Info className="mr-2 size-4" />,
   },
 ];

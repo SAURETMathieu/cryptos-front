@@ -11,6 +11,8 @@ import {
 } from "@/src/components/ui/table";
 import { DataTablePagination } from "@/src/components/ui/tools/dataTablePagination";
 import { DataTableToolbar } from "@/src/components/ui/tools/dataTableToolbar";
+import useBreakpoints from "@/src/hooks/useBreakpoint";
+import { columnBreakpoints } from "@/src/utils/columnBreakpoints";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -26,14 +28,20 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { ColumnConfig } from "@/types/datasTable";
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  filter?: boolean;
+  columnConfigs?: ColumnConfig[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  filter = true,
+  columnConfigs,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -65,26 +73,47 @@ export function DataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  const { sm, md, lg, xl, xxl } = useBreakpoints();
+  const endpoints = {
+    sm,
+    md,
+    lg,
+    xl,
+    xxl,
+  };
+
+  React.useEffect(() => {
+    table.getAllColumns().forEach((column) => {
+      if (Object.prototype.hasOwnProperty.call(columnBreakpoints, column.id)) {
+        const columnEndpoint = columnBreakpoints[column.id];
+        column.toggleVisibility(
+          endpoints[columnEndpoint as keyof typeof endpoints]
+        );
+      }
+    });
+  }, [sm, md, lg, xl, xxl, table]);
+
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
+      <DataTableToolbar
+        table={table}
+        filter={filter}
+        columnConfigs={columnConfigs}
+      />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id} colSpan={header.colSpan}>
+                    {!header.isPlaceholder &&
+                      flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
@@ -93,7 +122,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() ? "selected" : undefined}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
