@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function useBreakpoint(breakpoint: number) {
+function useBreakpoint(breakpoint: number) {
   const [isBreakpoint, setIsBreakpoint] = useState(false);
 
   useEffect(() => {
@@ -16,3 +16,15 @@ export default function useBreakpoint(breakpoint: number) {
 
   return isBreakpoint;
 }
+
+const useBreakpoints = () => {
+  const sm = useBreakpoint(640);
+  const md = useBreakpoint(768);
+  const lg = useBreakpoint(1024);
+  const xl = useBreakpoint(1280);
+  const xxl = useBreakpoint(1536);
+
+  return { sm, md, lg, xl, xxl };
+};
+
+export default useBreakpoints;
