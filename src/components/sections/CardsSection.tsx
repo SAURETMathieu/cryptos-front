@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/src/components/ui/card";
+import { CreateWalletSheet } from "@/src/components/buttons/createWallet";
 import { Plus, Settings } from "lucide-react";
 
 export default function CardsSection() {
@@ -20,7 +21,7 @@ export default function CardsSection() {
           </CardDescription>
         </CardHeader>
         <CardFooter>
-          <Button>Add a wallet</Button>
+          <CreateWalletSheet />
         </CardFooter>
       </Card>
       <Card className="">
@@ -29,21 +30,17 @@ export default function CardsSection() {
             Bots
             <div className="flex gap-2">
               <Button variant="ghost" size="icon">
-                <Plus className="size-5"/>
+                <Plus className="size-5" />
               </Button>
               <Button variant="ghost" size="icon">
-                <Settings className="size-5"/>
+                <Settings className="size-5" />
               </Button>
             </div>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-s text-muted-foreground">
-            Actifs 4
-          </div>
-          <div className="text-s text-muted-foreground">
-            Lancés 4
-          </div>
+          <div className="text-s text-muted-foreground">Actifs 4</div>
+          <div className="text-s text-muted-foreground">Lancés 4</div>
         </CardContent>
       </Card>
       <Card className="">
