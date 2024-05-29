@@ -7,7 +7,7 @@ import { siteConfig } from "@/config/site";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
+    <header className="sticky top-0 z-40 w-full border-b bg-card">
       <div className="flex gap-6 md:gap-10">
         {siteConfig.mainNav?.length ? (
           <>
