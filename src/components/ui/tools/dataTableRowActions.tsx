@@ -38,10 +38,9 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem key="settings">Settings</DropdownMenuItem>
         <DropdownMenuItem key="keys">Keys</DropdownMenuItem>
-        <DropdownMenuItem key="edit">Edit</DropdownMenuItem>
         <DropdownMenuSeparator key="separator" />
+        <DropdownMenuItem key="edit">Edit</DropdownMenuItem>
         <DropdownMenuItem key="delete">
           <Button
             variant="ghost"

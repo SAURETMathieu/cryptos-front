@@ -1,4 +1,3 @@
-import { CreateWalletSheet } from "@/src/components/buttons/createWallet";
 import { Button } from "@/src/components/ui/button";
 import {
   Card,
@@ -10,6 +9,7 @@ import {
 } from "@/src/components/ui/card";
 import { Plus, Settings } from "lucide-react";
 
+import { LeftSheetForm } from "@/components/modals/LeftSheetForm";
 import WalletFormTabs from "@/components/tabs/WalletFormTabs";
 
 export default function CardsSection() {
@@ -23,9 +23,12 @@ export default function CardsSection() {
           </CardDescription>
         </CardHeader>
         <CardFooter>
-          <CreateWalletSheet>
-            <WalletFormTabs/>
-          </CreateWalletSheet>
+          <LeftSheetForm
+            title="Create your wallet"
+            description="Create your wallet for tracking your cryptos"
+          >
+            <WalletFormTabs />
+          </LeftSheetForm>
         </CardFooter>
       </Card>
       <Card className="">

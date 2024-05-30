@@ -7,12 +7,12 @@ import {
   fieldConfig as centralizeConfig,
   centralizeFormSchema,
   onSubmit as onSubmitCentralize,
-} from "@/components/forms/createCentralizeWallet";
+} from "@/components/formsConfig/createCentralizeWallet";
 import {
   fieldConfig as decentralizeConfig,
   decentralizeFormSchema,
   onSubmit as onSubmitDecentralize,
-} from "@/components/forms/createDecentralizeWallet";
+} from "@/components/formsConfig/createDecentralizeWallet";
 
 type WalletFormTabsProps = {
   closeSheet?: () => void;

@@ -11,11 +11,13 @@ import {
   SheetTrigger,
 } from "@/src/components/ui/sheet";
 
-type CreateWalletSheetProps = {
+type LeftSheetForm = {
   children: ReactElement<{ closeSheet: () => void }>;
+  title: string;
+  description: string;
 };
 
-export function CreateWalletSheet({ children }: CreateWalletSheetProps) {
+export function LeftSheetForm({ children, title, description  }: LeftSheetForm) {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const closeSheet = () => setIsSheetOpen(false);
@@ -32,9 +34,9 @@ export function CreateWalletSheet({ children }: CreateWalletSheetProps) {
         </SheetTrigger>
         <SheetContent side="left">
           <SheetHeader className="pb-4">
-            <SheetTitle>Create a wallet</SheetTitle>
+            <SheetTitle>{title}</SheetTitle>
             <SheetDescription>
-              Add a new wallet to track your assets
+            {description}
             </SheetDescription>
           </SheetHeader>
           {clonedChild}

@@ -1,3 +1,6 @@
+import CreateBotForm from "@/src/components/forms/createBotForm";
+import { LeftSheetForm } from "@/src/components/modals/LeftSheetForm";
+import { Button } from "@/src/components/ui/button";
 import {
   Card,
   CardContent,
@@ -5,8 +8,6 @@ import {
   CardTitle,
 } from "@/src/components/ui/card";
 import { Plus, Settings } from "lucide-react";
-
-import { Button } from "@/src/components/ui/button";
 
 export default function CardsSection() {
   return (
@@ -21,8 +22,7 @@ export default function CardsSection() {
             <span className="text-xs text-muted-foreground">250505</span>
           </div>
           <div className="text-sm font-medium">
-            Frais :
-            <span className="text-xs text-muted-foreground">250505</span>
+            Frais :<span className="text-xs text-muted-foreground">250505</span>
           </div>
         </CardContent>
       </Card>
@@ -31,6 +31,12 @@ export default function CardsSection() {
           <CardTitle className="flex justify-between gap-2 text-xl font-medium">
             Bots
             <div className="flex gap-2">
+              <LeftSheetForm
+                title="Create your bot"
+                description="Create your bot for automate your trading strategy"
+              >
+                <CreateBotForm />
+              </LeftSheetForm>
               <Button variant="ghost" size="icon">
                 <Plus className="size-5" />
               </Button>
