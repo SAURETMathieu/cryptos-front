@@ -10,9 +10,13 @@ export const centralizeFormSchema = z.object({
     })
     .max(30, "Username must be at most 30 characters.")
     .min(3, "Username must be at least 3 characters."),
-  exchange: z.enum(exchangesValues).refine((val) => val !== undefined, {
-    message: "Exchange is required.",
-  }),
+  exchange: z
+    .enum(exchangesValues, {
+      required_error: "Exchange is required.",
+    })
+    .refine((val) => val !== undefined, {
+      message: "Exchange is required.",
+    }),
   key: z
     .string({
       required_error: "API key is required.",

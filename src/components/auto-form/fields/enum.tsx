@@ -1,3 +1,6 @@
+import * as z from "zod";
+
+import { cn } from "@/lib/utils";
 import { FormControl, FormItem, FormMessage } from "@/components/ui/form";
 import {
   Select,
@@ -6,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import * as z from "zod";
+
 import AutoFormLabel from "../common/label";
 import AutoFormTooltip from "../common/tooltip";
 import { AutoFormInputComponentProps } from "../types";
@@ -46,7 +49,12 @@ export default function AutoFormEnum({
           defaultValue={field.value}
           {...fieldProps}
         >
-          <SelectTrigger className={fieldProps.className}>
+          <SelectTrigger
+            className={cn(
+              "border border-primary/40 hover:ring-1 hover:ring-ring",
+              fieldProps.className
+            )}
+          >
             <SelectValue placeholder={fieldConfigItem.inputProps?.placeholder}>
               {field.value ? findItem(field.value)?.[1] : "Select an option"}
             </SelectValue>

@@ -13,7 +13,9 @@ export const decentralizeFormSchema = z.object({
     })
     .max(30, "Username must be at most 30 characters.")
     .min(3, "Username must be at least 3 characters."),
-  network: z.enum(networkValues),
+  network: z.enum(networkValues, {
+    required_error: "Network is required.",
+  }),
 });
 
 export const fieldConfig = {
@@ -25,7 +27,6 @@ export const fieldConfig = {
   },
   network: {
     label: "Network",
-    description: "Only if your exchange is decentralized.",
     inputProps: {
       placeholder: "Select network",
     },

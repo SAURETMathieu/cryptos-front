@@ -1,5 +1,6 @@
 import { FormControl, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+
 import AutoFormLabel from "../common/label";
 import AutoFormTooltip from "../common/tooltip";
 import { AutoFormInputComponentProps } from "../types";
@@ -24,7 +25,11 @@ export default function AutoFormInput({
           />
         )}
         <FormControl>
-          <Input type={type} {...fieldPropsWithoutShowLabel} />
+          <Input
+            className="border border-primary/40 hover:ring-1 hover:ring-ring"
+            type={type}
+            {...fieldPropsWithoutShowLabel}
+          />
         </FormControl>
         <AutoFormTooltip fieldConfigItem={fieldConfigItem} />
         <FormMessage />

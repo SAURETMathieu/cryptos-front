@@ -127,7 +127,7 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
           />
 
           {children}
-          <div className="flex w-full gap-2">
+          <div className="flex w-full justify-between gap-2">
             <AutoFormReset
               onClick={() => form.reset(defaultValues)}
               className="w-[45%]"
