@@ -1,38 +1,44 @@
 "use client";
 
+import { ReactElement, cloneElement, isValidElement, useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/src/components/ui/sheet";
 
-export function CreateWalletSheet() {
+type CreateWalletSheetProps = {
+  children: ReactElement<{ closeSheet: () => void }>;
+};
+
+export function CreateWalletSheet({ children }: CreateWalletSheetProps) {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  const closeSheet = () => setIsSheetOpen(false);
+  const openSheet = () => setIsSheetOpen(true);
+
+  const clonedChild = isValidElement(children)
+    ? cloneElement(children, { closeSheet })
+    : children;
+
   return (
     <div className="grid grid-cols-2 gap-2">
-      <Sheet>
+      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetTrigger asChild>
-          <Button>Add a wallet</Button>
+          <Button onClick={openSheet}>Add a wallet</Button>
         </SheetTrigger>
         <SheetContent side="left">
-          <SheetHeader>
+          <SheetHeader className="pb-4">
             <SheetTitle>Create a wallet</SheetTitle>
             <SheetDescription>
               Add a new wallet to track your assets
             </SheetDescription>
           </SheetHeader>
-          <div className="grid gap-4 py-4">Formulaire</div>
-          <SheetFooter>
-            <Button type="reset">Reset</Button>
-            <SheetClose asChild>
-              <Button type="submit">Create wallet</Button>
-            </SheetClose>
-          </SheetFooter>
+          {clonedChild}
         </SheetContent>
       </Sheet>
     </div>
