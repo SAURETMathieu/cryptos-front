@@ -26,7 +26,6 @@ export function CreateWalletSheet({ children }: CreateWalletSheetProps) {
     : children;
 
   return (
-    <div className="grid grid-cols-2 gap-2">
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetTrigger asChild>
           <Button onClick={openSheet}>Add a wallet</Button>
@@ -41,6 +40,5 @@ export function CreateWalletSheet({ children }: CreateWalletSheetProps) {
           {clonedChild}
         </SheetContent>
       </Sheet>
-    </div>
   );
 }

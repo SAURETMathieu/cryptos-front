@@ -9,7 +9,7 @@ const networkValues = networks.map((network) => network.value) as [
 export const decentralizeFormSchema = z.object({
   name: z
     .string({
-      required_error: "Username is required.",
+      required_error: "Wallet's name is required.",
     })
     .max(30, "Username must be at most 30 characters.")
     .min(3, "Username must be at least 3 characters."),
