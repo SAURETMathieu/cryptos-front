@@ -1,3 +1,4 @@
+import { CreateWalletSheet } from "@/src/components/buttons/createWallet";
 import { Button } from "@/src/components/ui/button";
 import {
   Card,
@@ -7,8 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/src/components/ui/card";
-import { CreateWalletSheet } from "@/src/components/buttons/createWallet";
 import { Plus, Settings } from "lucide-react";
+
+import WalletFormTabs from "@/components/tabs/WalletFormTabs";
 
 export default function CardsSection() {
   return (
@@ -21,7 +23,9 @@ export default function CardsSection() {
           </CardDescription>
         </CardHeader>
         <CardFooter>
-          <CreateWalletSheet />
+          <CreateWalletSheet>
+            <WalletFormTabs/>
+          </CreateWalletSheet>
         </CardFooter>
       </Card>
       <Card className="">
