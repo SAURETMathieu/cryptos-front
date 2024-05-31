@@ -1,7 +1,9 @@
 import { networks } from "@/src/data/tableLabels";
 import { z } from "zod";
 
-const networkValues = networks.map((network) => network.value) as [
+const networkValues = networks
+.filter((network) => network.value !== "All")
+.map((network) => network.value) as [
   string,
   ...string[]
 ];
@@ -45,5 +47,9 @@ export const fieldConfig = {
 };
 
 export const onSubmit = (values: z.infer<typeof decentralizeFormSchema>) => {
+  console.log(values);
+};
+
+export const onEdit = (values: z.infer<typeof decentralizeFormSchema>) => {
   console.log(values);
 };
