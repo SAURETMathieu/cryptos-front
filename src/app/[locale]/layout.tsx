@@ -3,6 +3,7 @@ import { SiteHeader } from "@/src/components/header/Header";
 import { Toaster } from "@/src/components/ui/sonner";
 import { ModalProvider } from "@/src/context/modalProvider";
 import { ThemeProvider } from "@/src/context/themeProvider";
+import { UpdateModalProvider } from "@/src/context/updateModalProvider";
 import { fontSans } from "@/src/lib/fonts";
 import { cn } from "@/src/lib/utils";
 import { TailwindIndicator } from "@/src/utils/tailwindIndicator";
@@ -49,13 +50,15 @@ export default function RootLayout({
           <NextIntlClientProvider locale={locale} messages={messages}>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <ModalProvider>
-                <div className="relative flex min-h-screen flex-col">
-                  <SiteHeader />
-                  {children}
-                  <Toaster />
-                  <Footer />
-                </div>
-                <TailwindIndicator />
+                <UpdateModalProvider>
+                  <div className="relative flex min-h-screen flex-col">
+                    <SiteHeader />
+                    {children}
+                    <Toaster />
+                    <Footer />
+                  </div>
+                  <TailwindIndicator />
+                </UpdateModalProvider>
               </ModalProvider>
             </ThemeProvider>
           </NextIntlClientProvider>

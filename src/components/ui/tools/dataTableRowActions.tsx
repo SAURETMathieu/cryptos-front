@@ -1,3 +1,4 @@
+import EditWalletForm from "@/components/forms/EditWalletForm";
 import { Button } from "@/src/components/ui/button";
 import {
   DropdownMenu,
@@ -8,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import { useModal } from "@/src/context/modalProvider";
+import { useUpdateModal } from "@/src/context/updateModalProvider";
 import { walletSchema } from "@/src/schemas/walletSchema";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
@@ -21,10 +23,15 @@ export function DataTableRowActions<TData>({
 }: DataTableRowActionsProps<TData>) {
   const wallet = walletSchema.parse(row.original);
   const { openModal } = useModal();
+  const { openUpdateModal, setFormContent } = useUpdateModal();
 
   const onDelete = (walletId: string) => {
     console.log("Deleted", walletId);
   };
+
+  const formContent = (datas: any) => (
+    <EditWalletForm datas={datas}/>
+  );
 
   return (
     <DropdownMenu key={wallet.id}>
@@ -39,8 +46,18 @@ export function DataTableRowActions<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuItem key="keys">Keys</DropdownMenuItem>
+        <DropdownMenuItem key="bots">Bots</DropdownMenuItem>
         <DropdownMenuSeparator key="separator" />
-        <DropdownMenuItem key="edit">Edit</DropdownMenuItem>
+        <DropdownMenuItem key="edit">
+        <Button
+            variant="ghost"
+            className="h-fit w-full p-0"
+            onClick={() => openUpdateModal(formContent(wallet))}
+          >
+            Edit
+            <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+          </Button>
+        </DropdownMenuItem>
         <DropdownMenuItem key="delete">
           <Button
             variant="ghost"
