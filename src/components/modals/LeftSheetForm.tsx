@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement, cloneElement, isValidElement, useState } from "react";
-import { Button } from "@/src/components/ui/button";
+import { ButtonProps } from "@/src/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -15,9 +15,10 @@ type LeftSheetForm = {
   children: ReactElement<{ closeSheet: () => void }>;
   title: string;
   description: string;
+  triggerButton: ReactElement<ButtonProps>;
 };
 
-export function LeftSheetForm({ children, title, description  }: LeftSheetForm) {
+export function LeftSheetForm({ children, title, description, triggerButton }: LeftSheetForm) {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const closeSheet = () => setIsSheetOpen(false);
@@ -27,20 +28,22 @@ export function LeftSheetForm({ children, title, description  }: LeftSheetForm) 
     ? cloneElement(children, { closeSheet })
     : children;
 
+    const clonedTriggerButton = isValidElement(triggerButton)
+    ? cloneElement(triggerButton, { onClick: openSheet })
+    : triggerButton;
+
   return (
-      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetTrigger asChild>
-          <Button onClick={openSheet}>Add a wallet</Button>
-        </SheetTrigger>
-        <SheetContent side="left">
-          <SheetHeader className="pb-4">
-            <SheetTitle>{title}</SheetTitle>
-            <SheetDescription>
-            {description}
-            </SheetDescription>
-          </SheetHeader>
-          {clonedChild}
-        </SheetContent>
-      </Sheet>
+    <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+      <SheetTrigger asChild>
+        {clonedTriggerButton}
+      </SheetTrigger>
+      <SheetContent side="left">
+        <SheetHeader className="pb-4">
+          <SheetTitle>{title}</SheetTitle>
+          <SheetDescription>{description}</SheetDescription>
+        </SheetHeader>
+        {clonedChild}
+      </SheetContent>
+    </Sheet>
   );
 }
