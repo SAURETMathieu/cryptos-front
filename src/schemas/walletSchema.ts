@@ -10,6 +10,8 @@ export const walletSchema = z.object({
   fees: z.number(),
   balance: z.number(),
   profits: z.number(),
+  key: z.string(),
+  exchange: z.string(),
 });
 
 export type Wallet = z.infer<typeof walletSchema>;

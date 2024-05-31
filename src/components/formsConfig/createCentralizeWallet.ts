@@ -3,27 +3,36 @@ import { z } from "zod";
 
 const exchangesValues = exchanges as [string, ...string[]];
 
-export const centralizeFormSchema = z.object({
-  name: z
-    .string({
-      required_error: "Username is required.",
-    })
-    .max(30, "Username must be at most 30 characters.")
-    .min(3, "Username must be at least 3 characters."),
-  exchange: z
-    .enum(exchangesValues, {
-      required_error: "Exchange is required.",
-    })
-    .refine((val) => val !== undefined, {
-      message: "Exchange is required.",
-    }),
-  key: z
-    .string({
-      required_error: "API key is required.",
-    })
-    .max(30, "API key must be at most 30 characters.")
-    .min(3, "API key must be at least 3 characters."),
-});
+export const generateCentralizeFormSchema = (datas: any = {}) => {
+  return z.object({
+    name: z
+      .string({
+        required_error: "Wallet is required.",
+      })
+      .max(30, "Wallet must be at most 30 characters.")
+      .min(3, "Wallet must be at least 3 characters.")
+      .default(datas.name ?? undefined),
+
+    exchange: z
+      .enum(exchangesValues, {
+        required_error: "Exchange is required.",
+      })
+      .refine((val) => val !== undefined, {
+        message: "Exchange is required.",
+      })
+      .default(datas.exchange ?? undefined),
+
+    key: z
+      .string({
+        required_error: "API key is required.",
+      })
+      .max(30, "API key must be at most 30 characters.")
+      .min(3, "API key must be at least 3 characters.")
+      .default(datas.key ?? undefined),
+  });
+};
+
+export const centralizeFormSchema = generateCentralizeFormSchema();
 
 export const fieldConfig = {
   name: {
@@ -48,5 +57,9 @@ export const fieldConfig = {
 };
 
 export const onSubmit = (values: z.infer<typeof centralizeFormSchema>) => {
+  console.log(values);
+};
+
+export const onEdit = (values: z.infer<typeof centralizeFormSchema>) => {
   console.log(values);
 };
