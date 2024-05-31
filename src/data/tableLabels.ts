@@ -109,3 +109,10 @@ export const strategies = [
     value: "2%",
   },
 ];
+
+export const exchanges = [
+  "Binance",
+  "Coinbase",
+  "Kraken",
+  "Bitstamp",
+];
