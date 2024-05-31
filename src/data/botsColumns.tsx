@@ -121,9 +121,7 @@ export const columns: ColumnDef<Bot>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex">
-          <span className="truncate font-medium">
-            {row.getValue("fees")} $
-          </span>
+          <span className="truncate font-medium">{row.getValue("fees")} $</span>
         </div>
       );
     },
@@ -136,9 +134,7 @@ export const columns: ColumnDef<Bot>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex">
-          <span className="truncate font-medium">
-            {row.getValue("asset")}
-          </span>
+          <span className="truncate font-medium">{row.getValue("asset")}</span>
         </div>
       );
     },
@@ -158,12 +154,11 @@ export const columns: ColumnDef<Bot>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
-    enableSorting: false,
   },
   {
     accessorKey: "balance",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Balance"/>
+      <DataTableColumnHeader column={column} title="Balance" />
     ),
     cell: ({ row }) => {
       return (
@@ -182,13 +177,17 @@ export const columns: ColumnDef<Bot>[] = [
     ),
     cell: ({ row }) => {
       const profits: number = row.getValue("balance");
+      const className =
+        profits > 0
+          ? "text-green-500"
+          : profits < 0
+          ? "text-red-500"
+          : "text-gray-500";
       return (
-        <div className="flex items-center">
-          {profits > 0 && <ArrowUp className="mr-2 size-4 text-green-500" />}
-          {profits < 0 && <ArrowDown className="mr-2 size-4 text-red-500" />}
-          {profits == 0 && (
-            <ArrowRight className="mr-2 size-4 text-muted-foreground" />
-          )}
+        <div className={`flex items-center ${className}`}>
+          {profits > 0 && <ArrowUp className="mr-2 size-4" />}
+          {profits < 0 && <ArrowDown className="mr-2 size-4" />}
+          {profits == 0 && <ArrowRight className="mr-2 size-4" />}
           <span>{profits} $</span>
         </div>
       );
