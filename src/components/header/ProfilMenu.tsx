@@ -40,8 +40,12 @@ export default async function ProfilMenu() {
           {session ? session.user?.email : "email@gmail.com"}
           </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profil</DropdownMenuItem>
-        <DropdownMenuItem>Support</DropdownMenuItem>
+        <NavigationLink href="/profile" aria-label="Link to profil page">
+          <DropdownMenuItem>Profil</DropdownMenuItem>
+        </NavigationLink>
+        <NavigationLink href="/support" aria-label="Link to support page">
+          <DropdownMenuItem>Support</DropdownMenuItem>
+        </NavigationLink>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <LogOutButton />
