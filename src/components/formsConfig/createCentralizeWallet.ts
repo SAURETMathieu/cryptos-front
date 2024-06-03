@@ -7,7 +7,7 @@ export const generateCentralizeFormSchema = (datas: any = {}) => {
   return z.object({
     name: z
       .string({
-        required_error: "Wallet is required.",
+        required_error: "Wallet's name is required.",
       })
       .max(30, "Wallet must be at most 30 characters.")
       .min(3, "Wallet must be at least 3 characters.")

@@ -4,6 +4,7 @@ export const walletSchema = z.object({
   id: z.string(),
   name: z.string(),
   network: z.string(),
+  address: z.string().nullable(),
   day: z.number(),
   day7: z.number(),
   month: z.number(),

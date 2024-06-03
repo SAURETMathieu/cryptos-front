@@ -7,6 +7,7 @@ const generateRandomWallet = (): Wallet => {
     id: faker.string.uuid(),
     name: faker.finance.accountName(),
     network: faker.helpers.arrayElement(networks.map(b => b.value)),
+    address: faker.finance.iban(),
     exchange: faker.helpers.arrayElement(exchanges),
     key: faker.finance.iban(),
     day: faker.number.float({ min: -100, max: 100, multipleOf: 0.01}),

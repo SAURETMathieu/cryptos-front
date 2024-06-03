@@ -21,6 +21,7 @@ export const pathnames = {
   '/forgot-password': '/forgot-password',
   '/reset-password': '/reset-password',
   '/profile': '/profile',
+  '/support': '/support',
 } satisfies Pathnames<typeof locales>;
 
 export const { Link, redirect, usePathname, useRouter } =

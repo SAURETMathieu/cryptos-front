@@ -25,7 +25,15 @@ export const generateDecentralizeFormSchema = (datas: any = {}) => {
     .refine((val) => val !== undefined, {
       message: "Network is required.",
     })
-    .default(datas.network ?? undefined)
+    .default(datas.network ?? undefined),
+
+    address: z
+    .string({
+      required_error: "Wallet's address is required.",
+    })
+    .max(30, "Wallet must be at most 30 characters.")
+    .min(3, "Wallet must be at least 3 characters.")
+    .default(datas.address ?? undefined),
   });
 };
 
@@ -42,6 +50,12 @@ export const fieldConfig = {
     label: "Network",
     inputProps: {
       placeholder: "Select network",
+    },
+  },
+  address: {
+    label: "Address",
+    inputProps: {
+      placeholder: "Enter your wallet address",
     },
   },
 };

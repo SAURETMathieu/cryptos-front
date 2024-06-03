@@ -46,6 +46,7 @@ export function DataTableRowActions<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuItem key="keys">Keys</DropdownMenuItem>
+        <DropdownMenuItem key="address">Address</DropdownMenuItem>
         <DropdownMenuItem key="bots">Bots</DropdownMenuItem>
         <DropdownMenuSeparator key="separator" />
         <DropdownMenuItem key="edit">
