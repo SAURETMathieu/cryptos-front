@@ -3,7 +3,7 @@ import { z } from "zod";
 export const walletSchema = z.object({
   id: z.string(),
   name: z.string(),
-  network: z.string(),
+  blockchain: z.string(),
   address: z.string().nullable(),
   day: z.number(),
   day7: z.number(),

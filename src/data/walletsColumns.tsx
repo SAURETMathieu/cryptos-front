@@ -26,18 +26,18 @@ export const columns: ColumnDef<Wallet>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "network",
+    accessorKey: "blockchain",
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="Network"
+        title="Blockchain"
         className="max-w-[80px]"
       />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex max-w-[80px] truncate">
-          <span className="">{row.getValue("network")}</span>
+          <span className="">{row.getValue("blockchain")}</span>
         </div>
       );
     },

@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { Wallet } from "@/src/schemas/walletSchema";
-import { networks, exchanges } from '@/src/data/tableLabels';
+import { blockchains, exchanges } from '@/src/data/tableLabels';
 
 const generateRandomWallet = (): Wallet => {
   return {
     id: faker.string.uuid(),
     name: faker.finance.accountName(),
-    network: faker.helpers.arrayElement(networks.map(b => b.value)),
+    blockchain: faker.helpers.arrayElement(blockchains.map(b => b.value)),
     address: faker.finance.iban(),
     exchange: faker.helpers.arrayElement(exchanges),
     key: faker.finance.iban(),
