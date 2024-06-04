@@ -94,7 +94,6 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
     const parsedValues = formSchema.safeParse(values);
     if (parsedValues.success) {
       onSubmitProp?.(parsedValues.data);
-      closeSheet?.();
     }
   }
 
