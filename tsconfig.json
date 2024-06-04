@@ -20,6 +20,7 @@
       "@/lib/*": ["./src/lib/*"],
       "@/utils/*": ["./src/utils/*"],
       "@/hooks/*": ["./src/hooks/*"],
+      "@/services/*": ["./src/services/*"],
       "@/src/*": ["./src/*"],
       "@/styles/*": ["./styles/*"],
       "@/types/*": ["./types/*"],
