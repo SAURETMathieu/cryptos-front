@@ -28,7 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async jwt({ token, user }) {
       const dbUser = await prisma.user.findFirst({
-        where: { email: token.email },
+        where: { email: token.email as string },
       });
 
       if (!dbUser) {
@@ -47,12 +47,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.id;
-        session.user.email = token.email;
-        session.user.emailVerified = token.email_verified;
-        session.user.name = token.name;
-        session.user.role = token.role;
-        session.user.image = token.image;
+        session.user.id = token.id as string;
+        session.user.email = token.email as string ;
+        session.user.emailVerified = token.email_verified as Date;
+        session.user.name = token.name as string;
+        session.user.role = token.role as "ADMIN" | "USER";
+        session.user.image = token.image as string;
       }
       return session;
     },
