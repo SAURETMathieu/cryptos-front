@@ -27,9 +27,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
     async jwt({ token, user }) {
+      //TODO add plan to user in the token when it will be implemented
       const dbUser = await prisma.user.findFirst({
         where: { email: token.email as string },
       });
+
+      console.log(dbUser);
+
 
       if (!dbUser) {
         token.id = user!.id;
