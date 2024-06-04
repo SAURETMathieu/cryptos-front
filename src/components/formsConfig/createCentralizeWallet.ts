@@ -1,6 +1,8 @@
 import { exchanges } from "@/src/data/tableLabels";
 import { z } from "zod";
 
+import fetchApi from "@/services/api/fetchApi";
+
 const exchangesValues = exchanges as [string, ...string[]];
 
 export const generateCentralizeFormSchema = (datas: any = {}) => {
@@ -56,8 +58,20 @@ export const fieldConfig = {
   },
 };
 
-export const onSubmit = (values: z.infer<typeof centralizeFormSchema>) => {
-  console.log(values);
+export const onSubmit = async (
+  values: z.infer<typeof centralizeFormSchema>,
+  closeSheet?: () => void
+) => {
+  try {
+    const isSuccess = await fetchApi("POST", "wallets/centralized", values);
+    if (!isSuccess) {
+      throw new Error("Failed to create wallet");
+    }
+    closeSheet?.();
+    console.log(isSuccess);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const onEdit = (values: z.infer<typeof centralizeFormSchema>) => {
