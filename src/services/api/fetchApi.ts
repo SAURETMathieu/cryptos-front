@@ -1,14 +1,14 @@
+import { getSession, signOut } from "next-auth/react";
 import { toast } from "sonner";
-import { signOut } from "next-auth/react";
 
 type Methods = "POST" | "GET" | "DELETE" | "PUT" | "PATCH";
 
-const fetchApi = async (
+const fetchApi = async <T>(
   method: Methods,
   url: string,
   requestData?: any,
   needToken?: boolean
-) => {
+): Promise<T | boolean | null> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   try {
     const endpoint = `${apiUrl}/${url}`;
@@ -18,8 +18,10 @@ const fetchApi = async (
       headers["Content-Type"] = "application/json";
     }
 
+    const session = await getSession();
+
     if (needToken) {
-      const token = localStorage.getItem("authApiToken");
+      const token = session?.account.id_token;
       if (token) {
         headers.Authorization = `Bearer ${token}`;
       } else {
@@ -32,7 +34,7 @@ const fetchApi = async (
       headers,
     };
 
-    if (method !== 'GET' && method !== 'DELETE') {
+    if (method !== "GET" && method !== "DELETE") {
       options.body = requestData === null ? null : JSON.stringify(requestData);
     }
 
@@ -46,7 +48,7 @@ const fetchApi = async (
         setTimeout(() => {
           signOut();
         }, 3000);
-        return false;
+        return null;
       }
       if (data.error) {
         toast.error(data.error);
@@ -63,7 +65,7 @@ const fetchApi = async (
       toast.success("Création réussie.");
     }
 
-    return data;
+    return data as T;
   } catch (error) {
     console.error(error);
     return null;
