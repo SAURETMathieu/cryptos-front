@@ -63,14 +63,15 @@ export const onSubmit = async (
   closeSheet?: () => void
 ) => {
   try {
-    const isSuccess = await fetchApi("POST", "wallets/centralized", values, true);
-    if (!isSuccess) {
+    const newWallet = await fetchApi("POST", "wallets/centralized", values, true);
+    if (!newWallet) {
       throw new Error("Failed to create wallet");
     }
     closeSheet?.();
-    console.log(isSuccess);
+    return newWallet;
   } catch (error) {
     console.error(error);
+    return null;
   }
 };
 

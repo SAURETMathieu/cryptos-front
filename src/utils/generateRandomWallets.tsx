@@ -4,7 +4,7 @@ import { blockchains, exchanges } from '@/src/data/tableLabels';
 
 const generateRandomWallet = (): Wallet => {
   return {
-    id: faker.string.uuid(),
+    id: faker.number.int({ min: 0, max: 1000 }),
     name: faker.finance.accountName(),
     blockchain: faker.helpers.arrayElement(blockchains.map(b => b.value)),
     address: faker.finance.iban(),
