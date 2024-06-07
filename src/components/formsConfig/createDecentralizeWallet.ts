@@ -1,12 +1,11 @@
-import { networks } from "@/src/data/tableLabels";
+import { blockchains } from "@/src/data/tableLabels";
 import { z } from "zod";
 
-const networkValues = networks
-.filter((network) => network.value !== "All")
-.map((network) => network.value) as [
-  string,
-  ...string[]
-];
+import fetchApi from "@/services/api/fetchApi";
+
+const blockchainValues = blockchains
+  .filter((blockchain) => blockchain.value !== "All")
+  .map((blockchain) => blockchain.value) as [string, ...string[]];
 
 export const generateDecentralizeFormSchema = (datas: any = {}) => {
   return z.object({
@@ -18,14 +17,22 @@ export const generateDecentralizeFormSchema = (datas: any = {}) => {
       .min(3, "Wallet must be at least 3 characters.")
       .default(datas.name ?? undefined),
 
-    network: z
-    .enum(networkValues, {
-      required_error: "Network is required.",
-    })
-    .refine((val) => val !== undefined, {
-      message: "Network is required.",
-    })
-    .default(datas.network ?? undefined)
+    blockchain: z
+      .enum(blockchainValues, {
+        required_error: "Blockchain is required.",
+      })
+      .refine((val) => val !== undefined, {
+        message: "Blockchain is required.",
+      })
+      .default(datas.blockchain ?? undefined),
+
+    address: z
+      .string({
+        required_error: "Wallet's address is required.",
+      })
+      .max(30, "Wallet must be at most 30 characters.")
+      .min(3, "Wallet must be at least 3 characters.")
+      .default(datas.address ?? undefined),
   });
 };
 
@@ -38,16 +45,34 @@ export const fieldConfig = {
       placeholder: "Enter your wallet name",
     },
   },
-  network: {
-    label: "Network",
+  blockchain: {
+    label: "Blockchain",
     inputProps: {
-      placeholder: "Select network",
+      placeholder: "Select blockchain",
+    },
+  },
+  address: {
+    label: "Address",
+    inputProps: {
+      placeholder: "Enter your wallet address",
     },
   },
 };
 
-export const onSubmit = (values: z.infer<typeof decentralizeFormSchema>) => {
-  console.log(values);
+export const onSubmit = async (
+  values: z.infer<typeof decentralizeFormSchema>,
+  closeSheet?: () => void
+) => {
+  try {
+    const isSuccess = await fetchApi("POST", "wallets/decentralized", values);
+    if (!isSuccess) {
+      throw new Error("Failed to create wallet");
+    }
+    closeSheet?.();
+    console.log(isSuccess);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const onEdit = (values: z.infer<typeof decentralizeFormSchema>) => {

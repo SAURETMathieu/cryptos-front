@@ -1,5 +1,5 @@
 import Table from "@/src/components/tables/Table";
-import { networks } from "@/src/data/tableLabels";
+import { blockchains } from "@/src/data/tableLabels";
 import { columns } from "@/src/data/walletsColumns";
 import { wallets } from "@/src/utils/generateRandomWallets";
 
@@ -15,9 +15,9 @@ import {
 
 const columnConfigs: ColumnConfig[] = [
   {
-    id: "network",
-    title: "Network",
-    options: networks,
+    id: "blockchain",
+    title: "Blockchain",
+    options: blockchains,
   },
 ];
 

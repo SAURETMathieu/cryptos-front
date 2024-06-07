@@ -1,10 +1,8 @@
 "use client";
 
-import { Button, buttonVariants } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-
-import { siteConfig } from "@/config/site";
 
 export default function IndexPage() {
   const t = useTranslations("IndexPage");

@@ -19,7 +19,7 @@ const EditWalletForm = ({ datas }: any) => {
 
   return (
     <>
-      {datas.network === "All" ? (
+      {datas.blockchain === "All" ? (
         <AutoForm
           formSchema={generateCentralizeFormSchema(datas)}
           fieldConfig={fieldConfig}

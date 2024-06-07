@@ -30,7 +30,7 @@ const WalletFormTabs = ({ closeSheet }: WalletFormTabsProps) => {
           formSchema={centralizeFormSchema}
           fieldConfig={centralizeConfig}
           closeSheet={closeSheet}
-          onSubmit={(values) => onSubmitCentralize(values)}
+          onSubmit={(values) => onSubmitCentralize(values, closeSheet)}
         ></AutoForm>
       </TabsContent>
       <TabsContent value="decentralize" className="py-8">
@@ -38,7 +38,7 @@ const WalletFormTabs = ({ closeSheet }: WalletFormTabsProps) => {
           formSchema={decentralizeFormSchema}
           fieldConfig={decentralizeConfig}
           closeSheet={closeSheet}
-          onSubmit={(values) => onSubmitDecentralize(values)}
+          onSubmit={(values) => onSubmitDecentralize(values, closeSheet)}
         ></AutoForm>
       </TabsContent>
     </Tabs>
