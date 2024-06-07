@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
+
+import { auth } from "@/lib/auth";
+
 import ProfilePage from "./ProfilePage";
-import { auth } from "@/src/lib/auth";
 
 export default async function Page() {
   const session = await auth();

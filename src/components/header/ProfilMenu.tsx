@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,10 +7,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
+import { Button } from "@/components/ui/button";
 
 import LogOutButton from "../buttons/logOutButton";
 import NavigationLink from "../utils/NavigationLink";
@@ -38,7 +38,7 @@ export default async function ProfilMenu() {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>
           {session ? session.user?.email : "email@gmail.com"}
-          </DropdownMenuLabel>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <NavigationLink href="/profile" aria-label="Link to profil page">
           <DropdownMenuItem>Profil</DropdownMenuItem>
