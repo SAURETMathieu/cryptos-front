@@ -60,6 +60,7 @@ export const fieldConfig = {
 
 export const onSubmit = async (
   values: z.infer<typeof centralizeFormSchema>,
+  addWallet: (wallet: any) => void,
   closeSheet?: () => void
 ) => {
   try {
@@ -67,6 +68,7 @@ export const onSubmit = async (
     if (!newWallet) {
       throw new Error("Failed to create wallet");
     }
+    addWallet(newWallet);
     closeSheet?.();
     return newWallet;
   } catch (error) {
@@ -75,6 +77,9 @@ export const onSubmit = async (
   }
 };
 
-export const onEdit = (values: z.infer<typeof centralizeFormSchema>) => {
-  console.log(values);
+export const onEdit = (
+  values: z.infer<typeof centralizeFormSchema>,
+  updateWallet: (updatedWallet: any) => void
+) => {
+  updateWallet(values);
 };

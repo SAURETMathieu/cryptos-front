@@ -1,12 +1,12 @@
+"use client";
+
 import Table from "@/src/components/tables/Table";
+import { useWalletsContext } from "@/src/context/walletsProvider";
 import { blockchains } from "@/src/data/tableLabels";
 import { columns } from "@/src/data/walletsColumns";
 
 import { ColumnConfig } from "@/types/datasTable";
 
-import { auth } from "@/lib/auth";
-import fetchApi from "@/services/api/fetchApi";
-import { redirect } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -23,18 +23,8 @@ const columnConfigs: ColumnConfig[] = [
   },
 ];
 
-export default async function WalletTableSection() {
-
-  const session = await auth();
-  let wallets:any= [];
-  if (session) {
-    wallets = await fetchApi("GET","wallets", null, session.account.id_token);
-    console.log(wallets);
-  }else{
-    //TODO récupérer des données fakes
-    redirect("/login");
-  }
-
+export default function WalletTableSection() {
+  const { wallets } = useWalletsContext();
   return (
     <section className="w-full gap-4 p-4 pt-0">
       <Card className="h-fit w-full max-w-full">

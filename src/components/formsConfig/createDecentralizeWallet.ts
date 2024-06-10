@@ -74,6 +74,7 @@ export const fieldConfig = {
 
 export const onSubmit = async (
   values: z.infer<typeof decentralizeFormSchema>,
+  addWallet: (wallet: any) => void,
   closeSheet?: () => void
 ) => {
   try {
@@ -86,6 +87,7 @@ export const onSubmit = async (
     if (!newWallet) {
       throw new Error("Failed to create wallet");
     }
+    addWallet(newWallet);
     closeSheet?.();
     return newWallet;
   } catch (error) {
@@ -94,6 +96,9 @@ export const onSubmit = async (
   }
 };
 
-export const onEdit = (values: z.infer<typeof decentralizeFormSchema>) => {
-  console.log(values);
+export const onEdit = (
+  values: z.infer<typeof decentralizeFormSchema>,
+  updateWallet: (updatedWallet: any) => void
+) => {
+  updateWallet(values);
 };
