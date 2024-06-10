@@ -1,4 +1,6 @@
-import EditWalletForm from "@/components/forms/EditWalletForm";
+"use client";
+
+import fetchApi from "@/services/api/fetchApi";
 import { Button } from "@/src/components/ui/button";
 import {
   DropdownMenu,
@@ -10,9 +12,12 @@ import {
 } from "@/src/components/ui/dropdown-menu";
 import { useModal } from "@/src/context/modalProvider";
 import { useUpdateModal } from "@/src/context/updateModalProvider";
+import { useWalletsContext } from "@/src/context/walletsProvider";
 import { walletSchema } from "@/src/schemas/walletSchema";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
+
+import EditWalletForm from "@/components/forms/EditWalletForm";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -23,15 +28,32 @@ export function DataTableRowActions<TData>({
 }: DataTableRowActionsProps<TData>) {
   const wallet = walletSchema.parse(row.original);
   const { openModal } = useModal();
-  const { openUpdateModal, setFormContent } = useUpdateModal();
+  const { openUpdateModal } = useUpdateModal();
+  const { updateWallet, deleteWallet } = useWalletsContext();
 
-  const onDelete = (walletId: string) => {
-    console.log("Deleted", walletId);
+  const onDelete = async (id: number | string) => {
+    try {
+      const isDeleted = await fetchApi(
+        "DELETE",
+        `wallets/${id}`,
+        null,
+        true
+      );
+      if (!isDeleted) {
+        throw new Error("Failed to delete wallet");
+      }
+      deleteWallet(id as number);
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
 
-  const formContent = (datas: any) => (
-    <EditWalletForm datas={datas}/>
-  );
+  const formContent = (
+    datas: any,
+    updateWallet: (updatedWallet: any) => void
+  ) => <EditWalletForm datas={datas} updateWallet={updateWallet} />;
 
   return (
     <DropdownMenu key={wallet.id}>
@@ -50,10 +72,10 @@ export function DataTableRowActions<TData>({
         <DropdownMenuItem key="bots">Bots</DropdownMenuItem>
         <DropdownMenuSeparator key="separator" />
         <DropdownMenuItem key="edit">
-        <Button
+          <Button
             variant="ghost"
             className="h-fit w-full p-0"
-            onClick={() => openUpdateModal(formContent(wallet))}
+            onClick={() => openUpdateModal(formContent(wallet, updateWallet))}
           >
             Edit
             <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
@@ -63,7 +85,7 @@ export function DataTableRowActions<TData>({
           <Button
             variant="ghost"
             className="h-fit w-full p-0"
-            onClick={() => openModal(wallet.id, () => onDelete(wallet.id))}
+            onClick={() => openModal(wallet.id, onDelete)}
           >
             Delete
             <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>

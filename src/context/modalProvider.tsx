@@ -5,7 +5,7 @@ import DeleteModal from "@/components/modals/DeleteAlert";
 
 type ModalContextType = {
   isOpen: boolean;
-  openModal: (id: string, onDelete: (id: string) => void) => void;
+  openModal: (id: string | number, onDelete: (id: string | number) => Promise<boolean>) => void;
   closeModal: () => void;
   handleDelete: () => void;
 };
@@ -22,10 +22,10 @@ export const useModal = () => {
 
 export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [onDelete, setOnDelete] = useState<(id: string) => void>(() => () => {});
-  const [elementId, setElementId] = useState<string | null>(null);
+  const [onDelete, setOnDelete] = useState<((id: string | number) => Promise<boolean>) | null>(null);
+  const [elementId, setElementId] = useState<string | number | null>(null);
 
-  const openModal = (id: string, onDelete: (id: string) => void) => {
+  const openModal = (id: string | number, onDelete: (id: string | number) => Promise<boolean>) => {
     setIsOpen(true);
     setElementId(id);
     setOnDelete(() => onDelete);
@@ -34,14 +34,16 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   const closeModal = () => {
     setIsOpen(false);
     setElementId(null);
-    setOnDelete(() => () => {});
+    setOnDelete(null);
   };
 
-  const handleDelete = () => {
-    if (elementId) {
-      onDelete(elementId);
+  const handleDelete = async () => {
+    if (elementId && onDelete) {
+      const isDelete = await onDelete(elementId);
+      if(isDelete){
+        closeModal();
+      }
     }
-    closeModal();
   };
 
   return (
