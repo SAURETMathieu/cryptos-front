@@ -41,6 +41,11 @@ const fetchApi = async <T>(
     }
 
     const response = await fetch(endpoint, options);
+
+    if (response.status === 204) {
+      toast.success("Suppression réussie.");
+      return true;
+    }
     const data = await response.json();
 
     if (!response.ok) {
@@ -56,11 +61,6 @@ const fetchApi = async <T>(
         toast.error(data.error.message);
         throw new Error(data.error);
       }
-    }
-
-    if (response.status === 204) {
-      toast.success("Suppression réussie.");
-      return true;
     }
 
     if (response.status === 201) {
