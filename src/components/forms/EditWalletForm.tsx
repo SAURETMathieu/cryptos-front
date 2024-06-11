@@ -29,14 +29,14 @@ const EditWalletForm = ({ datas, updateWallet }: EditWalletFormProps) => {
           formSchema={generateCentralizeFormSchema(datas)}
           fieldConfig={fieldConfig}
           closeSheet={closeUpdateModal}
-          onSubmit={(values) => onEdit(values, updateWallet)}
+          onSubmit={(values) => onEdit(values, updateWallet, datas.id, closeUpdateModal)}
         />
       ) : (
         <AutoForm
           formSchema={generateDecentralizeFormSchema(datas)}
           fieldConfig={fieldConfigDecentralize}
           closeSheet={closeUpdateModal}
-          onSubmit={(values) => onEditDecentralize(values, updateWallet)}
+          onSubmit={(values) => onEditDecentralize(values, updateWallet, datas.id, closeUpdateModal)}
         />
       )}
     </>

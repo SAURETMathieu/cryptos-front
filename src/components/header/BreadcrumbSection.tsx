@@ -13,13 +13,13 @@ export default function BreadcrumbSection() {
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="#">Dashboard</Link>
+            <Link href="#">Home</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="#">Orders</Link>
+            <Link href="#">Wallets</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
       </BreadcrumbList>

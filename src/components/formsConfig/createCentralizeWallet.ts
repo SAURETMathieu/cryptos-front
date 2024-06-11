@@ -77,9 +77,23 @@ export const onSubmit = async (
   }
 };
 
-export const onEdit = (
+export const onEdit = async (
   values: z.infer<typeof centralizeFormSchema>,
-  updateWallet: (updatedWallet: any) => void
+  updateWallet: (updatedWallet: any) => void,
+  idToUpdate: number,
+  closeUpdateModal?: () => void
 ) => {
-  updateWallet(values);
+  try {
+    const updatedWallet = await fetchApi("PATCH", `wallets/${idToUpdate}`, values, true);
+    if (!updatedWallet) {
+      throw new Error("Failed to create wallet");
+    }
+    closeUpdateModal?.();
+
+    updateWallet(updatedWallet);
+    return updatedWallet;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
