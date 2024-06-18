@@ -9,17 +9,33 @@ import {
   ArrowUpIcon,
 } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
 
 export const columns: ColumnDef<Wallet>[] = [
+  {
+    accessorKey: "id",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="id" className="sr-only" />
+    ),
+    cell: ({ row }) => {
+      return (
+            <span className="sr-only">{row.getValue("id")}</span>
+      );
+    },
+    enableHiding: false,
+  },
   {
     accessorKey: "name",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Name" className="" />
     ),
     cell: ({ row }) => {
+      console.log(row.getValue("id"));
       return (
         <div className="max-w-[80px] truncate sm:max-w-[150px]">
-          <span className="pl-2 font-bold">{row.getValue("name")}</span>
+          <Link href={`/wallets/${row.getValue("id")}`}>
+            <span className="pl-2 font-bold">{row.getValue("name")}</span>
+          </Link>
         </div>
       );
     },
