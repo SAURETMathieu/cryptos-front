@@ -29,12 +29,14 @@ import {
 } from "@tanstack/react-table";
 
 import { ColumnConfig } from "@/types/datasTable";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   filter?: boolean;
   columnConfigs?: ColumnConfig[];
+  rawLink?: string;
 }
 
 export function DataTable<TData, TValue>({
@@ -42,6 +44,7 @@ export function DataTable<TData, TValue>({
   data,
   filter = true,
   columnConfigs,
+  rawLink,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -81,6 +84,7 @@ export function DataTable<TData, TValue>({
     xl,
     xxl,
   };
+  const router = useRouter();
 
   React.useEffect(() => {
     table.getAllColumns().forEach((column) => {
@@ -92,6 +96,15 @@ export function DataTable<TData, TValue>({
       }
     });
   }, [sm, md, lg, xl, xxl, table]);
+
+  const handleRowClick = (row: any) => {
+    if (!rawLink) return;
+    const datas:any = row.original;
+    const pathToPush = datas[rawLink];
+    const currentPath = window.location.pathname;
+    const newPath = `${currentPath}/${pathToPush}`;
+    router.push(newPath);
+  };
 
   return (
     <div className="space-y-4">
@@ -123,6 +136,7 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() ? "selected" : undefined}
+                  onClick={() => handleRowClick(row)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
