@@ -22,7 +22,7 @@ export default function BotDetails() {
         <CardHeader className="flex flex-row items-start bg-muted/50 py-3 pr-2">
           <div className="grid gap-0.5">
             <CardTitle className="group flex items-center gap-2 text-lg">
-              Nom du bot
+              Name of the bot
             </CardTitle>
             <CardDescription>Date: November 23, 2023</CardDescription>
           </div>
@@ -49,7 +49,7 @@ export default function BotDetails() {
             <span className="text-muted-foreground">Wallet :</span>
             <span className="font-semibold">Binance</span>
           </div>
-          <span className="text-center font-semibold">Actif</span>
+          <span className="text-center font-semibold text-green-700">Actif</span>
           <Separator className="my-2" />
           <div className="grid grid-cols-2 gap-2">
             <div className="grid auto-rows-max gap-3">
@@ -68,14 +68,14 @@ export default function BotDetails() {
           <Separator className="my-2" />
           <div className="grid grid-cols-2 gap-2">
             <div className="grid auto-rows-max gap-3">
-              <div className="font-semibold">Début</div>
+              <div className="font-semibold">Start</div>
               <div className="grid gap-2 text-muted-foreground">
                 <span>November 23, 2023</span>
                 <span>10h00</span>
               </div>
             </div>
             <div className="grid auto-rows-max gap-3">
-              <div className="font-semibold">Fin</div>
+              <div className="font-semibold">End</div>
               <div className="grid gap-2 text-muted-foreground">
                 <span>November 23, 2023</span>
                 <span>10h00</span>
@@ -88,19 +88,19 @@ export default function BotDetails() {
             <span>$ 45645.25 $</span>
           </div>
           <div className="flex justify-between text-sm text-muted-foreground">
-            <span>Max investis :</span>
+            <span>Max invest :</span>
             <span>$ 54287.00 $</span>
           </div>
           <div className="flex justify-between text-sm text-muted-foreground">
-            <span>Prix moyen :</span>
+            <span>Average price :</span>
             <span>250.0520520 $</span>
           </div>
           <div className="flex justify-between text-sm text-muted-foreground">
-            <span>Frais :</span>
+            <span>Fees :</span>
             <span>50.52 $</span>
           </div>
           <div className="flex justify-between text-sm text-muted-foreground">
-            <span>Bénéfices :</span>
+            <span>Profits :</span>
             <span className="font-bold">$ 5800.50 $</span>
           </div>
         </CardContent>

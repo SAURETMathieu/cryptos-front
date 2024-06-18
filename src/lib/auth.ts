@@ -31,12 +31,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (!profile?.email) {
         throw new Error("No profile email found");
       }
-
       return true;
     },
     async session({ session, token }) {
-      console.log("sdfsdf", token);
-
       if (token) {
         session.user = token.user as ExtendedUser;
         session.account = token.account;

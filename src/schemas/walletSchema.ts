@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const walletSchema = z.object({
-  id: z.string(),
+  id: z.number(),
   name: z.string(),
   blockchain: z.string(),
   address: z.string().nullable(),
@@ -12,7 +12,7 @@ export const walletSchema = z.object({
   balance: z.number(),
   profits: z.number(),
   key: z.string(),
-  exchange: z.string(),
+  exchange: z.string().nullable(),
 });
 
 export type Wallet = z.infer<typeof walletSchema>;

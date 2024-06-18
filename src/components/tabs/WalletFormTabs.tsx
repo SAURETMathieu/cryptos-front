@@ -13,12 +13,14 @@ import {
   decentralizeFormSchema,
   onSubmit as onSubmitDecentralize,
 } from "@/components/formsConfig/createDecentralizeWallet";
+import { useWalletsContext } from "@/src/context/walletsProvider";
 
 type WalletFormTabsProps = {
   closeSheet?: () => void;
 };
 
 const WalletFormTabs = ({ closeSheet }: WalletFormTabsProps) => {
+  const { addWallet } = useWalletsContext();
   return (
     <Tabs defaultValue="centralize" className="">
       <TabsList className="grid w-full grid-cols-2 gap-1">
@@ -30,7 +32,7 @@ const WalletFormTabs = ({ closeSheet }: WalletFormTabsProps) => {
           formSchema={centralizeFormSchema}
           fieldConfig={centralizeConfig}
           closeSheet={closeSheet}
-          onSubmit={(values) => onSubmitCentralize(values, closeSheet)}
+          onSubmit={(values) => onSubmitCentralize(values, addWallet, closeSheet )}
         ></AutoForm>
       </TabsContent>
       <TabsContent value="decentralize" className="py-8">
@@ -38,7 +40,7 @@ const WalletFormTabs = ({ closeSheet }: WalletFormTabsProps) => {
           formSchema={decentralizeFormSchema}
           fieldConfig={decentralizeConfig}
           closeSheet={closeSheet}
-          onSubmit={(values) => onSubmitDecentralize(values, closeSheet)}
+          onSubmit={(values) => onSubmitDecentralize(values, addWallet, closeSheet )}
         ></AutoForm>
       </TabsContent>
     </Tabs>

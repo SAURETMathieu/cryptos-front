@@ -7,7 +7,7 @@ const fetchApi = async <T>(
   method: Methods,
   url: string,
   requestData?: any,
-  needToken?: boolean
+  sendToken?: boolean | string
 ): Promise<T | boolean | null> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   try {
@@ -18,15 +18,17 @@ const fetchApi = async <T>(
       headers["Content-Type"] = "application/json";
     }
 
-    const session = await getSession();
-
-    if (needToken) {
-      const token = session?.account.id_token;
-      if (token) {
-        headers.Authorization = `Bearer ${token}`;
-      } else {
-        console.log("Token is missing.");
-      }
+    let token: string | null = null;
+    //sendToken is a string when we are in server component cause we already have the token
+    // if we are in server and don't have the token we will get it from the session before this function
+    //sendToken is a boolean when we are in client component
+    if (typeof sendToken === "string") {
+      token = sendToken;
+      headers.Authorization = `Bearer ${token}`;
+    } else if (sendToken) {
+      const session = await getSession();
+      token = session?.account.id_token;
+      headers.Authorization = `Bearer ${token}`;
     }
 
     const options: RequestInit = {
@@ -39,6 +41,11 @@ const fetchApi = async <T>(
     }
 
     const response = await fetch(endpoint, options);
+
+    if (response.status === 204) {
+      toast.success("Suppression réussie.");
+      return true;
+    }
     const data = await response.json();
 
     if (!response.ok) {
@@ -51,14 +58,9 @@ const fetchApi = async <T>(
         return null;
       }
       if (data.error) {
-        toast.error(data.error);
+        toast.error(data.error.message);
         throw new Error(data.error);
       }
-    }
-
-    if (response.status === 204) {
-      toast.success("Suppression réussie.");
-      return true;
     }
 
     if (response.status === 201) {

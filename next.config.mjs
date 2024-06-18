@@ -18,6 +18,16 @@ export const nextConfig = {
         hostname: 'lh3.googleusercontent.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.moralis.io',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'logo.moralis.io',
+        pathname: '/**',
+      },
     ],
   },
 };
