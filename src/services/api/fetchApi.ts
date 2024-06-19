@@ -58,7 +58,7 @@ const fetchApi = async <T>(
         return null;
       }
       if (data.error) {
-        toast.error(data.error.message);
+        toast.error(data.error.message || data.error);
         throw new Error(data.error);
       }
     }
