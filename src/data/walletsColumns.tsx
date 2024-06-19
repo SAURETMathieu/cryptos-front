@@ -30,7 +30,6 @@ export const columns: ColumnDef<Wallet>[] = [
       <DataTableColumnHeader column={column} title="Name" className="" />
     ),
     cell: ({ row }) => {
-      console.log(row.getValue("id"));
       return (
         <div className="max-w-[80px] truncate sm:max-w-[150px]">
           <Link href={`/wallets/${row.getValue("id")}`}>

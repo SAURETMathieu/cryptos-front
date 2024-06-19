@@ -53,7 +53,7 @@ export async function upsertUserAndAccount(token: any): Promise<boolean> {
       });
 
       console.log("Upsert of User and Account successful.");
-      return true; // or whatever value you want to return on success
+      return true;
     });
 
     return test;

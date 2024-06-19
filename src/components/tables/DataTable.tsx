@@ -106,6 +106,8 @@ export function DataTable<TData, TValue>({
     router.push(newPath);
   };
 
+  console.log("render subtable");
+
   return (
     <div className="space-y-4">
       <DataTableToolbar

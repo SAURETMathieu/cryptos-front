@@ -1,11 +1,11 @@
 "use client";
 
 import Table from "@/src/components/tables/Table";
-import { useWalletsContext } from "@/src/context/walletsProvider";
 import { blockchains } from "@/src/data/tableLabels";
 import { columns } from "@/src/data/walletsColumns";
 
 import { ColumnConfig } from "@/types/datasTable";
+import useStore from "@/hooks/useStore";
 
 import {
   Card,
@@ -24,7 +24,10 @@ const columnConfigs: ColumnConfig[] = [
 ];
 
 export default function WalletTableSection() {
-  const { wallets } = useWalletsContext();
+  const wallets:any = useStore((state) => state.wallets);
+  console.log("render table section");
+  console.log(wallets);
+
   return (
     <section className="w-full gap-4 p-4 pt-0">
       <Card className="h-fit w-full max-w-full">

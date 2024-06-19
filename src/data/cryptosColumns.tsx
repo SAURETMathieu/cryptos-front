@@ -156,8 +156,6 @@ export const columns: ColumnDef<Crypto>[] = [
       <DataTableColumnHeader column={column} title="Balance" />
     ),
     cell: ({ row }) => {
-      console.log(row.original);
-
       const datas:any = row.original;
 
       const balance = datas.price * datas.nbToken;
