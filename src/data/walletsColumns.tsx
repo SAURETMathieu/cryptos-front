@@ -119,33 +119,15 @@ export const columns: ColumnDef<Wallet>[] = [
     },
   },
   {
-    accessorKey: "fees",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Fees"
-        className="w-[80px]"
-      />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex">
-          <span className="w-[80px] truncate font-light">
-            {row.getValue("fees")} $
-          </span>
-        </div>
-      );
-    },
-  },
-  {
     accessorKey: "balance",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Balance" />
     ),
     cell: ({ row }) => {
+      const balance: number = row.getValue("balance");
       return (
         <span className="max-w-[500px] truncate font-bold">
-          {row.getValue("balance")} $
+          {balance.toFixed(2)} $
         </span>
       );
     },
@@ -161,7 +143,7 @@ export const columns: ColumnDef<Wallet>[] = [
       />
     ),
     cell: ({ row }) => {
-      const profits: number = row.getValue("balance");
+      const profits: number = row.getValue("profits");
       return (
         <div className="flex items-center font-bold">
           {profits > 0 && (
