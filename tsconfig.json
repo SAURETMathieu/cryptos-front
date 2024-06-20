@@ -24,6 +24,7 @@
       "@/src/*": ["./src/*"],
       "@/styles/*": ["./styles/*"],
       "@/types/*": ["./types/*"],
+      "@/public/*": ["./public/*"],
     },
     "plugins": [
       {
