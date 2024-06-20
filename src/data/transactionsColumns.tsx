@@ -11,11 +11,7 @@ export const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "transaction",
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title=""
-        className="w-fit p-0"
-      />
+      <DataTableColumnHeader column={column} title="" className="w-fit p-0" />
     ),
     cell: ({ row }) => {
       return (
@@ -172,7 +168,7 @@ export const columns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => {
       const quantity: number = row.getValue("quantity") as number;
       const price: number = row.getValue("price") as number;
-      const total = (quantity * price).toFixed(2);
+      const total = quantity && price ? (quantity * price).toFixed(2) : "0.00";
       return (
         <span className="max-w-[500px] truncate font-medium">{total}</span>
       );
