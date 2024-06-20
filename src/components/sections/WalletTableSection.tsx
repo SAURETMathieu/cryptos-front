@@ -26,8 +26,7 @@ const columnConfigs: ColumnConfig[] = [
 export default function WalletTableSection() {
   const wallets:any = useStore((state) => state.wallets);
   console.log("render table section");
-  console.log(wallets);
-
+  
   return (
     <section className="w-full gap-4 p-4 pt-0">
       <Card className="h-fit w-full max-w-full">

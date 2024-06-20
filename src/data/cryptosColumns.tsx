@@ -5,6 +5,7 @@ import { Crypto } from "@/src/schemas/cryptoSchema";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowDown, ArrowRight, ArrowUp, Info } from "lucide-react";
 import Image from "next/image";
+import emptyTokenSvg from "@/public/images/empty-token.svg";
 
 export const columns: ColumnDef<Crypto>[] = [
   {
@@ -31,6 +32,9 @@ export const columns: ColumnDef<Crypto>[] = [
     ),
     cell: ({ row }) => {
       const datas: any = row.original;
+      if(datas.logo_url === "/empty-token.svg"){
+        datas.logo_url = emptyTokenSvg;
+      }
 
       return (
         <span className="font-medium">

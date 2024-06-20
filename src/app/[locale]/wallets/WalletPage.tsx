@@ -4,7 +4,6 @@ import WalletSpread from "@/src/components/sections/WalletSpread";
 import WalletTableSection from "@/src/components/sections/WalletTableSection";
 
 export default function WalletsPage() {
-
   return (
     <main className="flex min-h-screen flex-1 max-lg:flex-col sm:py-4 sm:pl-14">
       <section className="flex w-full flex-col gap-2 lg:w-8/12 xl:w-9/12 2xl:w-10/12">
