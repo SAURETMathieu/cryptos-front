@@ -7,17 +7,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function BalanceCard() {
   const locale = useLocale();
-  const wallets: any = useStore((state) => state.wallets);
-  const totalBalance = wallets.reduce(
-    (acc: any, wallet: any) => acc + wallet.balance,
-    0
-  );
+  const balanceTotal: any = useStore((state) => state.balanceTotal);
   const options = {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   };
   const totalBalanceFormatted = new Intl.NumberFormat(locale, options).format(
-    totalBalance
+    balanceTotal
   );
   return (
     <Card className="">
