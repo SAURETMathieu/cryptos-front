@@ -9,10 +9,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/src/components/ui/card";
+
+import useStore from "@/hooks/useStore";
 import { aggregateBalances } from "@/utils/aggregateBalances";
 
-export default function WalletCryptoSpread({ wallet }: any) {
-  const cryptosBalancesOfWallet = aggregateBalances([wallet]);
+export default function WalletCryptoSpread() {
+  const wallets: any = useStore((state) => state.wallets);
+
+  const cryptosBalancesOfAllWallets = aggregateBalances(wallets);
 
   return (
     <section className="w-full p-4 pt-0 lg:pl-0">
@@ -22,20 +26,15 @@ export default function WalletCryptoSpread({ wallet }: any) {
             Spread of Cryptos
           </CardTitle>
           <CardDescription>
-            Spread of your cryptos balances for the wallet :
-            <span className="pl-2 text-lg font-bold">{wallet.name}</span>.
+            Spread of your wallets cryptos balances.
           </CardDescription>
         </CardHeader>
         <CardContent className="w-full p-2">
-          <PieChartGraph datas={cryptosBalancesOfWallet} />
+          <PieChartGraph datas={cryptosBalancesOfAllWallets} />
         </CardContent>
-        <CardFooter className="flex flex-col gap-2">
+        <CardFooter>
           <p className="text-sm text-muted-foreground">
-            This section shows the spread of your wallet cryptos balances in
-            percent.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Cryptos with less than 0.1% are not displayed in percentage.
+            This section shows the spread of your wallets cryptos balances in percent.
           </p>
         </CardFooter>
       </Card>

@@ -1,7 +1,7 @@
 import CardsSection from "@/src/components/sections/CardsSection";
 import WalletNav from "@/src/components/sections/WalletNav";
 import WalletSpread from "@/src/components/sections/WalletSpread";
-import WalletCryptoSpread from "@/src/components/sections/WalletCryptoSpread";
+import WalletCryptoSpread from "@/components/sections/WalletsCryptoSpread";
 import WalletTableSection from "@/src/components/sections/WalletTableSection";
 
 export default function WalletsPage() {
