@@ -1,8 +1,8 @@
 export const aggregateBalances = (wallets:any[]) => {
   const balanceMap = new Map();
 
-  wallets.forEach((wallet: any) => {
-    wallet.balances.forEach((balance: any) => {
+  wallets?.forEach((wallet: any) => {
+    wallet.balances?.forEach((balance: any) => {
       const { asset, nbToken, price } = balance;
       if (balanceMap.has(asset)) {
         balanceMap.set(asset, balanceMap.get(asset) + nbToken * price);
