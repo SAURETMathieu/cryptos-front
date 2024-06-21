@@ -4,12 +4,14 @@ import { create } from "zustand";
 export const useStore = create((set: any) => ({
   wallets: [] as any[],
   balanceTotal: 0,
+  balanceOfAllWallets: [] as any[],
   profitsTotal: 0,
   devise: "USD",
   fetchWallets: async (token: string) => {
     try {
       const wallets = await fetchApi("GET", "wallets", null, token);
       useStore.getState().calcBalanceTotal();
+      useStore.getState().calcBalanceOfAllWallets();
       useStore.getState().calcProfitsTotal();
       set({ wallets });
     } catch (error) {
@@ -25,6 +27,14 @@ export const useStore = create((set: any) => ({
       0
     );
     set({ balanceTotal });
+  },
+  calcBalanceOfAllWallets: () => {
+    const wallets = useStore.getState().wallets;
+    const balanceOfAllWallets = wallets.map((wallet: any) => ({
+      id: wallet.id,
+      balance: wallet.balance,
+    }));
+    set({ balanceOfAllWallets });
   },
   calcProfitsTotal: () => {
     const wallets = useStore.getState().wallets;
@@ -54,6 +64,7 @@ export const updateWallet = (updatedWallet: any) => {
 export const deleteWallet = (id: number) => {
   const wallets = useStore.getState().wallets;
   useStore.getState().calcBalanceTotal();
+  useStore.getState().calcBalanceOfAllWallets();
   useStore.getState().calcProfitsTotal();
   useStore.setState({
     wallets: wallets.filter((wallet: any) => wallet.id !== id),
