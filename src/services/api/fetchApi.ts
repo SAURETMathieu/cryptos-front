@@ -3,12 +3,17 @@ import { toast } from "sonner";
 
 type Methods = "POST" | "GET" | "DELETE" | "PUT" | "PATCH";
 
+interface ApiError {
+  message: string;
+  status: number;
+}
+
 const fetchApi = async <T>(
   method: Methods,
   url: string,
   requestData?: any,
   sendToken?: boolean | string
-): Promise<T | boolean | null> => {
+): Promise<T | boolean | null | ApiError> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   try {
     const endpoint = `${apiUrl}/${url}`;
@@ -48,19 +53,21 @@ const fetchApi = async <T>(
     }
     const data = await response.json();
 
+    if (response.status === 403 && data.error === "Invalid token") {
+      //TODO to test
+      toast.error("Session expired. Please login again.");
+      setTimeout(() => {
+        signOut();
+      }, 3000);
+      return null;
+    }
+
     if (!response.ok) {
-      if (response.status === 403 && data.error === "Invalid token") {
-        //TODO to test
-        toast.error("Session expired. Please login again.");
-        setTimeout(() => {
-          signOut();
-        }, 3000);
-        return null;
+      const errorMessage = data.error?.message || data.error;
+      if (typeof window !== 'undefined') {
+        toast.error(errorMessage);
       }
-      if (data.error) {
-        toast.error(data.error.message || data.error);
-        throw new Error(data.error);
-      }
+      return { message: errorMessage, status: response.status };
     }
 
     if (response.status === 201) {
