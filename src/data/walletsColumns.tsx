@@ -68,6 +68,7 @@ export const columns: ColumnDef<Wallet>[] = [
     ),
     cell: ({ row }) => {
       const day: number = row.getValue("day");
+      if(day == null) return <span className="text-muted-foreground">N/A</span>
       return (
         <div className="flex items-center font-light">
           {day > 0 && <ArrowUpIcon className="mr-2 size-4 text-green-500" />}
@@ -87,6 +88,7 @@ export const columns: ColumnDef<Wallet>[] = [
     ),
     cell: ({ row }) => {
       const day7: number = row.getValue("day7");
+      if(day7 == null) return <span className="text-muted-foreground">N/A</span>
       return (
         <div className="flex items-center font-light">
           {day7 > 0 && <ArrowUpIcon className="mr-2 size-4 text-green-500" />}
@@ -106,6 +108,7 @@ export const columns: ColumnDef<Wallet>[] = [
     ),
     cell: ({ row }) => {
       const month: number = row.getValue("month");
+      if(month == null) return <span className="text-muted-foreground">N/A</span>
       return (
         <div className="flex items-center font-light">
           {month > 0 && <ArrowUpIcon className="mr-2 size-4 text-green-500" />}
@@ -125,6 +128,7 @@ export const columns: ColumnDef<Wallet>[] = [
     ),
     cell: ({ row }) => {
       const balance: number = row.getValue("balance");
+      if(balance == null) return <span className="max-w-[500px] truncate font-bold">N/A</span>
       return (
         <span className="max-w-[500px] truncate font-bold">
           {balance.toFixed(2)} $

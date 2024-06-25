@@ -49,26 +49,29 @@ export const useStore = create((set: any) => ({
 
 export const addWallet = (wallet: any) => {
   const wallets = useStore.getState().wallets;
-  useStore.setState({ wallets: [...wallets, wallet] });
+  useStore.setState({ wallets: [...wallets, wallet[0]] });
+  useStore.getState().calcBalanceTotal();
+  useStore.getState().calcBalanceOfAllWallets();
+  useStore.getState().calcProfitsTotal();
 };
 
 export const updateWallet = (updatedWallet: any) => {
   const wallets = useStore.getState().wallets;
   useStore.setState({
     wallets: wallets.map((wallet: any) =>
-      wallet.id === updatedWallet.id ? updatedWallet : wallet
+      wallet.id === updatedWallet.id ? { ...wallet, name: updatedWallet.name } : wallet
     ),
   });
 };
 
 export const deleteWallet = (id: number) => {
   const wallets = useStore.getState().wallets;
-  useStore.getState().calcBalanceTotal();
-  useStore.getState().calcBalanceOfAllWallets();
-  useStore.getState().calcProfitsTotal();
   useStore.setState({
     wallets: wallets.filter((wallet: any) => wallet.id !== id),
   });
+  useStore.getState().calcBalanceTotal();
+  useStore.getState().calcBalanceOfAllWallets();
+  useStore.getState().calcProfitsTotal();
 };
 
 export default useStore;
