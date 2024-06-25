@@ -67,7 +67,10 @@ const fetchApi = async <T>(
       if (typeof window !== 'undefined') {
         toast.error(errorMessage);
       }
-      return { message: errorMessage, status: response.status };
+      if(response.status === 404 || response.status === 403){
+        return { message: errorMessage, status: response.status };
+      }
+      return null;
     }
 
     if (response.status === 201) {
