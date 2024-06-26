@@ -28,8 +28,6 @@ const Table = <TData, TValue>({
     setIsReady(true);
   }, []);
 
-  console.log("render table");
-
   if (!isReady) {
     return <div>Loading...</div>;
   }
