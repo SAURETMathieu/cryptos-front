@@ -4,15 +4,10 @@ import AutoForm from "@/src/components/auto-form";
 import { useUpdateModal } from "@/src/context/updateModalProvider";
 
 import {
-  fieldConfig,
-  generateCentralizeFormSchema,
+  fieldConfigUpdate,
+  updateWalletFormSchema,
   onEdit,
-} from "@/components/formsConfig/createCentralizeWallet";
-import {
-  fieldConfig as fieldConfigDecentralize,
-  generateDecentralizeFormSchema,
-  onEdit as onEditDecentralize,
-} from "@/components/formsConfig/createDecentralizeWallet";
+} from "@/components/formsConfig/updateWallet";
 
 interface EditWalletFormProps {
   datas: any;
@@ -20,23 +15,24 @@ interface EditWalletFormProps {
 }
 
 const EditWalletForm = ({ datas, updateWallet }: EditWalletFormProps) => {
-  const { closeUpdateModal } = useUpdateModal();
+  const { closeUpdateModal, setDescription } = useUpdateModal();
+  setDescription("Update your wallet");
 
   return (
     <>
       {datas.blockchain === "All" ? (
         <AutoForm
-          formSchema={generateCentralizeFormSchema(datas)}
-          fieldConfig={fieldConfig}
+          formSchema={updateWalletFormSchema(datas)}
+          fieldConfig={fieldConfigUpdate}
           closeSheet={closeUpdateModal}
           onSubmit={(values) => onEdit(values, updateWallet, datas.id, closeUpdateModal)}
         />
       ) : (
         <AutoForm
-          formSchema={generateDecentralizeFormSchema(datas)}
-          fieldConfig={fieldConfigDecentralize}
+          formSchema={updateWalletFormSchema(datas)}
+          fieldConfig={fieldConfigUpdate}
           closeSheet={closeUpdateModal}
-          onSubmit={(values) => onEditDecentralize(values, updateWallet, datas.id, closeUpdateModal)}
+          onSubmit={(values) => onEdit(values, updateWallet, datas.id, closeUpdateModal)}
         />
       )}
     </>

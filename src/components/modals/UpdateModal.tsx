@@ -8,7 +8,7 @@ import {
 import { useUpdateModal } from "@/src/context/updateModalProvider";
 
 const UpdateModal = () => {
-  const { isOpen, closeUpdateModal, formContent } = useUpdateModal();
+  const { isOpen, closeUpdateModal, formContent, description } = useUpdateModal();
 
   if (!isOpen) {
     return null;
@@ -19,7 +19,7 @@ const UpdateModal = () => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Update</DialogTitle>
-          <DialogDescription>Description</DialogDescription>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         {formContent ? (
           formContent
