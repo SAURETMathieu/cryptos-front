@@ -8,7 +8,6 @@ export const walletSchema = z.object({
   day: z.number().nullable(),
   day7: z.number().nullable(),
   month: z.number().nullable(),
-  fees: z.number().nullable(),
   balance: z.number().nullable(),
   profits: z.number().nullable(),
   key: z.string().nullable(),
