@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (session) {
     const fetchedWallet: any = await fetchApi(
       "GET",
-      `wallets/${params.id}`,
+      `wallets/${walletId}`,
       null,
       session.account.id_token
     );
@@ -23,12 +23,11 @@ export default async function Page({ params }: { params: { id: string } }) {
     } else if (fetchedWallet.status === 404) {
       return <ErrorPage statusCode={404} message={fetchedWallet.message}/>;
     }
-
     walletWithCryptos = fetchedWallet;
   } else {
     //TODO récupérer des données fakes
     redirect("/login");
   }
 
-  return <WalletPage walletWithCryptos={walletWithCryptos} walletId={walletId}/>;
+  return <WalletPage walletWithCryptos={walletWithCryptos}/>;
 }

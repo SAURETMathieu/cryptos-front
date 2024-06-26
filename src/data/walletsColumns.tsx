@@ -147,7 +147,11 @@ export const columns: ColumnDef<Wallet>[] = [
       />
     ),
     cell: ({ row }) => {
-      const profits: number = row.getValue("profits");
+      let profits: number = row.getValue("profits");
+      if(profits == null){
+        profits = 0;
+      }
+
       return (
         <div className="flex items-center font-bold">
           {profits > 0 && (
@@ -159,7 +163,7 @@ export const columns: ColumnDef<Wallet>[] = [
           {profits == 0 && (
             <ArrowRightIcon className="mr-2 size-4 text-muted-foreground" />
           )}
-          <span>{profits} $</span>
+          <span>{profits.toFixed(2)} $</span>
         </div>
       );
     },

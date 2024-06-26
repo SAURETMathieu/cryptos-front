@@ -1,7 +1,6 @@
 import { Button } from "@/src/components/ui/button";
-
-import { LeftSheetForm } from "@/components/modals/LeftSheetForm";
-import WalletFormTabs from "@/components/tabs/WalletFormTabs";
+import formatIdx from "@/utils/formatIdx";
+import { Copy } from "lucide-react";
 
 import {
   Card,
@@ -10,14 +9,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { LeftSheetForm } from "@/components/modals/LeftSheetForm";
+import WalletFormTabs from "@/components/tabs/WalletFormTabs";
+import CopyButton from "@/components/buttons/copyButton";
 
-export default function AddWalletCard() {
+interface AddWalletCardProps {
+  wallet?: any;
+}
+
+export default function AddWalletCard({ wallet }: AddWalletCardProps) {
   return (
     <Card className="items-between flex flex-col">
       <CardHeader className="">
-        <CardTitle className="text-xl font-medium">Your wallets</CardTitle>
-        <CardDescription className="max-w-lg text-balance text-sm leading-relaxed">
-          Track your wallets
+        <CardTitle className="text-2xl font-medium">
+          {wallet ? wallet.name : "Your wallets"}
+        </CardTitle>
+        <CardDescription className="flex max-w-lg gap-2 text-balance text-sm leading-relaxed">
+          <span className="max-w-[80%]">
+            {wallet ? formatIdx(wallet.address, 7) : "Your wallets"}
+          </span>
+          {wallet && <CopyButton toCopy={wallet.address}/>}
         </CardDescription>
       </CardHeader>
       <CardFooter className="">

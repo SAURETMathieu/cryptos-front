@@ -10,10 +10,10 @@ interface CardsSectionProps {
 export default function CardsSection({ wallet }: CardsSectionProps) {
   return (
     <section className="grid gap-4 p-4 py-0 sm:grid-cols-2 md:gap-2 xl:grid-cols-4">
-      <AddWalletCard />
+      <AddWalletCard wallet={wallet}/>
       <AddBotCard />
       <BalanceCard wallet={wallet}/>
-      <ProfitsCard />
+      <ProfitsCard wallet={wallet}/>
     </section>
   );
 }
