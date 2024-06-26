@@ -2,6 +2,7 @@ import Footer from "@/src/components/footer/Footer";
 import { SiteHeader } from "@/src/components/header/Header";
 import { Toaster } from "@/src/components/ui/sonner";
 import { ModalProvider } from "@/src/context/modalProvider";
+import ZustandProvider from "@/src/context/storeProvider";
 import { ThemeProvider } from "@/src/context/themeProvider";
 import { UpdateModalProvider } from "@/src/context/updateModalProvider";
 import { fontSans } from "@/src/lib/fonts";
@@ -35,7 +36,6 @@ export default function RootLayout({
   };
 }>) {
   const messages = useMessages();
-
   return (
     <>
       <html lang={locale} suppressHydrationWarning>
@@ -50,13 +50,15 @@ export default function RootLayout({
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <ModalProvider>
                 <UpdateModalProvider>
-                  <div className="relative flex min-h-screen flex-col">
-                    <SiteHeader />
-                    {children}
-                    <Toaster />
-                    <Footer />
-                  </div>
-                  <TailwindIndicator />
+                  <ZustandProvider>
+                    <div className="relative flex min-h-screen flex-col">
+                      <SiteHeader />
+                      {children}
+                      <Toaster />
+                      <Footer />
+                    </div>
+                    <TailwindIndicator />
+                  </ZustandProvider>
                 </UpdateModalProvider>
               </ModalProvider>
             </ThemeProvider>

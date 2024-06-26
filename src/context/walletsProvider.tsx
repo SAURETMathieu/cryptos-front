@@ -35,8 +35,6 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({
   };
 
   const updateWallet = (updatedWallet: any) => {
-    console.log(updatedWallet);
-
     setWallets((prevWallets) =>
       prevWallets.map((wallet) =>
         wallet.id === updatedWallet.id ? updatedWallet : wallet

@@ -4,19 +4,30 @@ import fetchApi from "@/services/api/fetchApi";
 import { auth } from "@/lib/auth";
 
 import WalletPage from "./WalletPage";
+import ErrorPage from "@/src/app/ErrorPage";
 
-export default async function Page({ params }: { params: { id: number } }) {
+export default async function Page({ params }: { params: { id: string } }) {
   const session = await auth();
   let walletWithCryptos = {} as any;
+  const walletId = parseInt(params.id);
   if (session) {
-    const fetchedWallet = await fetchApi("GET", `wallets/${params.id}`, null, session.account.id_token);
+    const fetchedWallet: any = await fetchApi(
+      "GET",
+      `wallets/${walletId}`,
+      null,
+      session.account.id_token
+    );
+
+    if (fetchedWallet.status === 401) {
+      return <ErrorPage statusCode={401} message={fetchedWallet.message}/>;
+    } else if (fetchedWallet.status === 404) {
+      return <ErrorPage statusCode={404} message={fetchedWallet.message}/>;
+    }
     walletWithCryptos = fetchedWallet;
   } else {
     //TODO récupérer des données fakes
     redirect("/login");
   }
 
-  return (
-    <WalletPage walletWithCryptos={walletWithCryptos}/>
-  );
+  return <WalletPage walletWithCryptos={walletWithCryptos}/>;
 }

@@ -12,12 +12,12 @@ import {
 } from "@/src/components/ui/dropdown-menu";
 import { useModal } from "@/src/context/modalProvider";
 import { useUpdateModal } from "@/src/context/updateModalProvider";
-import { useWalletsContext } from "@/src/context/walletsProvider";
 import { walletSchema } from "@/src/schemas/walletSchema";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
 
 import EditWalletForm from "@/components/forms/EditWalletForm";
+import { updateWallet, deleteWallet } from "@/hooks/useStore";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -29,7 +29,6 @@ export function DataTableRowActions<TData>({
   const wallet = walletSchema.parse(row.original);
   const { openModal } = useModal();
   const { openUpdateModal } = useUpdateModal();
-  const { updateWallet, deleteWallet } = useWalletsContext();
 
   const onDelete = async (id: number | string) => {
     try {

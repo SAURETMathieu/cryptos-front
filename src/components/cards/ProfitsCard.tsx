@@ -1,14 +1,44 @@
+"use client";
+
+import { useLocale } from "next-intl";
+
+import useStore from "@/hooks/useStore";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function ProfitsCard() {
+interface ProfitsCardProps {
+  wallet?: any;
+}
+
+export default function ProfitsCard({ wallet }: ProfitsCardProps) {
+  const locale = useLocale();
+  const profitOfWallet: any = wallet?.profits;
+  const profitsOfAllWallets: any = useStore((state) => state.profitsTotal);
+  const profitsTotal: any = wallet ? profitOfWallet : profitsOfAllWallets;
+  const options = {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  };
+  const totalProfitsFormatted = new Intl.NumberFormat(locale, options).format(
+    profitsTotal
+  );
   return (
     <Card className="">
       <CardHeader className="">
-        <CardTitle className="text-xl font-medium">Profits</CardTitle>
+        <CardTitle className="text-2xl font-bold">Profits</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">$45,231.89</div>
-        <p className="text-xs text-muted-foreground">+20.1% from last month</p>
+        <div
+          className={`text-2xl font-bold ${
+            profitsTotal > 0
+              ? "text-green-500"
+              : profitsTotal < 0
+              ? "text-red-500"
+              : ""
+          }`}
+        >
+          $ {totalProfitsFormatted}
+        </div>
+        <p className="text-xs text-muted-foreground">--% from last month</p>
       </CardContent>
     </Card>
   );

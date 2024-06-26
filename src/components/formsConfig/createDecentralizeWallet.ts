@@ -2,6 +2,7 @@ import fetchApi from "@/services/api/fetchApi";
 import { getRegexForBlockchain } from "@/src/data/addressesRegex";
 import { blockchains } from "@/src/data/tableLabels";
 import { z } from "zod";
+import { toast } from "sonner";
 
 const blockchainValues = blockchains
   .filter((blockchain) => blockchain.value !== "All")
@@ -105,8 +106,9 @@ export const onEdit = async (
   try {
     const updatedWallet = await fetchApi("PATCH", `wallets/${idToUpdate}`, values, true);
     if (!updatedWallet) {
-      throw new Error("Failed to create wallet");
+      throw new Error("Failed to update wallet");
     }
+    toast.success("Update successful");
     closeUpdateModal?.();
 
     updateWallet(updatedWallet);

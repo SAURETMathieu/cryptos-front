@@ -1,8 +1,6 @@
 import Table from "@/src/components/tables/Table";
 import { columns } from "@/src/data/cryptosColumns";
 
-//import { cryptos } from "@/src/utils/generateRandomCryptos";
-
 import {
   Card,
   CardContent,
