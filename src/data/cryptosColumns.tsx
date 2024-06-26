@@ -1,26 +1,15 @@
 "use client";
 
+import Image from "next/image";
+import emptyTokenSvg from "@/public/images/empty-token.svg";
 import { DataTableColumnHeader } from "@/src/components/ui/tools/dataTableColumnHeader";
 import { Crypto } from "@/src/schemas/cryptoSchema";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowDown, ArrowRight, ArrowUp, Info } from "lucide-react";
-import Image from "next/image";
+import { ArrowDown, ArrowRight, ArrowUp } from "lucide-react";
 
 export const columns: ColumnDef<Crypto>[] = [
   {
-    accessorKey: "name",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <span className="max-w-[500px] truncate font-medium">
-          {row.getValue("name")}
-        </span>
-      );
-    },
-  },
-  {
+    id: "Logo",
     accessorKey: "logo",
     header: ({ column }) => (
       <DataTableColumnHeader
@@ -31,6 +20,9 @@ export const columns: ColumnDef<Crypto>[] = [
     ),
     cell: ({ row }) => {
       const datas: any = row.original;
+      if (datas.logo_url === "/empty-token.svg") {
+        datas.logo_url = emptyTokenSvg;
+      }
 
       return (
         <span className="font-medium">
@@ -48,20 +40,34 @@ export const columns: ColumnDef<Crypto>[] = [
     enableSorting: false,
   },
   {
+    id: "name",
+    accessorKey: "cryptoName",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Name" />
+    ),
+    cell: ({ row }) => {
+      const datas: any = row.original;
+      const cryptoName = datas.cryptoName ?? "Unknown";
+      return (
+        <span className="max-w-[500px] truncate font-medium">{cryptoName}</span>
+      );
+    },
+  },
+  {
+    id: "Asset",
     accessorKey: "asset",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Asset" />
     ),
     cell: ({ row }) => {
-      return (
-        <span className="truncate pl-4 font-medium">
-          {row.getValue("asset")}
-        </span>
-      );
+      const datas: any = row.original;
+      const cryptoAsset = datas.asset ?? "???";
+      return <span className="pl-4 font-medium">{cryptoAsset}</span>;
     },
     enableHiding: false,
   },
   {
+    id: "Price",
     accessorKey: "price",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Price" />
@@ -77,67 +83,99 @@ export const columns: ColumnDef<Crypto>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "day",
+    id: "24h",
+    accessorKey: "price24h",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="24h" />
+      <DataTableColumnHeader column={column} title="24h" className="w-[80px]"/>
     ),
     cell: ({ row }) => {
       const datas: any = row.original;
+      const price24h = datas.price24h ?? 0;
+      const className =
+        price24h > 0
+          ? "bg-[#119e45]"
+          : price24h < 0
+          ? "bg-red-600"
+          : "bg-gray-500";
+      const displayPrice24h = price24h > 999 ? "> 999" : price24h.toFixed(2);
 
       return (
         <div className="flex items-center">
-          {datas.price24h > 0 && <ArrowUp className="mr-2 size-4 text-green-500" />}
-          {datas.price24h < 0 && <ArrowDown className="mr-2 size-4 text-red-500" />}
-          {datas.price24h == 0 && (
-            <ArrowRight className="mr-2 size-4 text-muted-foreground" />
-          )}
-          <span>{datas.price24h.toFixed(2)}%</span>
+          <span
+            className={
+              "text-white p-1 text-center rounded rounded-4 w-[65px] " +
+              className
+            }
+          >
+            {displayPrice24h}%
+          </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "day7",
+    id: "7d",
+    accessorKey: "price7d",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="7d" className="w-[80px]" />
     ),
     cell: ({ row }) => {
       const datas: any = row.original;
-
+      const price7d = datas.price7d ?? 0;
+      const className =
+        price7d > 0
+          ? "bg-[#119e45]"
+          : price7d < 0
+          ? "bg-red-600"
+          : "bg-gray-500";
+      const displayprice7d = price7d > 999 ? "> 999" : price7d.toFixed(2);
       return (
         <div className="flex items-center">
-          {datas.price24h > 0 && <ArrowUp className="mr-2 size-4 text-green-500" />}
-          {datas.price24h < 0 && <ArrowDown className="mr-2 size-4 text-red-500" />}
-          {datas.price24h == 0 && (
-            <ArrowRight className="mr-2 size-4 text-muted-foreground" />
-          )}
-          <span>{datas.price24h.toFixed(2)}%</span>
+          <span
+            className={
+              "text-white p-1 text-center rounded rounded-4 w-[65px] " +
+              className
+            }
+          >
+            {displayprice7d}%
+          </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "month",
+    id: "30d",
+    accessorKey: "price30d",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="30d" className="w-[80px]" />
     ),
     cell: ({ row }) => {
       const datas: any = row.original;
-
+      const price30d = datas.price7d ?? 0;
+      const className =
+        price30d > 0
+          ? "bg-[#119e45]"
+          : price30d < 0
+          ? "bg-red-600"
+          : "bg-gray-500";
+      const displayprice30d = price30d > 999 ? "> 999" : price30d.toFixed(2);
       return (
         <div className="flex items-center">
-          {datas.price24h > 0 && <ArrowUp className="mr-2 size-4 text-green-500" />}
-          {datas.price24h < 0 && <ArrowDown className="mr-2 size-4 text-red-500" />}
-          {datas.price24h == 0 && (
-            <ArrowRight className="mr-2 size-4 text-muted-foreground" />
-          )}
-          <span>{datas.price24h.toFixed(2)}%</span>
+          <span
+            className={
+              "text-white p-1 text-center rounded rounded-4 w-[65px] " +
+              className
+            }
+          >
+            {displayprice30d}%
+          </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "Quantity",
+    id: "Quantity",
+    accessorKey: "nbToken",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Quantity" />
     ),
@@ -151,19 +189,22 @@ export const columns: ColumnDef<Crypto>[] = [
     },
   },
   {
-    accessorKey: "Balance",
+    id: "Balance",
+    accessorKey: "balanceUsd",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Balance" />
     ),
     cell: ({ row }) => {
-      console.log(row.original);
+      const datas: any = row.original;
 
-      const datas:any = row.original;
-
-      const balance = datas.price * datas.nbToken;
+      const balanceUsd = datas.balanceUsd ?? 0;
+      const displayBalance =
+        balanceUsd < 0.01 && balanceUsd !== 0
+          ? "< 0.01"
+          : balanceUsd.toFixed(2);
       return (
         <span className="max-w-[500px] truncate font-medium">
-          {balance.toFixed(2)} $
+          {displayBalance} $
         </span>
       );
     },
@@ -171,7 +212,8 @@ export const columns: ColumnDef<Crypto>[] = [
     enableSorting: true,
   },
   {
-    accessorKey: "Profits",
+    id: "Profits",
+    accessorKey: "unrealizedProfit",
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
@@ -180,21 +222,21 @@ export const columns: ColumnDef<Crypto>[] = [
       />
     ),
     cell: ({ row }) => {
-      const profits: number = row.getValue("price");
+      const datas: any = row.original;
+      const profits: number = datas.unrealizedProfit ?? 0;
+      const className =
+        profits > 0
+          ? "text-[#119e45]"
+          : profits < 0
+          ? "text-red-600"
+          : "text-gray-500";
       return (
         <div className="flex items-center">
-          {profits > 0 && <ArrowUp className="mr-2 size-4 text-green-500" />}
-          {profits < 0 && <ArrowDown className="mr-2 size-4 text-red-500" />}
-          {profits == 0 && (
-            <ArrowRight className="mr-2 size-4 text-muted-foreground" />
-          )}
-          <span>{profits.toFixed(2)} $</span>
+          <span className={"font-bold " + className}>
+            {profits.toFixed(2)} $
+          </span>
         </div>
       );
     },
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => <Info className="mr-2 size-4" />,
   },
 ];

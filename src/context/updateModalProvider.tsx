@@ -12,6 +12,8 @@ type ModalContextType = {
   closeUpdateModal: () => void;
   formContent: ReactNode;
   setFormContent: React.Dispatch<React.SetStateAction<ReactNode>>;
+  description: string;
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -27,6 +29,7 @@ export const useUpdateModal = () => {
 export function UpdateModalProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [formContent, setFormContent] = useState<ReactNode>(null);
+  const [description, setDescription] = useState<string>("");
 
   const openUpdateModal = (
     initialFormContent: React.ReactNode
@@ -48,6 +51,8 @@ export function UpdateModalProvider({ children }: { children: ReactNode }) {
         closeUpdateModal,
         formContent,
         setFormContent,
+        description,
+        setDescription,
       }}
     >
       <UpdateModal />

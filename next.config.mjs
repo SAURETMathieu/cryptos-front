@@ -28,6 +28,11 @@ export const nextConfig = {
         hostname: 'logo.moralis.io',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'metacore.mobula.io',
+        pathname: '/**',
+      },
     ],
   },
 };

@@ -30,7 +30,6 @@ export const columns: ColumnDef<Wallet>[] = [
       <DataTableColumnHeader column={column} title="Name" className="" />
     ),
     cell: ({ row }) => {
-      console.log(row.getValue("id"));
       return (
         <div className="max-w-[80px] truncate sm:max-w-[150px]">
           <Link href={`/wallets/${row.getValue("id")}`}>
@@ -69,6 +68,7 @@ export const columns: ColumnDef<Wallet>[] = [
     ),
     cell: ({ row }) => {
       const day: number = row.getValue("day");
+      if(day == null) return <span className="text-muted-foreground">N/A</span>
       return (
         <div className="flex items-center font-light">
           {day > 0 && <ArrowUpIcon className="mr-2 size-4 text-green-500" />}
@@ -88,6 +88,7 @@ export const columns: ColumnDef<Wallet>[] = [
     ),
     cell: ({ row }) => {
       const day7: number = row.getValue("day7");
+      if(day7 == null) return <span className="text-muted-foreground">N/A</span>
       return (
         <div className="flex items-center font-light">
           {day7 > 0 && <ArrowUpIcon className="mr-2 size-4 text-green-500" />}
@@ -107,6 +108,7 @@ export const columns: ColumnDef<Wallet>[] = [
     ),
     cell: ({ row }) => {
       const month: number = row.getValue("month");
+      if(month == null) return <span className="text-muted-foreground">N/A</span>
       return (
         <div className="flex items-center font-light">
           {month > 0 && <ArrowUpIcon className="mr-2 size-4 text-green-500" />}
@@ -120,33 +122,16 @@ export const columns: ColumnDef<Wallet>[] = [
     },
   },
   {
-    accessorKey: "fees",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Fees"
-        className="w-[80px]"
-      />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex">
-          <span className="w-[80px] truncate font-light">
-            {row.getValue("fees")} $
-          </span>
-        </div>
-      );
-    },
-  },
-  {
     accessorKey: "balance",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Balance" />
     ),
     cell: ({ row }) => {
+      const balance: number = row.getValue("balance");
+      if(balance == null) return <span className="max-w-[500px] truncate font-bold">N/A</span>
       return (
         <span className="max-w-[500px] truncate font-bold">
-          {row.getValue("balance")} $
+          {balance.toFixed(2)} $
         </span>
       );
     },
@@ -162,7 +147,11 @@ export const columns: ColumnDef<Wallet>[] = [
       />
     ),
     cell: ({ row }) => {
-      const profits: number = row.getValue("balance");
+      let profits: number = row.getValue("profits");
+      if(profits == null){
+        profits = 0;
+      }
+
       return (
         <div className="flex items-center font-bold">
           {profits > 0 && (
@@ -174,7 +163,7 @@ export const columns: ColumnDef<Wallet>[] = [
           {profits == 0 && (
             <ArrowRightIcon className="mr-2 size-4 text-muted-foreground" />
           )}
-          <span>{profits} $</span>
+          <span>{profits.toFixed(2)} $</span>
         </div>
       );
     },
