@@ -1,7 +1,12 @@
-export default function formatIdx(idx: string): string {
-
-  const firstPart = idx.substring(0, 5);
-  const lastPart = idx.substring(31);
+export default function formatIdx(idx: string, number: number = 5): string {
+  if(number < 0) {
+    return idx;
+  }
+  if (idx.length <= number * 2) {
+    return idx;
+  }
+  const firstPart = idx.slice(0, number);
+  const lastPart = idx.slice(-number);
 
   return `${firstPart}...${lastPart}`;
 }
