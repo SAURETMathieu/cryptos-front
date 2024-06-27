@@ -1,9 +1,10 @@
 "use client";
 
 import { DataTableColumnHeader } from "@/src/components/ui/tools/dataTableColumnHeader";
-import { Icons } from "@/src/icons/icons";
 import { Transaction } from "@/src/schemas/transactionSchema";
 import formatIdx from "@/src/utils/formatIdx";
+import formatDate from "@/utils/formatDate";
+import getLanguageFromUrl from "@/utils/getLanguageFromUrl";
 import { ColumnDef } from "@tanstack/react-table";
 import { Info } from "lucide-react";
 
@@ -14,29 +15,15 @@ export const columns: ColumnDef<Transaction>[] = [
       <DataTableColumnHeader column={column} title="" className="w-fit p-0" />
     ),
     cell: ({ row }) => {
+      const datas: any = row.original;
       return (
-        <div className="h-full w-[8px] rounded-l-lg bg-red-500 p-0">
-          <span className="sr-only">{row.getValue("transaction")}</span>
+        <div
+          className={`h-full w-[8px] rounded-l-lg ${
+            datas.type === "sell" ? "bg-red-500" : "bg-green-500"
+          } p-0`}
+        >
+          <span className="sr-only">{datas.type}</span>
         </div>
-      );
-    },
-    enableHiding: false,
-    enableSorting: false,
-  },
-  {
-    accessorKey: "logo",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title=""
-        className="w-fit text-center"
-      />
-    ),
-    cell: ({ row }) => {
-      return (
-        <span className="font-medium">
-          <Icons.logo className="size-8" aria-label="Logo de l'application" />
-        </span>
       );
     },
     enableHiding: false,
@@ -64,28 +51,37 @@ export const columns: ColumnDef<Transaction>[] = [
     enableSorting: false,
   },
   {
-    accessorKey: "date",
+    id: "Date",
+    accessorKey: "timestamp",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Date" />
     ),
     cell: ({ row }) => {
+      const datas: any = row.original;
+      const currentUrl = window.location.href;
+      const language = getLanguageFromUrl(currentUrl);
+      const dateFormatted = formatDate(datas.timestamp, language);
+
       return (
         <span className="max-w-[500px] truncate font-medium">
-          {row.getValue("date")}
+          {dateFormatted}
         </span>
       );
     },
     enableHiding: false,
   },
   {
-    accessorKey: "time",
+    id: "time",
+    accessorKey: "timestamp",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Time" />
     ),
     cell: ({ row }) => {
+      const datas: any = row.original;
+      const time = new Date(datas.timestamp).toLocaleTimeString();
       return (
         <span className="max-w-[500px] truncate font-medium">
-          {row.getValue("time")}
+          {time}
         </span>
       );
     },
@@ -121,9 +117,10 @@ export const columns: ColumnDef<Transaction>[] = [
       <DataTableColumnHeader column={column} title="Price" />
     ),
     cell: ({ row }) => {
+      const { price } = row.original;
       return (
         <span className="max-w-[500px] truncate font-medium">
-          {row.getValue("price")}
+          {price ? (price > 0.99 ? price.toFixed(2) : price.toFixed(6)) : "--"}
         </span>
       );
     },
@@ -141,21 +138,23 @@ export const columns: ColumnDef<Transaction>[] = [
       return (
         <div className="flex">
           <span className="w-[80px] truncate font-medium">
-            {row.getValue("fees")} $
+            {row.getValue("fees")}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "quantity",
+    id: "Quantity",
+    accessorKey: "value",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Quantity" />
     ),
     cell: ({ row }) => {
+      const datas: any = row.original;
       return (
         <span className="max-w-[500px] truncate font-medium">
-          {row.getValue("quantity")}
+          {datas.value}
         </span>
       );
     },
@@ -166,14 +165,22 @@ export const columns: ColumnDef<Transaction>[] = [
       <DataTableColumnHeader column={column} title="Total" />
     ),
     cell: ({ row }) => {
-      const quantity: number = row.getValue("quantity") as number;
-      const price: number = row.getValue("price") as number;
-      const total = quantity && price ? (quantity * price).toFixed(2) : "0.00";
+      const datas: any = row.original;
+      const quantity: number = datas.value ?? 0;
+      const price: number = datas.price ?? 0;
+      const total = (quantity * price).toFixed(2);
       return (
         <span className="max-w-[500px] truncate font-medium">{total}</span>
       );
     },
     enableHiding: false,
+    sortingFn: (rowA, rowB) => {
+      const a:any = rowA.original;
+      const b:any = rowB.original;
+      const totalA = (a.value ?? 0) * (a.price ?? 0);
+      const totalB = (b.value ?? 0) * (b.price ?? 0);
+      return totalA - totalB;
+    },
   },
   {
     id: "infos",

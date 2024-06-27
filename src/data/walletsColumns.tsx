@@ -3,13 +3,7 @@
 import { DataTableColumnHeader } from "@/src/components/ui/tools/dataTableColumnHeader";
 import { DataTableRowActions } from "@/src/components/ui/tools/dataTableRowActions";
 import { Wallet } from "@/src/schemas/walletSchema";
-import {
-  ArrowDownIcon,
-  ArrowRightIcon,
-  ArrowUpIcon,
-} from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
-import Link from "next/link";
 
 export const columns: ColumnDef<Wallet>[] = [
   {
@@ -18,9 +12,7 @@ export const columns: ColumnDef<Wallet>[] = [
       <DataTableColumnHeader column={column} title="id" className="sr-only" />
     ),
     cell: ({ row }) => {
-      return (
-            <span className="sr-only">{row.getValue("id")}</span>
-      );
+      return <span className="sr-only">{row.getValue("id")}</span>;
     },
     enableHiding: false,
   },
@@ -32,9 +24,7 @@ export const columns: ColumnDef<Wallet>[] = [
     cell: ({ row }) => {
       return (
         <div className="max-w-[80px] truncate sm:max-w-[150px]">
-          <Link href={`/wallets/${row.getValue("id")}`}>
-            <span className="pl-2 font-bold">{row.getValue("name")}</span>
-          </Link>
+          <span className="pl-2 font-bold">{row.getValue("name")}</span>
         </div>
       );
     },
@@ -59,7 +49,6 @@ export const columns: ColumnDef<Wallet>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
-    enableHiding: false,
   },
   {
     id: "day",
@@ -159,7 +148,8 @@ export const columns: ColumnDef<Wallet>[] = [
     ),
     cell: ({ row }) => {
       const balance: number = row.getValue("balance");
-      if(balance == null) return <span className="max-w-[500px] truncate font-bold">N/A</span>
+      if (balance == null)
+        return <span className="max-w-[500px] truncate font-bold">N/A</span>;
       return (
         <span className="max-w-[500px] truncate font-bold">
           {balance.toFixed(2)} $
@@ -169,7 +159,7 @@ export const columns: ColumnDef<Wallet>[] = [
     enableHiding: false,
   },
   {
-    id: "Profits",
+    id: "profits",
     accessorKey: "profits",
     header: ({ column }) => (
       <DataTableColumnHeader

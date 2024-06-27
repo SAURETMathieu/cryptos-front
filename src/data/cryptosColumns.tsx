@@ -8,7 +8,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 export const columns: ColumnDef<Crypto>[] = [
   {
-    id: "Logo",
+    id: "logo",
     accessorKey: "logo",
     header: ({ column }) => (
       <DataTableColumnHeader
@@ -48,12 +48,14 @@ export const columns: ColumnDef<Crypto>[] = [
       const datas: any = row.original;
       const cryptoName = datas.cryptoName ?? "Unknown";
       return (
-        <span className="max-w-[500px] truncate font-medium">{cryptoName}</span>
+        <div className="max-w-[80px] truncate sm:max-w-[120px]">
+          <span className="pl-2 font-medium">{cryptoName}</span>
+        </div>
       );
     },
   },
   {
-    id: "Asset",
+    id: "asset",
     accessorKey: "asset",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Asset" />
@@ -66,7 +68,7 @@ export const columns: ColumnDef<Crypto>[] = [
     enableHiding: false,
   },
   {
-    id: "Price",
+    id: "price",
     accessorKey: "price",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Price" />
@@ -75,11 +77,10 @@ export const columns: ColumnDef<Crypto>[] = [
       const { price } = row.original;
       return (
         <span className="max-w-[500px] truncate font-medium">
-          {price > 1 ? price.toFixed(2) : price.toFixed(6)}
+          {price ? (price > 1 ? price.toFixed(2) : price.toFixed(6)): "--"}
         </span>
       );
     },
-    enableHiding: false,
   },
   {
     id: "24h",
@@ -173,7 +174,7 @@ export const columns: ColumnDef<Crypto>[] = [
     },
   },
   {
-    id: "Quantity",
+    id: "quantity",
     accessorKey: "nbToken",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Quantity" />
@@ -182,13 +183,13 @@ export const columns: ColumnDef<Crypto>[] = [
       const datas: any = row.original;
       return (
         <span className="max-w-[500px] truncate font-medium">
-          {datas.nbToken}
+          {datas.nbToken ? (datas.nbToken > 1000 ? datas.nbToken.toFixed(2): datas.nbToken): "0"}
         </span>
       );
     },
   },
   {
-    id: "Balance",
+    id: "balance",
     accessorKey: "balanceUsd",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Balance" />
@@ -211,7 +212,7 @@ export const columns: ColumnDef<Crypto>[] = [
     enableSorting: true,
   },
   {
-    id: "Profits",
+    id: "profits",
     accessorKey: "unrealizedProfit",
     header: ({ column }) => (
       <DataTableColumnHeader
