@@ -1,21 +1,33 @@
-import CardsSection from "@/src/components/sections/BotCards";
-import TransactionDetails from "@/src/components/sections/TransactionDetails";
-import TransactionsTableSection from "@/src/components/sections/TransactionsTableSection";
-import CryptoTabs from "@/src/components/tabs/CryptoTabs";
-import CryptoNav from "@/src/components/sections/CryptoNav";
+import { redirect } from "next/navigation";
+import fetchApi from "@/services/api/fetchApi";
 
-export default function CryptoPage({ params }: { params: { asset: string } }) {
-  return (
-    <main className="flex min-h-screen flex-1 max-lg:flex-col sm:py-4 sm:pl-14">
-      <section className="flex w-full flex-col gap-2 lg:w-7/12 xl:w-8/12 2xl:w-9/12">
-        <CryptoNav />
-        <CardsSection />
-        <CryptoTabs />
-        <TransactionsTableSection />
-      </section>
-      <section className="w-full lg:min-h-screen lg:w-5/12 xl:w-4/12 2xl:w-3/12">
-        <TransactionDetails />
-      </section>
-    </main>
-  );
+import { auth } from "@/lib/auth";
+
+import TransactionsPage from "./TransactionsPage";
+import ErrorPage from "@/src/app/ErrorPage";
+
+export default async function Page({ params }: { params: { asset: string, id:number } }) {
+  const session = await auth();
+  let walletsWithCryptos = {} as any;
+  const walletId = params.id;
+  if (session) {
+    const fetchedWallet: any = await fetchApi(
+      "GET",
+      `wallets/${walletId}`,
+      null,
+      session.account.id_token
+    );
+
+    if (fetchedWallet.status === 401) {
+      return <ErrorPage statusCode={401} message={fetchedWallet.message}/>;
+    } else if (fetchedWallet.status === 404) {
+      return <ErrorPage statusCode={404} message={fetchedWallet.message}/>;
+    }
+    walletsWithCryptos = fetchedWallet;
+  } else {
+    //TODO récupérer des données fakes
+    redirect("/login");
+  }
+
+  return <TransactionsPage walletsWithCryptos={walletsWithCryptos} asset={params.asset}/>;
 }

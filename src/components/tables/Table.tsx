@@ -12,7 +12,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   filter?: boolean;
   columnConfigs?: ColumnConfig[];
-  rawLink?: string;
+  rowLink?: string;
 }
 
 const Table = <TData, TValue>({
@@ -20,7 +20,7 @@ const Table = <TData, TValue>({
   data,
   filter = true,
   columnConfigs,
-  rawLink,
+  rowLink,
 }: DataTableProps<TData, TValue>) => {
   const [isReady, setIsReady] = useState(false);
 
@@ -39,7 +39,7 @@ const Table = <TData, TValue>({
         columns={columns}
         filter={filter}
         columnConfigs={columnConfigs}
-        rawLink={rawLink}
+        rowLink={rowLink}
       />
     </Suspense>
   );

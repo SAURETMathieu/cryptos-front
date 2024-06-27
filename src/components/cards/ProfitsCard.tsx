@@ -24,7 +24,7 @@ export default function ProfitsCard({ wallet }: ProfitsCardProps) {
   return (
     <Card className="">
       <CardHeader className="">
-        <CardTitle className="text-2xl font-bold">Profits</CardTitle>
+        <CardTitle className="text-2xl font-medium">Profits</CardTitle>
       </CardHeader>
       <CardContent>
         <div

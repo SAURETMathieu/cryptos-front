@@ -36,7 +36,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   filter?: boolean;
   columnConfigs?: ColumnConfig[];
-  rawLink?: string;
+  rowLink?: string;
 }
 
 export function DataTable<TData, TValue>({
@@ -44,7 +44,7 @@ export function DataTable<TData, TValue>({
   data,
   filter = true,
   columnConfigs,
-  rawLink,
+  rowLink,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -98,9 +98,9 @@ export function DataTable<TData, TValue>({
   }, [sm, md, lg, xl, xxl, table]);
 
   const handleRowClick = (row: any) => {
-    if (!rawLink) return;
+    if (!rowLink) return;
     const datas:any = row.original;
-    const pathToPush = datas[rawLink];
+    const pathToPush = datas[rowLink];
     const currentPath = window.location.pathname;
     const newPath = `${currentPath}/${pathToPush}`;
     router.push(newPath);
@@ -137,6 +137,7 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() ? "selected" : undefined}
                   onClick={() => handleRowClick(row)}
+                  className={rowLink ? "cursor-pointer" : ""}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
