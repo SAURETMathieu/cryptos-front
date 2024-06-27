@@ -5,7 +5,6 @@ import emptyTokenSvg from "@/public/images/empty-token.svg";
 import { DataTableColumnHeader } from "@/src/components/ui/tools/dataTableColumnHeader";
 import { Crypto } from "@/src/schemas/cryptoSchema";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowDown, ArrowRight, ArrowUp } from "lucide-react";
 
 export const columns: ColumnDef<Crypto>[] = [
   {
@@ -86,7 +85,7 @@ export const columns: ColumnDef<Crypto>[] = [
     id: "24h",
     accessorKey: "price24h",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="24h" className="w-[80px]"/>
+      <DataTableColumnHeader column={column} title="24h" className="w-[80px]" />
     ),
     cell: ({ row }) => {
       const datas: any = row.original;
