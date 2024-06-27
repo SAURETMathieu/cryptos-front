@@ -22,7 +22,7 @@ export default function CryptosTableSection({ walletWithCryptos }: any) {
           </CardDescription>
         </CardHeader>
         <CardContent className="">
-          <Table data={balances} columns={columns} rawLink="asset"/>
+          <Table data={balances} columns={columns} rowLink="asset"/>
         </CardContent>
       </Card>
     </section>
