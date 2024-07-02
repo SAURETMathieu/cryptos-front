@@ -97,8 +97,8 @@ export function DataTable<TData, TValue>({
     });
   }, [sm, md, lg, xl, xxl, table]);
 
-  const handleRowClick = (row: any) => {
-    if (!rowLink) return;
+  const handleRowClick = (row: any, cellId:string) => {
+    if (!rowLink || cellId === "actions") return;
     const datas:any = row.original;
     const pathToPush = datas[rowLink];
     const currentPath = window.location.pathname;
@@ -136,11 +136,13 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() ? "selected" : undefined}
-                  onClick={() => handleRowClick(row)}
                   className={rowLink ? "cursor-pointer" : ""}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                    key={cell.id}
+                    onClick={() => handleRowClick(row, cell.column.id)}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
