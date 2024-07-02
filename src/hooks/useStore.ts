@@ -1,45 +1,45 @@
 import fetchApi from "@/services/api/fetchApi";
 import { create } from "zustand";
+import { StoreState, WalletWithBalancesAndTransactions } from "@/types/store";
 
-export const useStore = create((set: any) => ({
-  wallets: [] as any[],
+export const useStore = create<StoreState>((set, get) => ({
+  wallets: [],
   balanceTotal: 0,
-  balanceOfAllWallets: [] as any[],
+  balanceOfAllWallets: [],
   profitsTotal: 0,
   devise: "USD",
   fetchWallets: async (token: string) => {
     try {
       const wallets = await fetchApi("GET", "wallets", null, token);
-      useStore.getState().calcBalanceTotal();
-      useStore.getState().calcBalanceOfAllWallets();
-      useStore.getState().calcProfitsTotal();
-      set({ wallets });
+      if (wallets instanceof Array) {
+        set({ wallets });
+        get().calcBalanceTotal();
+        get().calcBalanceOfAllWallets();
+        get().calcProfitsTotal();
+      }
     } catch (error) {
       console.error("Failed to fetch data", error);
     }
   },
   resetWallets: () => set({ wallets: [] }),
-  initializeWallets: (wallets: any) => set({ wallets }),
+  initializeWallets: (wallets: WalletWithBalancesAndTransactions[]) => set({ wallets }),
   calcBalanceTotal: () => {
-    const wallets = useStore.getState().wallets;
-    const balanceTotal = wallets.reduce(
-      (acc: number, wallet: any) => acc + wallet.balance,
+    const balanceTotal = get().wallets.reduce(
+      (acc, wallet) => acc + wallet.balance,
       0
     );
     set({ balanceTotal });
   },
   calcBalanceOfAllWallets: () => {
-    const wallets = useStore.getState().wallets;
-    const balanceOfAllWallets = wallets.map((wallet: any) => ({
+    const balanceOfAllWallets = get().wallets.map((wallet) => ({
       id: wallet.id,
       balance: wallet.balance,
     }));
     set({ balanceOfAllWallets });
   },
   calcProfitsTotal: () => {
-    const wallets = useStore.getState().wallets;
-    const profitsTotal = wallets.reduce(
-      (acc: number, wallet: any) => acc + wallet.profits,
+    const profitsTotal = get().wallets.reduce(
+      (acc, wallet) => acc + wallet.profits,
       0
     );
     set({ profitsTotal });
@@ -47,31 +47,41 @@ export const useStore = create((set: any) => ({
   setDevise: (devise: string) => set({ devise }),
 }));
 
-export const addWallet = (wallet: any) => {
-  const wallets = useStore.getState().wallets;
-  useStore.setState({ wallets: [...wallets, wallet[0]] });
-  useStore.getState().calcBalanceTotal();
-  useStore.getState().calcBalanceOfAllWallets();
-  useStore.getState().calcProfitsTotal();
+export const addWallet = (wallet: WalletWithBalancesAndTransactions) => {
+  const {
+    wallets,
+    calcBalanceTotal,
+    calcBalanceOfAllWallets,
+    calcProfitsTotal,
+  } = useStore.getState();
+  useStore.setState({ wallets: [...wallets, wallet] });
+  calcBalanceTotal();
+  calcBalanceOfAllWallets();
+  calcProfitsTotal();
 };
 
-export const updateWallet = (updatedWallet: any) => {
-  const wallets = useStore.getState().wallets;
+export const updateWallet = (updatedWallet: WalletWithBalancesAndTransactions) => {
+  const { wallets } = useStore.getState();
   useStore.setState({
-    wallets: wallets.map((wallet: any) =>
-      wallet.id === updatedWallet.id ? { ...wallet, name: updatedWallet.name } : wallet
+    wallets: wallets.map((wallet) =>
+      wallet.id === updatedWallet.id
+        ? { ...wallet, name: updatedWallet.name }
+        : wallet
     ),
   });
 };
 
 export const deleteWallet = (id: number) => {
-  const wallets = useStore.getState().wallets;
-  useStore.setState({
-    wallets: wallets.filter((wallet: any) => wallet.id !== id),
-  });
-  useStore.getState().calcBalanceTotal();
-  useStore.getState().calcBalanceOfAllWallets();
-  useStore.getState().calcProfitsTotal();
+  const {
+    wallets,
+    calcBalanceTotal,
+    calcBalanceOfAllWallets,
+    calcProfitsTotal,
+  } = useStore.getState();
+  useStore.setState({ wallets: wallets.filter((wallet) => wallet.id !== id) });
+  calcBalanceTotal();
+  calcBalanceOfAllWallets();
+  calcProfitsTotal();
 };
 
 export default useStore;

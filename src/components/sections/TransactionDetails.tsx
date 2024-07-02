@@ -13,7 +13,7 @@ import {
   PaginationItem,
 } from "@/src/components/ui/pagination";
 import { Separator } from "@/src/components/ui/separator";
-import { ChevronLeft, ChevronRight, Settings } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function TransactionDetails() {
   return (
@@ -25,11 +25,6 @@ export default function TransactionDetails() {
               IDx: 546541898451651
             </CardTitle>
             <CardDescription>November 23, 2023 à 11h25m25s</CardDescription>
-          </div>
-          <div className="ml-auto flex items-center">
-            <Button size="icon" variant="ghost">
-              <Settings className="size-5" />
-            </Button>
           </div>
         </CardHeader>
         <CardContent className="flex w-full flex-col gap-2 p-4">

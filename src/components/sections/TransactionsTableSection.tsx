@@ -1,9 +1,6 @@
-import Image from "next/image";
-import Table from "@/src/components/tables/Table";
-import { transactionsType } from "@/src/data/tableLabels";
-import { columns } from "@/src/data/transactionsColumns";
+"use client";
 
-import { ColumnConfig } from "@/types/datasTable";
+import Image from "next/image";
 
 import {
   Card,
@@ -12,48 +9,36 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import useCurrentWalletStore from "@/hooks/useCurrentWalletStore";
+import TransactionsTable from "@/components/tables/TransactionsTable";
 
-const columnConfigs: ColumnConfig[] = [
-  {
-    id: "type",
-    title: "Type",
-    options: transactionsType,
-  },
-];
+export default function TransactionsTableSection() {
+  const balance:any = useCurrentWalletStore((state) => state.currentBalance);
 
-export default function TransactionsTableSection({ wallet }: any) {
-  const { balances } = wallet;
-  const balancesWithTransactions = balances[0] ?? {};
-  
   return (
     <section className="w-full gap-4 p-4 pt-0">
       <Card className="h-fit w-full max-w-full">
         <CardHeader className="w-full">
           <CardTitle className="flex w-full items-center justify-between">
             <div className="flex items-center gap-2">
-            {balancesWithTransactions.logo_url && (
+            {balance?.logo_url && (
               <Image
-                src={balancesWithTransactions.logo_url}
-                alt={balancesWithTransactions.name + " logo"}
+                src={balance.logo_url}
+                alt={balance.name + " lllogo"}
                 className="rounded-full"
                 width={32}
                 height={32}
               />
             )}
-              {balancesWithTransactions?.asset}
+              {balance?.asset}
             </div>
           </CardTitle>
           <CardDescription>
-            Your transactions with {balancesWithTransactions?.asset}
+            Your transactions with {balance?.asset}
           </CardDescription>
         </CardHeader>
         <CardContent className="">
-          <Table
-            data={balancesWithTransactions.transactions}
-            columns={columns}
-            columnConfigs={columnConfigs}
-            filter={false}
-          />
+        <TransactionsTable/>
         </CardContent>
       </Card>
     </section>

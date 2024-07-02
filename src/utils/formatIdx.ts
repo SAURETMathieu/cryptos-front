@@ -1,5 +1,5 @@
 export default function formatIdx(idx: string, number: number = 5): string {
-  if(number < 0) {
+  if(number < 0 || !idx) {
     return idx;
   }
   if (idx.length <= number * 2) {

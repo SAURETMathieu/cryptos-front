@@ -1,19 +1,19 @@
 "use client";
 
 import { useLocale } from "next-intl";
-
+import useCurrentWalletStore from "@/hooks/useCurrentWalletStore";
 import useStore from "@/hooks/useStore";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface ProfitsCardProps {
-  wallet?: any;
+  isWalletsPage?: boolean;
 }
 
-export default function ProfitsCard({ wallet }: ProfitsCardProps) {
+export default function ProfitsCard({isWalletsPage=false}: ProfitsCardProps) {
   const locale = useLocale();
-  const profitOfWallet: any = wallet?.profits;
-  const profitsOfAllWallets: any = useStore((state) => state.profitsTotal);
-  const profitsTotal: any = wallet ? profitOfWallet : profitsOfAllWallets;
+  const profitsOfAllWallets = useStore((state) => state.profitsTotal);
+  const profitOfWallet = useCurrentWalletStore((state) => state.wallet?.profits);
+  const profitsTotal = isWalletsPage ? (profitsOfAllWallets ?? 0) : (profitOfWallet ?? 0);
   const options = {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,

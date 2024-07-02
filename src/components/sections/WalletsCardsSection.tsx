@@ -3,13 +3,13 @@ import ProfitsCard from "@/components/cards/ProfitsCard";
 import AddWalletCard from "@/components/cards/AddWalletCard";
 import AddBotCard from "@/components/cards/AddBotCard";
 
-export default function CardsSection({ isTransactionsPage = false }) {
+export default function WalletsCardsSection() {
   return (
     <section className="grid gap-4 p-4 py-0 sm:grid-cols-2 md:gap-2 xl:grid-cols-4">
-      <AddWalletCard/>
+      <AddWalletCard isWalletsPage={true}/>
       <AddBotCard />
-      <BalanceCard />
-      <ProfitsCard />
+      <BalanceCard isWalletsPage={true}/>
+      <ProfitsCard isWalletsPage={true}/>
     </section>
   );
 }

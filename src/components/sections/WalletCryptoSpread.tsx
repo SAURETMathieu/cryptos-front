@@ -10,8 +10,10 @@ import {
   CardTitle,
 } from "@/src/components/ui/card";
 import { aggregateBalances } from "@/utils/aggregateBalances";
+import useCurrentWalletStore from "@/hooks/useCurrentWalletStore";
 
-export default function WalletCryptoSpread({ wallet }: any) {
+export default function WalletCryptoSpread() {
+  const wallet = useCurrentWalletStore((state) => state.wallet);
   const cryptosBalancesOfWallet = aggregateBalances([wallet]);
 
   return (
@@ -23,7 +25,7 @@ export default function WalletCryptoSpread({ wallet }: any) {
           </CardTitle>
           <CardDescription>
             Spread of your cryptos balances for the wallet :
-            <span className="pl-2 text-lg font-bold">{wallet.name}</span>.
+            <span className="pl-2 text-lg font-bold">{wallet?.name}</span>.
           </CardDescription>
         </CardHeader>
         <CardContent className="w-full p-2">

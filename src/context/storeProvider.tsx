@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useCallback, useEffect } from "react";
 import { redirect } from "next/navigation";
 import { getSession } from "next-auth/react";
 
@@ -11,20 +11,20 @@ interface Props {
 }
 
 export default function ZustandProvider({ children }: Props) {
-  const { fetchWallets } = useStore();
+  const fetchWallets = useStore((state) => state.fetchWallets);
+
+  const fetchData = useCallback(async () => {
+    const session = await getSession();
+    if (session) {
+      await fetchWallets(session.account.id_token);
+    } else {
+      redirect("/login");
+    }
+  }, [fetchWallets]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const session = await getSession();
-      if (session) {
-        await fetchWallets(session.account.id_token);
-      } else {
-        redirect("/login");
-      }
-    };
-
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   return <>{children}</>;
 }

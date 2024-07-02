@@ -1,4 +1,4 @@
-import CardsSection from "@/src/components/sections/CardsSection";
+import CardsSection from "@/src/components/sections/WalletsCardsSection";
 import WalletNav from "@/src/components/sections/WalletNav";
 import WalletSpread from "@/src/components/sections/WalletSpread";
 import WalletCryptoSpread from "@/components/sections/WalletsCryptoSpread";
