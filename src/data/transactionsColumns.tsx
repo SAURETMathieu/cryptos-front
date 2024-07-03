@@ -19,7 +19,7 @@ export const columns: ColumnDef<Transaction>[] = [
       return (
         <div
           className={`h-full w-[8px] rounded-l-lg ${
-            datas.type === "sell" ? "bg-red-500" : "bg-green-500"
+            datas.type === "sell" ? "bg-red-500" : "bg-[#119e45]"
           } p-0`}
         >
           <span className="sr-only">{datas.type}</span>
@@ -181,9 +181,5 @@ export const columns: ColumnDef<Transaction>[] = [
       const totalB = (b.value ?? 0) * (b.price ?? 0);
       return totalA - totalB;
     },
-  },
-  {
-    id: "infos",
-    cell: () => <Info className="mr-2 size-4" />,
   },
 ];
