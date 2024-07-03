@@ -44,16 +44,19 @@ export interface FetchWalletByIdResponse {
 export interface WalletStoreState {
   wallet: WalletWithBalancesAndTransactions | null;
   currentBalance: any;
-  nbTransactions: number;
   balanceTotal: number;
   profitsTotal: number;
   devise: string;
+  currentAsset: string | null;
+  indexOfTransactions: number;
+  currentTransactionsIndexes: number[] | null;
   setCurrentBalance: (asset:string) => void;
   fetchWalletsById: (id:number, token: string) => Promise<boolean>;
   resetWallet: () => void;
   initializeWallets: (wallet: WalletWithBalancesAndTransactions) => void;
-  //calcProfitsTotal: () => void;
-  currentAsset: string | null;
   setCurrentAsset: (asset: string | null) => void;
   setDevise: (devise: string) => void;
+  setIndexOfTransactions: (index: number) => void;
+  setIndexOfTransactionsDiff: (indexDiff:number) => void;
+  setCurrentTransactionsIndexes: (rowsTransactions: any[]) => void;
 }
