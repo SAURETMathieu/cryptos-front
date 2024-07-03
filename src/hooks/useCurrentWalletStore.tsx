@@ -25,15 +25,13 @@ export const useWalletStore = create<WalletStoreState>((set, get) => ({
       set({ indexOfTransactions: 0 });
     }
   },
-//TODO fix le soucis
+
   setCurrentTransactionsIndexes: (rowsTransactions: any) => {
     const transactionsIndexes = rowsTransactions.map((row: any) => row.index);
     set({ currentTransactionsIndexes: transactionsIndexes });
   },
 
   setIndexOfTransactions: (index: number) => {
-    console.log(index);
-    
     if(!index || index < 0 || isNaN(index)){
       index = 0;
     }

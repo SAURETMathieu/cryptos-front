@@ -153,15 +153,12 @@ export function DataTable<TData, TValue>({
 
   React.useEffect(() => {
     const rowSelected = table.getRowModel().rows[indexOfTransactions];
-    console.log(rowSelected, "rowSelected");
-
     if (rowSelected) {
       handleSelectRow(rowSelected);
     }
   }, [indexOfTransactions, table, handleSelectRow, currentPage]);
 
   const handleRowClick = (row: any, cellId: string, index: number = 0) => {
-    console.log(index);
     if (!rowLink) {
       setIndexOfTransactions(index);
     }

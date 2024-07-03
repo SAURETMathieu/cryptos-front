@@ -8,8 +8,8 @@ export default function CardsSection({ isTransactionsPage = false }) {
     <section className="grid gap-4 p-4 py-0 sm:grid-cols-2 md:gap-2 xl:grid-cols-4">
       <AddWalletCard/>
       <AddBotCard />
-      <BalanceCard />
-      <ProfitsCard />
+      <BalanceCard isTransactionPage={isTransactionsPage}/>
+      <ProfitsCard isTransactionPage={isTransactionsPage}/>
     </section>
   );
 }

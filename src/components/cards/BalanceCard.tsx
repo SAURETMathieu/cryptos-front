@@ -8,13 +8,15 @@ import useStore from "@/hooks/useStore";
 
 interface BalanceCardProps {
   isWalletsPage?: boolean;
+  isTransactionPage?: boolean;
 }
 
-export default function BalanceCard({isWalletsPage=false}: BalanceCardProps) {
+export default function BalanceCard({isWalletsPage=false, isTransactionPage=false}: BalanceCardProps) {
   const locale = useLocale();
   const balanceOfAllWallets = useStore((state) => state.balanceTotal);
   const balanceOfWallet = useCurrentWalletStore((state) => state.wallet?.balance);
-  const balanceTotal = isWalletsPage ? balanceOfAllWallets : balanceOfWallet;
+  const currentBalance = useCurrentWalletStore((state) => state.currentBalance);
+  const balanceTotal = isTransactionPage ? (currentBalance?.nbToken * currentBalance?.price) : (isWalletsPage ? balanceOfAllWallets : balanceOfWallet);
   const options = {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,

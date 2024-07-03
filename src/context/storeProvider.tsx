@@ -18,7 +18,7 @@ export default function ZustandProvider({ children }: Props) {
     if (session) {
       await fetchWallets(session.account.id_token);
     } else {
-      redirect("/login");
+      // fetch fake datas
     }
   }, [fetchWallets]);
 

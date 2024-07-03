@@ -76,6 +76,7 @@ export const PieChartGraph = ({ datas }: PieChartGraphProps) => {
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
+
         <Tooltip />
         <Legend
           layout="horizontal"
@@ -85,6 +86,7 @@ export const PieChartGraph = ({ datas }: PieChartGraphProps) => {
           iconType="circle"
           iconSize={10}
         />
+
       </PieChart>
     </ResponsiveContainer>
   );

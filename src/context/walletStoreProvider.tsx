@@ -31,7 +31,7 @@ export default function CurrentWalletProvider({ children, id, asset }: Props) {
         setCurrentBalance(asset);
       }
     } else {
-      redirect("/login");
+      // fetch fake datas
     }
   }, [fetchWalletsById, id, setCurrentAsset, setCurrentBalance, asset]);
 

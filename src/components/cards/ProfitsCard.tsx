@@ -7,13 +7,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface ProfitsCardProps {
   isWalletsPage?: boolean;
+  isTransactionPage?: boolean;
 }
 
-export default function ProfitsCard({isWalletsPage=false}: ProfitsCardProps) {
+export default function ProfitsCard({isWalletsPage=false, isTransactionPage=false}: ProfitsCardProps) {
   const locale = useLocale();
-  const profitsOfAllWallets = useStore((state) => state.profitsTotal);
-  const profitOfWallet = useCurrentWalletStore((state) => state.wallet?.profits);
-  const profitsTotal = isWalletsPage ? (profitsOfAllWallets ?? 0) : (profitOfWallet ?? 0);
+  const profitsOfAllWallets = useStore((state) => state.profitsTotal) || 0;
+  const profitOfWallet = useCurrentWalletStore((state) => state.wallet?.profits) || 0;
+  const profitOfAsset = useCurrentWalletStore((state) => state.currentBalance?.unrealizedProfit) || 0;
+
+  const profitsTotal = isTransactionPage ? profitOfAsset : (isWalletsPage ? (profitsOfAllWallets ?? 0) : (profitOfWallet ?? 0));
   const options = {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
