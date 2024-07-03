@@ -12,8 +12,9 @@ export const useWalletStore = create<WalletStoreState>((set, get) => ({
   balanceTotal: 0,
   profitsTotal: 0,
   devise: "USD",
-  nbTransactions: 0,
   currentAsset: null as null | string,
+  currentTransactionsIndexes: null as null | number[],
+  indexOfTransactions: 0,
 
   setCurrentBalance: (asset) => {
     if (asset) {
@@ -21,7 +22,36 @@ export const useWalletStore = create<WalletStoreState>((set, get) => ({
         (balance) => balance?.asset.toLowerCase() === asset.toLowerCase()
       );
       set({ currentBalance });
+      set({ indexOfTransactions: 0 });
     }
+  },
+//TODO fix le soucis
+  setCurrentTransactionsIndexes: (rowsTransactions: any) => {
+    const transactionsIndexes = rowsTransactions.map((row: any) => row.index);
+    set({ currentTransactionsIndexes: transactionsIndexes });
+  },
+
+  setIndexOfTransactions: (index: number) => {
+    console.log(index);
+    
+    if(!index || index < 0 || isNaN(index)){
+      index = 0;
+    }
+    set({ indexOfTransactions: index });
+  },
+
+  setIndexOfTransactionsDiff: (indexDiff: number) => {
+    const currentIndex = get().indexOfTransactions;
+    const nbTransactions = get().currentTransactionsIndexes?.length ?? 0;
+    let newIndex = currentIndex + indexDiff;
+
+    if (newIndex < 0) {
+      newIndex = nbTransactions + newIndex;
+      newIndex = Math.max(0, newIndex);
+    } else {
+      newIndex = newIndex % nbTransactions;
+    }
+    set({ indexOfTransactions: newIndex });
   },
 
   fetchWalletsById: async (id: number, token: string) => {
@@ -59,13 +89,7 @@ export const useWalletStore = create<WalletStoreState>((set, get) => ({
 
   initializeWallets: (wallet: WalletWithBalancesAndTransactions) =>
     set({ wallet }),
-  // calcProfitsTotal: () => {
-  //   const profitsTotal = get().wallet.reduce(
-  //     (acc, wallet) => acc + wallet.profits,
-  //     0
-  //   );
-  //   set({ profitsTotal });
-  // },
+
   setDevise: (devise: string) => {
     set((state) => {
       if (state.devise !== devise) {
@@ -73,10 +97,6 @@ export const useWalletStore = create<WalletStoreState>((set, get) => ({
       }
       return state;
     });
-  },
-  
-  setNbTransactions: () => {
-    set({ nbTransactions:0 })
   },
 }));
 
