@@ -22,13 +22,13 @@ export default function CurrentWalletProvider({ children, id, asset }: Props) {
   const fetchData = useCallback(async () => {
     const session = await getSession();
     if (session) {
-      if(asset){
-        setCurrentAsset(asset);
-        setCurrentBalance(asset);
-      }
       const isSuccess = await fetchWalletsById(id, session.account.id_token);
       if (!isSuccess) {
         setError({ status: 404, message: "Wallet not found" });
+      }
+      if(asset){
+        setCurrentAsset(asset);
+        setCurrentBalance(asset);
       }
     } else {
       redirect("/login");
@@ -37,7 +37,6 @@ export default function CurrentWalletProvider({ children, id, asset }: Props) {
 
   useEffect(() => {
     if (id) fetchData();
-
   }, [fetchData, id]);
 
   if (error) {
