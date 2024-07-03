@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import {
   Table,
   TableBody,
@@ -29,7 +30,9 @@ import {
 } from "@tanstack/react-table";
 
 import { ColumnConfig } from "@/types/datasTable";
-import { useRouter } from "next/navigation";
+import useCurrentWalletStore from "@/hooks/useCurrentWalletStore";
+
+import { Skeleton } from "../ui/skeleton";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -37,6 +40,8 @@ interface DataTableProps<TData, TValue> {
   filter?: boolean;
   columnConfigs?: ColumnConfig[];
   rowLink?: string;
+  isReady: boolean;
+  setIsReady: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function DataTable<TData, TValue>({
@@ -45,6 +50,8 @@ export function DataTable<TData, TValue>({
   filter = true,
   columnConfigs,
   rowLink,
+  isReady = false,
+  setIsReady,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -54,9 +61,42 @@ export function DataTable<TData, TValue>({
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
+  const { sm, md, lg, xl, xxl } = useBreakpoints();
+
+  const endpoints = React.useMemo(
+    () => ({ sm, md, lg, xl, xxl }),
+    [sm, md, lg, xl, xxl]
+  );
+
+  const tableData = React.useMemo(
+    () => (isReady ? data : Array(30).fill({})),
+    [isReady, data]
+  );
+
+  const tableColumns = React.useMemo(
+    () =>
+      isReady
+        ? columns
+        : columns.map((column) => ({
+            ...column,
+            cell: () => <Skeleton className="size-full" />,
+          })),
+    [isReady, columns]
+  );
+
+  const setIndexOfTransactions = useCurrentWalletStore(
+    (state) => state.setIndexOfTransactions
+  );
+  const indexOfTransactions = useCurrentWalletStore(
+    (state) => state.indexOfTransactions
+  );
+  const setCurrentTransactionsIndexes = useCurrentWalletStore(
+    (state) => state.setCurrentTransactionsIndexes
+  );
+
   const table = useReactTable({
-    data,
-    columns,
+    data: tableData,
+    columns: tableColumns,
     state: {
       sorting,
       columnVisibility,
@@ -76,15 +116,24 @@ export function DataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  const { sm, md, lg, xl, xxl } = useBreakpoints();
-  const endpoints = {
-    sm,
-    md,
-    lg,
-    xl,
-    xxl,
-  };
+  const currentPage = table.getState().pagination.pageIndex;
+
   const router = useRouter();
+
+  const handleSelectRow = React.useCallback(
+    (row: any) => {
+      setCurrentTransactionsIndexes(table.getRowModel().rows);
+
+      if (!rowLink) {
+        row.toggleSelected(true);
+        table
+          .getRowModel()
+          .rows.filter((r) => r.index !== row.index)
+          .forEach((r) => r.toggleSelected(false));
+      }
+    },
+    [table, rowLink, setCurrentTransactionsIndexes]
+  );
 
   React.useEffect(() => {
     table.getAllColumns().forEach((column) => {
@@ -95,11 +144,30 @@ export function DataTable<TData, TValue>({
         );
       }
     });
-  }, [sm, md, lg, xl, xxl, table]);
+    const rowSelected = table.getRowModel().rows[0];
+    if (rowSelected) {
+      handleSelectRow(rowSelected);
+    }
+    setIsReady(true);
+  }, [endpoints, table, setIsReady, handleSelectRow]);
 
-  const handleRowClick = (row: any, cellId:string) => {
+  React.useEffect(() => {
+    const rowSelected = table.getRowModel().rows[indexOfTransactions];
+    console.log(rowSelected, "rowSelected");
+
+    if (rowSelected) {
+      handleSelectRow(rowSelected);
+    }
+  }, [indexOfTransactions, table, handleSelectRow, currentPage]);
+
+  const handleRowClick = (row: any, cellId: string, index: number = 0) => {
+    console.log(index);
+    if (!rowLink) {
+      setIndexOfTransactions(index);
+    }
+
     if (!rowLink || cellId === "actions") return;
-    const datas:any = row.original;
+    const datas: any = row.original;
     const pathToPush = datas[rowLink];
     const currentPath = window.location.pathname;
     const newPath = `${currentPath}/${pathToPush}`;
@@ -132,16 +200,19 @@ export function DataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row, index) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() ? "selected" : undefined}
-                  className={rowLink ? "cursor-pointer" : ""}
+                  className={`cursor-pointer ${
+                    row.getIsSelected() ? "bg-muted" : ""
+                  }`}
+                  onClick={() => handleSelectRow(row)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
-                    key={cell.id}
-                    onClick={() => handleRowClick(row, cell.column.id)}
+                      key={cell.id}
+                      onClick={() => handleRowClick(row, cell.column.id, index)}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
