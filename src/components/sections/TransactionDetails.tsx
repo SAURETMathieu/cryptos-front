@@ -36,7 +36,9 @@ export default function TransactionDetails() {
     (state) => state.currentTransactionsIndexes
   );
 
-  const setIndexOfTransactionsDiff = useCurrentWalletStore( (state) => state.setIndexOfTransactionsDiff);
+  const setIndexOfTransactionsDiff = useCurrentWalletStore(
+    (state) => state.setIndexOfTransactionsDiff
+  );
   const currentTransaction =
     transaction &&
     indexOfTransactions !== undefined &&
@@ -96,12 +98,18 @@ export default function TransactionDetails() {
             </span>
           </div>
           <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Block :</span>
+            <span className="font-semibold">
+              {currentTransaction?.blockNumber}
+            </span>
+          </div>
+          <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Type</span>
-            <span className="font-semibold">{currentTransaction?.type}</span>
+            <span className="font-semibold capitalize">{currentTransaction?.type}</span>
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Devise</span>
-            <span className="font-semibold capitalize">USDT</span>
+            <span className="font-semibold uppercase">usdt</span>
           </div>
           <Separator className="my-2" />
           <div className="grid grid-cols-2 gap-2">
@@ -143,7 +151,7 @@ export default function TransactionDetails() {
             <div className="grid auto-rows-max gap-3">
               <div className="font-semibold">Quantity</div>
               <div className="grid gap-2 text-muted-foreground">
-                <span>{formatPrice(currentTransaction?.value) ?? "--"}</span>
+                <span>{currentTransaction?.value ?? "--"}</span>
               </div>
             </div>
           </div>
@@ -177,13 +185,23 @@ export default function TransactionDetails() {
           <Pagination className="ml-auto mr-0 w-auto">
             <PaginationContent>
               <PaginationItem>
-                <Button size="icon" variant="outline" className="size-6" onClick={() => setIndexOfTransactionsDiff(-1)}>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="size-6"
+                  onClick={() => setIndexOfTransactionsDiff(-1)}
+                >
                   <ChevronLeft className="size-3.5" />
                   <span className="sr-only">Previous Order</span>
                 </Button>
               </PaginationItem>
               <PaginationItem>
-                <Button size="icon" variant="outline" className="size-6" onClick={() => setIndexOfTransactionsDiff(1)}>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="size-6"
+                  onClick={() => setIndexOfTransactionsDiff(1)}
+                >
                   <ChevronRight className="size-3.5" />
                   <span className="sr-only">Next Order</span>
                 </Button>
