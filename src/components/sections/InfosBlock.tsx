@@ -40,9 +40,6 @@ export default function InfosBlock({isTransactionsPage=false}) {
             <CopyButton toCopy={wallet?.address ?? ""}/>
           </div>
         </div>
-        <Button variant="ghost" size="icon">
-          <Settings className="size-5" />
-        </Button>
       </CardContent>
     );
   }, [wallet, currentBalance, isTransactionsPage]);
