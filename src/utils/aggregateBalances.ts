@@ -1,4 +1,7 @@
 export const aggregateBalances = (wallets:any[]) => {
+  if (!Array.isArray(wallets) || wallets.length === 0 || wallets.some(item => item == null)) {
+    return [];
+  }
   const balanceMap = new Map();
 
   wallets?.forEach((wallet: any) => {

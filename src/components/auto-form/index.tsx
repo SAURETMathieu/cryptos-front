@@ -47,6 +47,7 @@ export function AutoFormReset({
   return (
     <Button
       type="button"
+      variant="outline"
       disabled={disabled}
       className={className}
       onClick={onClick}

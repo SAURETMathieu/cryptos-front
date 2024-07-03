@@ -1,6 +1,4 @@
-import Table from "@/src/components/tables/Table";
-import { columns } from "@/src/data/cryptosColumns";
-
+import CryptosTable from "@/components/tables/CryptosTable";
 import {
   Card,
   CardContent,
@@ -9,9 +7,7 @@ import {
   CardTitle,
 } from "../ui/card";
 
-export default function CryptosTableSection({ walletWithCryptos }: any) {
-  const { balances } = walletWithCryptos;
-
+export default function CryptosTableSection() {
   return (
     <section className="w-full gap-4 p-4 pt-0">
       <Card className="h-fit w-full max-w-full">
@@ -22,7 +18,7 @@ export default function CryptosTableSection({ walletWithCryptos }: any) {
           </CardDescription>
         </CardHeader>
         <CardContent className="">
-          <Table data={balances} columns={columns} rawLink="asset"/>
+          <CryptosTable/>
         </CardContent>
       </Card>
     </section>

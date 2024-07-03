@@ -21,7 +21,7 @@ export default function CopyButton({ toCopy }: CopyButtonProps) {
       .catch((err) => console.error("Failed to copy: ", err));
   };
   if (copied) {
-    return <span className="size-6 text-green-500">Copied!</span>;
+    return <span className="size-6 text-[#119e45]">Copied!</span>;
   }
   return (
     <Button

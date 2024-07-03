@@ -68,3 +68,9 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+@media (max-width: 374px) {
+  body {
+    zoom: 0.9;
+  }
+}

@@ -1,12 +1,8 @@
+import { ApiError } from "@/types/error";
 import { getSession, signOut } from "next-auth/react";
 import { toast } from "sonner";
 
 type Methods = "POST" | "GET" | "DELETE" | "PUT" | "PATCH";
-
-interface ApiError {
-  message: string;
-  status: number;
-}
 
 const fetchApi = async <T>(
   method: Methods,

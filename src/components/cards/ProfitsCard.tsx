@@ -1,19 +1,22 @@
 "use client";
 
 import { useLocale } from "next-intl";
-
+import useCurrentWalletStore from "@/hooks/useCurrentWalletStore";
 import useStore from "@/hooks/useStore";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface ProfitsCardProps {
-  wallet?: any;
+  isWalletsPage?: boolean;
+  isTransactionPage?: boolean;
 }
 
-export default function ProfitsCard({ wallet }: ProfitsCardProps) {
+export default function ProfitsCard({isWalletsPage=false, isTransactionPage=false}: ProfitsCardProps) {
   const locale = useLocale();
-  const profitOfWallet: any = wallet?.profits;
-  const profitsOfAllWallets: any = useStore((state) => state.profitsTotal);
-  const profitsTotal: any = wallet ? profitOfWallet : profitsOfAllWallets;
+  const profitsOfAllWallets = useStore((state) => state.profitsTotal) || 0;
+  const profitOfWallet = useCurrentWalletStore((state) => state.wallet?.profits) || 0;
+  const profitOfAsset = useCurrentWalletStore((state) => state.currentBalance?.unrealizedProfit) || 0;
+
+  const profitsTotal = isTransactionPage ? profitOfAsset : (isWalletsPage ? (profitsOfAllWallets ?? 0) : (profitOfWallet ?? 0));
   const options = {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
@@ -24,15 +27,15 @@ export default function ProfitsCard({ wallet }: ProfitsCardProps) {
   return (
     <Card className="">
       <CardHeader className="">
-        <CardTitle className="text-2xl font-bold">Profits</CardTitle>
+        <CardTitle className="text-2xl font-medium">Profits</CardTitle>
       </CardHeader>
       <CardContent>
         <div
           className={`text-2xl font-bold ${
             profitsTotal > 0
-              ? "text-green-500"
+              ? "text-[#119e45]"
               : profitsTotal < 0
-              ? "text-red-500"
+              ? "text-red-600"
               : ""
           }`}
         >
