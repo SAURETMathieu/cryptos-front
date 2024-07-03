@@ -14,7 +14,7 @@ export default function AddBotCard() {
   return (
     <Card className="items-between flex flex-col">
       <CardHeader className="">
-        <CardTitle className="relative flex justify-between gap-2 text-xl font-medium">
+        <CardTitle className="relative flex justify-between gap-2 text-2xl font-medium">
           Bots
           <Button
             variant="ghost"

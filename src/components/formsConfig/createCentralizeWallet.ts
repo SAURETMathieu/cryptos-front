@@ -1,6 +1,6 @@
 import { exchanges } from "@/src/data/tableLabels";
 import { z } from "zod";
-
+import { toast } from "sonner";
 import fetchApi from "@/services/api/fetchApi";
 
 const exchangesValues = exchanges as [string, ...string[]];
@@ -64,7 +64,9 @@ export const onSubmit = async (
   closeSheet?: () => void
 ) => {
   try {
+    const loadingToast = toast.loading("We are creating your wallet... Please wait. This may take a few seconds");
     const newWallet = await fetchApi("POST", "wallets/centralized", values, true);
+    toast.dismiss(loadingToast);
     if (!newWallet) {
       throw new Error("Failed to create wallet");
     }

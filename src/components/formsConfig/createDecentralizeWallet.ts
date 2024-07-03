@@ -79,40 +79,20 @@ export const onSubmit = async (
   closeSheet?: () => void
 ) => {
   try {
+    const loadingToast = toast.loading("We are creating your wallet... Please wait. This may take a few seconds");
     const newWallet = await fetchApi(
       "POST",
       "wallets/decentralized",
       values,
       true
     );
+    toast.dismiss(loadingToast);
     if (!newWallet) {
       throw new Error("Failed to create wallet");
     }
     addWallet(newWallet);
     closeSheet?.();
     return newWallet;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
-export const onEdit = async (
-  values: z.infer<typeof decentralizeFormSchema>,
-  updateWallet: (updatedWallet: any) => void,
-  idToUpdate: number,
-  closeUpdateModal?: () => void
-) => {
-  try {
-    const updatedWallet = await fetchApi("PATCH", `wallets/${idToUpdate}`, values, true);
-    if (!updatedWallet) {
-      throw new Error("Failed to update wallet");
-    }
-    toast.success("Update successful");
-    closeUpdateModal?.();
-
-    updateWallet(updatedWallet);
-    return true;
   } catch (error) {
     console.error(error);
     return null;

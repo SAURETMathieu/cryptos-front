@@ -1,4 +1,5 @@
 import fetchApi from "@/services/api/fetchApi";
+import { toast } from "sonner";
 import { z } from "zod";
 
 export const updateWalletFormSchema = (datas: any = {}) => {
@@ -34,10 +35,10 @@ export const onEdit = async (
   try {
     const updatedWallet = await fetchApi("PATCH", `wallets/${idToUpdate}`, values, true);
     if (!updatedWallet) {
-      throw new Error("Failed to update wallet");
+      throw new Error("An error occurred while updating the wallet.");
     }
     closeUpdateModal?.();
-
+    toast.success("Wallet updated successfully!");
     updateWallet(updatedWallet);
     return updatedWallet;
   } catch (error) {

@@ -1,7 +1,9 @@
+"use client";
+
 import { Button } from "@/src/components/ui/button";
 import formatIdx from "@/utils/formatIdx";
-import { Copy } from "lucide-react";
 
+import useWalletStore from "@/hooks/useCurrentWalletStore";
 import {
   Card,
   CardDescription,
@@ -9,26 +11,30 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import CopyButton from "@/components/buttons/copyButton";
 import { LeftSheetForm } from "@/components/modals/LeftSheetForm";
 import WalletFormTabs from "@/components/tabs/WalletFormTabs";
-import CopyButton from "@/components/buttons/copyButton";
 
-interface AddWalletCardProps {
-  wallet?: any;
-}
+export default function AddWalletCard({ isWalletsPage = false }) {
+  let wallet = useWalletStore((state) => state.wallet);
+  if (isWalletsPage) {
+    wallet = null;
+  }
 
-export default function AddWalletCard({ wallet }: AddWalletCardProps) {
   return (
     <Card className="items-between flex flex-col">
       <CardHeader className="">
-        <CardTitle className="text-2xl font-medium">
+        <CardTitle
+          className="truncate text-2xl font-medium"
+          title={wallet ? wallet.name : ""}
+        >
           {wallet ? wallet.name : "Your wallets"}
         </CardTitle>
-        <CardDescription className="flex max-w-lg gap-2 text-balance text-sm leading-relaxed">
-          <span className="max-w-[80%]">
-            {wallet ? formatIdx(wallet.address, 7) : "Your wallets"}
+        <CardDescription className="flex max-w-lg gap-2 text-sm leading-relaxed">
+          <span className="max-w-[80%]" title={wallet?.address ?? ""}>
+            {wallet ? formatIdx(wallet?.address ?? "", 6) : "Your wallets"}
           </span>
-          {wallet && <CopyButton toCopy={wallet.address}/>}
+          {wallet && <CopyButton toCopy={wallet?.address ?? ""} />}
         </CardDescription>
       </CardHeader>
       <CardFooter className="">

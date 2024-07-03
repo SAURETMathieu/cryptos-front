@@ -1,4 +1,4 @@
-import WalletPage from "./WalletPage";
+import WalletPage from "./WalletsPage";
 
 export default async function Page() {
   return (

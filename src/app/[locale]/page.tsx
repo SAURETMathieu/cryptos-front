@@ -23,6 +23,9 @@ export default function IndexPage() {
         <Button onClick={() => toast.success("Success")} variant="success">
           Success Alert
         </Button>
+        <Button onClick={() => toast.loading("Loading")} variant="success">
+          Loading Alert
+        </Button>
       </div>
     </section>
   );

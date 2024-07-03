@@ -179,9 +179,9 @@ export const columns: ColumnDef<Bot>[] = [
       const profits: number = row.getValue("balance");
       const className =
         profits > 0
-          ? "text-green-500"
+          ? "text-[#119e45]"
           : profits < 0
-          ? "text-red-500"
+          ? "text-red-600"
           : "text-gray-500";
       return (
         <div className={`flex items-center ${className}`}>
