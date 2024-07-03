@@ -30,9 +30,9 @@ export default function ProfitsCard({isWalletsPage=false}: ProfitsCardProps) {
         <div
           className={`text-2xl font-bold ${
             profitsTotal > 0
-              ? "text-green-500"
+              ? "text-[#119e45]"
               : profitsTotal < 0
-              ? "text-red-500"
+              ? "text-red-600"
               : ""
           }`}
         >
