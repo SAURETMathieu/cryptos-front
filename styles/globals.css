@@ -50,12 +50,7 @@
   }
 
   [aria-current="page"]:not(.is-logo) {
-    background: hsl(var(--primary));
-  }
-
-  [aria-current="page"],
-  [aria-current="page"] svg {
-    color: white;
+    color: hsl(var(--foreground));
   }
 }
 

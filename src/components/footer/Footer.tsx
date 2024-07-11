@@ -5,7 +5,7 @@ export function Footer() {
   const t = useTranslations("Footer");
 
   return (
-    <footer className="flex w-full flex-col border-t items-center justify-center gap-2 bg-card p-10 text-current">
+    <footer className="flex w-full flex-col items-center justify-center gap-2 border-t bg-card p-10 text-current">
       <p>© 2024 Mathieu SAURET </p>
       <p className="mb-4">{t("text1")}</p>
       <p>{t("text2")}</p>
