@@ -13,11 +13,12 @@ import { Button } from "@/components/ui/button";
 
 import LogOutButton from "../buttons/logOutButton";
 import NavigationLink from "../utils/NavigationLink";
+import profilePlaceholder from "@/public/images/placeholder-user.jpg";
 
 export default async function ProfilMenu() {
   const session = await auth();
 
-  const urlImage: string = session?.user?.image ?? "/placeholder-user.jpg";
+  const urlImage = session?.user?.image ?? profilePlaceholder;
   return session ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -61,7 +62,7 @@ export default async function ProfilMenu() {
           className="overflow-hidden rounded-full dark:border-none"
         >
           <Image
-            src="/placeholder-user.jpg"
+            src={profilePlaceholder}
             width={36}
             height={36}
             alt="Avatar"
